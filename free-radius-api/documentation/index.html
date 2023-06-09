@@ -1,0 +1,211 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>free-radius-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="./" class="navbar-brand">free-radius-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1>API para freeRadius de Netcom Plus</h1>
+<p align="center">
+
+<p>Creado usado Nest.JS y sobre Fastify</p>
+<p><a  href="http://nestjs.com/"  target="blank"><img  src="https://nestjs.com/img/logo-small.svg"  width="200"  alt="Nest Logo" /></a></p>
+<p><a  href="https://www.fastify.io/"  target="blank"><img  src="https://www.fastify.io/images/fastify-logo-menu.d13f8da7a965c800.png"  width="400"  alt="Fastify Logo" /></a></p>
+</p>
+
+  
+
+<h2>Descripción</h2>
+<h3>Descripción General</h3>
+<p>La API funciona con <strong>Fastify</strong> para lograr una aplicación más ligera que la que se tendría con Express y mucho más rápida al momento de procesar las peticiones.
+Como el Framework de trabajo es <strong>Nest.Js</strong> , todo el código usa <strong>TypeScript</strong>, con una arquitectura de programación orientada a objetos (OOP) dónde el modelo básico es:</p>
+<p><strong>Un controlador</strong>: Encargado de manera las peticiones que entran a la API.</p>
+<p><strong>Un servicio</strong>: Que contiene las distintas lógicas que soportan las funciones de la API.</p>
+<p><strong>Un modulo</strong>:  Que se encarga de comunicar los distintos componentes de la API. </p>
+<hr/>
+
+<h3>Carpetas y Arquitectura general</h3>
+<div><pre class="line-numbers"><code class="language-mermaid">graph LR
+A[Main] --Main inicia la App --&gt; B(AppModule) 
+B --&gt; C(AppController)
+B --&gt; D(AppServices)
+D --&gt; E(appGetService)
+D --&gt; F(appPutService)
+D --&gt; G(appPostService)
+B --&gt; H(Sequelize)
+B --&gt; I(dto)</code></pre></div><p>Aquí se puede ver la arquitectura general de la app.  Normalmente el modulo App sirve como ruta general de entrada y luego se divide en submódulos que alimentan a la app, pero dado que la aplicación tiene pocas funciones de momento, se deicidio dejarlo en un único modulo. </p>
+<blockquote>
+<p> Si la aplicación llega a crecer mucho se recomienda separarlo en módulos más pequeños.</p>
+</blockquote>
+<p>La clase AppController es quién posee las rutas (endpoints) de la app y llama a los métodos contenidos en cada uno de los servicios. Normalmente habría un solo archivo de servicios pero para mayor facilidad se separo según el tipo de petición HTTP.</p>
+<p>La carpeta <strong>dto</strong> contiene las clases DTO  (Data Transfer Object), que sirven de interfaz al momento de verificar que llega a través del Body y los tipos de datos, de las distintas requests, si no cumplen con el DTO la reques se rechaza.</p>
+<blockquote>
+<p>Si bien se puede usar una interfaz, como tal JavaScript no posee interfaces, estas al momento de la transpilación son desechadas, perdiendo una capa de seguridad, por eso la documentación de Nest recomienda el uso de clases.</p>
+</blockquote>
+<p>Finalmente la carpeta <strong>Sequelize</strong> contiene la conexión a la BD. La base de datos para la aplicación se encuentra desplegada en MariaDB pero la conexion hasta el momento se a trabajado con MySql.</p>
+<hr/>
+  
+<h3>Fastify</h3>
+<p>Fastify es un framework web rápido y eficiente para Node.js. Está diseñado para ser altamente escalable y rendir al máximo, optimizando el tiempo de respuesta y el consumo de recursos. </p>
+<p>No hay que preocuparse mucho por aprender a manejar este Framework, ya que por lo general la sintaxis es manejada a través de Nest.Js, sin embargo, algunos paquetes para construir la API deben ser específicos de Fastify, por lo que requerirán un manejo particular para poder funcionar, como <em>CORS</em> o <em>Helmet</em>. Consulte las documentación pertinente según el caso. </p>
+<h2>Instalación</h2>
+<p>Obviamente requerimos Node.js, no se ha probado con Deno.js.
+Deno.js debiera poder soportar la App, dando una capa extra de seguridad y una mayor velocidad a la app.</p>
+<div><pre class="line-numbers"><code class="language-bash">
+$  npm  install
+</code></pre></div><h2>Corriendo la app</h2>
+<div><pre class="line-numbers"><code class="language-bash">
+# Desarrollo
+
+$  npm  run  start
+
+  
+
+# Modo watch 
+#	Este modo está constantemente escuchando los cambios 
+#	que se realizan en los archivos y reinicia la aplicación.
+
+$  npm  run  start:dev
+
+  
+
+# Modo de producción.
+
+$  npm  run  start:prod
+</code></pre></div><h2>Test</h2>
+<p>  Hasta el momento no se han escrito test para la aplicación. Nest viene con algunos test por default.</p>
+<div><pre class="line-numbers"><code class="language-bash">
+# unit tests
+
+$  npm  run  test
+
+  
+
+# e2e tests
+
+$  npm  run  test:e2e
+
+  
+
+# test coverage
+
+$  npm  run  test:cov
+</code></pre></div><h2>Support</h2>
+<p>Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you&#39;d like to join them, please <a href="https://docs.nestjs.com/support">read more here</a>.</p>
+<h2>Stay in touch</h2>
+<ul>
+<li><p>Author - <a href="https://kamilmysliwiec.com">Kamil Myśliwiec</a></p>
+</li>
+<li><p>Website - <a href="https://nestjs.com/">https://nestjs.com</a></p>
+</li>
+<li><p>Twitter - <a href="https://twitter.com/nestframework">@nestframework</a></p>
+</li>
+</ul>
+<h2>License</h2>
+<p>Nest is <a href="LICENSE">MIT licensed</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

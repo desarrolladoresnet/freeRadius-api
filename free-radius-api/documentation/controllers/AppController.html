@@ -1,0 +1,1199 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>free-radius-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">free-radius-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >AppController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app.controller.ts</code>
+        </p>
+
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>De momento solo hay un &#39;Controller&#39;, pero se separaron las operacviones en diferente Servicios segun el verbo HTTP.
+Es decir hay un servicio para las peticiones GET, otro para POST y otro mas para las PUT.
+No se usara (al menos de momento) un servicio con peticiones Delete, si hay que borrar valores se hace en DaloRadius.</p>
+
+            </p>
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getById" >getById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getRadChecks" >getRadChecks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getRadChecksById" >getRadChecksById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getRadUserGroup" >getRadUserGroup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getRadUserGroupByID" >getRadUserGroupByID</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#getUsersInfo" >getUsersInfo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#postTest" >postTest</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#updateRadCheck" >updateRadCheck</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#updateUserGroup" >updateUserGroup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#updateUserInfo" >updateUserInfo</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getById"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getById</b></span>
+                        <a href="#getById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/:id&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/app.controller.ts:49</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite obtener un unico Objeto UserInfo a partir de la busqueda por &#39;id&#39;.
+Usar para editar los valores mediante un &#39;Put.&#39;</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Object</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRadChecks"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getRadChecks</b></span>
+                        <a href="#getRadChecks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRadChecks(offset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;radcheck/page/:offset&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app.controller.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Retorna a la info del &#39;radcheck&#39; de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+Se debe enviar el numero de pagina a traves de los parametros.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>[{Object}, {Object}, ....]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRadChecksById"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getRadChecksById</b></span>
+                        <a href="#getRadChecksById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRadChecksById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;radcheck/:id&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/app.controller.ts:84</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite obtener un unico Objeto Radcheck a partir de la busqueda por &#39;id&#39;.
+Usar para editar los valores mediante un &#39;Put.&#39;</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRadUserGroup"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getRadUserGroup</b></span>
+                        <a href="#getRadUserGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRadUserGroup(offset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;radusergroup/page/:offset&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app.controller.ts:106</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Retorna ala info del &#39;radusergroup&#39; de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+Se debe enviar el numero de pagina a traves de los parametros.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>[]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRadUserGroupByID"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getRadUserGroupByID</b></span>
+                        <a href="#getRadUserGroupByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRadUserGroupByID(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;radusergroup/:username&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/app.controller.ts:117</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite obtener un unico Objeto Radcheck a partir de la busqueda por el campo &#39;username&#39;. radusergroup no posee id para las filas, ademas se tuvo que colocar el username como Primary Key para poder insertar lo valores a travez de Sequelize.
+Usar para editar los valores mediante un &#39;Put.&#39;</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>username</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUsersInfo"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>getUsersInfo</b></span>
+                        <a href="#getUsersInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUsersInfo(offset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;page/:offset&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/app.controller.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Retorna a los usuarios de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+Se debe enviar el numero de pagina a traves de los parametros.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>[{Object}, {Object}, ....]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="postTest"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier">Async</span>
+                        <span ><b>postTest</b></span>
+                        <a href="#postTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>postTest(dto: <a href="../classes/UserDto.html" target="_self">UserDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">src/app.controller.ts:142</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Con esta ruta son llenadas las tres tablas en una sola peticion.
+No todos los valores son obligatorio pero algunos si en orden de no dejar campos vacios en la tabla. Encontrara que muchos campos son evaluado para ver si son llenados con informacion entrante, si el campo no existe o esta vacio se llena con ifo colocado apra funcionar por defecto.
+Consulte el archivo &#39;user.dto.ts&#39; en &#39;src/dto/&#39;  para ver todos los campos.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/UserDto.html" target="_self" >UserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateRadCheck"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>updateRadCheck</b></span>
+                        <a href="#updateRadCheck"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateRadCheck(query: <a href="../classes/UpdateRadCheckDto.html" target="_self">UpdateRadCheckDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;radcheck&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app.controller.ts:94</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite editar las filas del la tabla &#39;radcheck&#39;. Muchos de los parametors son opcionales pero se encesita el &#39;id&#39; de la fila a editar o se rechaza la peticion.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateRadCheckDto.html" target="_self" >UpdateRadCheckDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserGroup"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>updateUserGroup</b></span>
+                        <a href="#updateUserGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUserGroup(query: <a href="../classes/UpdateUserGroupDto.html" target="_self">UpdateUserGroupDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;radusergroup&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/app.controller.ts:127</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite editar las filas del la tabla &#39;radusergroup&#39;. A diferencia de las otras tablas manejadas en la API, esta tabla no posee un campo &#39;id&#39;, se uso el &#39;username&#39; como primary key por lo que se requiere para poder realizar la peticion, sino, se rechaza la operacion.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateUserGroupDto.html" target="_self" >UpdateUserGroupDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserInfo"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span ><b>updateUserInfo</b></span>
+                        <a href="#updateUserInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUserInfo(query: <a href="../classes/UpdateUserInfoDto.html" target="_self">UpdateUserInfoDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/app.controller.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite editar la info de un objeto UserInfo. Se debe enviar los datos a editar, no requiere todos los campos editables pero requiere el id.</p>
+<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateUserInfoDto.html" target="_self" >UpdateUserInfoDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <b>Example :</b>
+                        <div>
+                            <pre class="line-numbers"><code class="language-html">{ id: 14, email: &lt;a href=&quot;mailto:unemail@email.com&quot;&gt;unemail@email.com&lt;/a&gt;}</code></pre>
+                        </div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+  Put,
+} from &#x27;@nestjs/common&#x27;;
+import { AppService } from &#x27;./app.service&#x27;;
+import { AppGetService } from &#x27;./appGet.service&#x27;;
+import { AppPutService } from &#x27;./appPut.service&#x27;;
+import { UserDto } from &#x27;./dto/user.dto&#x27;;
+import { UpdateUserInfoDto } from &#x27;./dto/updateUserInfo.dto&#x27;;
+import { UpdateUserGroupDto } from &#x27;./dto/updateUerGroup.dto&#x27;;
+import { UpdateRadCheckDto } from &#x27;./dto/updateRadCheck.dto&#x27;;
+
+/**
+ * De momento solo hay un &#x27;Controller&#x27;, pero se separaron las operacviones en diferente Servicios segun el verbo HTTP.
+ * Es decir hay un servicio para las peticiones GET, otro para POST y otro mas para las PUT.
+ * No se usara (al menos de momento) un servicio con peticiones Delete, si hay que borrar valores se hace en DaloRadius.
+ */
+@Controller()
+export class AppController {
+  constructor(
+    private readonly appService: AppService,
+    private readonly appGetService: AppGetService,
+    private readonly appPutService: AppPutService,
+  ) {}
+
+  /**
+   * Retorna a los usuarios de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+   * Se debe enviar el numero de pagina a traves de los parametros.
+   * @param { number } offset
+   * @returns [{Object}, {Object}, ....]
+   */
+  @Get(&#x27;page/:offset&#x27;)
+  getUsersInfo(@Param(&#x27;offset&#x27;, ParseIntPipe) offset: number) {
+    return this.appGetService.getUserInfo(offset);
+  }
+
+  /**
+   * Permite obtener un unico Objeto UserInfo a partir de la busqueda por &#x27;id&#x27;.
+   * Usar para editar los valores mediante un &#x27;Put.&#x27;
+   * @param { number } id
+   * @returns Object
+   */
+  @Get(&#x27;/:id&#x27;)
+  getById(@Param(&#x27;id&#x27;) id: number) {
+    return this.appGetService.getUserById(id);
+  }
+
+  /**
+   * Permite editar la info de un objeto UserInfo. Se debe enviar los datos a editar, no requiere todos los campos editables pero requiere el id.
+   * @example { id: 14, email: unemail@email.com}
+   * @param  {  UpdateUserInfoDto } query
+   * @returns 1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.
+   */
+  @Put()
+  updateUserInfo(@Body() query: UpdateUserInfoDto) {
+    return this.appPutService.updateUserInfo(query);
+  }
+
+  //* OPERACIONES DE RADCHECK *//
+
+  /**
+   * Retorna a la info del &#x27;radcheck&#x27; de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+   * Se debe enviar el numero de pagina a traves de los parametros.
+   * @param { number } offset
+   * @returns [{Object}, {Object}, ....]
+   */
+  @Get(&#x27;radcheck/page/:offset&#x27;)
+  getRadChecks(@Param(&#x27;offset&#x27;, ParseIntPipe) offset: number) {
+    return this.appGetService.getRadChecks(offset);
+  }
+
+  /**
+   * Permite obtener un unico Objeto Radcheck a partir de la busqueda por &#x27;id&#x27;.
+   * Usar para editar los valores mediante un &#x27;Put.&#x27;
+   * @param { number } id
+   * @returns
+   */
+  @Get(&#x27;radcheck/:id&#x27;)
+  getRadChecksById(@Param(&#x27;id&#x27;) id: number) {
+    return this.appGetService.getRadChecksById(id);
+  }
+
+  /**
+   * Permite editar las filas del la tabla &#x27;radcheck&#x27;. Muchos de los parametors son opcionales pero se encesita el &#x27;id&#x27; de la fila a editar o se rechaza la peticion.
+   * @param { UpdateRadCheckDto } query
+   * @returns 1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.
+   */
+  @Put(&#x27;radcheck&#x27;)
+  updateRadCheck(@Body() query: UpdateRadCheckDto) {
+    return this.appPutService.updateRadCheck(query);
+  }
+
+  //* OPERACIONES DE USERGROUP *//
+  /**
+   * Retorna ala info del &#x27;radusergroup&#x27; de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
+   * Se debe enviar el numero de pagina a traves de los parametros.
+   * @param offset
+   * @returns []
+   */
+  @Get(&#x27;radusergroup/page/:offset&#x27;)
+  getRadUserGroup(@Param(&#x27;offset&#x27;, ParseIntPipe) offset: number) {
+    return this.appGetService.getRadUserGroup(offset);
+  }
+
+  /**
+   * Permite obtener un unico Objeto Radcheck a partir de la busqueda por el campo &#x27;username&#x27;. radusergroup no posee id para las filas, ademas se tuvo que colocar el username como Primary Key para poder insertar lo valores a travez de Sequelize.
+   * Usar para editar los valores mediante un &#x27;Put.&#x27;
+   * @param username
+   * @returns
+   */
+  @Get(&#x27;radusergroup/:username&#x27;)
+  getRadUserGroupByID(@Param(&#x27;username&#x27;) username: string) {
+    return this.appGetService.getRadUserGroupById(username);
+  }
+
+  /**
+   * Permite editar las filas del la tabla &#x27;radusergroup&#x27;. A diferencia de las otras tablas manejadas en la API, esta tabla no posee un campo &#x27;id&#x27;, se uso el &#x27;username&#x27; como primary key por lo que se requiere para poder realizar la peticion, sino, se rechaza la operacion.
+   * @param { UpdateUserGroupDto } query
+   * @returns 1 si se realizo alguna operacion, 0 si no se realizo o de rechazo.
+   */
+  @Put(&#x27;radusergroup&#x27;)
+  updateUserGroup(@Body() query: UpdateUserGroupDto) {
+    return this.appPutService.updateUserGroup(query);
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //* RUTA POST PARA CREACION DE NUEVAS FILAS EN LA TRES TABLAS *//
+  /**
+   * Con esta ruta son llenadas las tres tablas en una sola peticion.
+   * No todos los valores son obligatorio pero algunos si en orden de no dejar campos vacios en la tabla. Encontrara que muchos campos son evaluado para ver si son llenados con informacion entrante, si el campo no existe o esta vacio se llena con ifo colocado apra funcionar por defecto.
+   * Consulte el archivo &#x27;user.dto.ts&#x27; en &#x27;src/dto/&#x27;  para ver todos los campos.
+   * @param dto
+   * @returns {Obejct}
+   */
+  @Post()
+  async postTest(@Body() dto: UserDto) {
+    return this.appService.postUser(dto);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AppController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
