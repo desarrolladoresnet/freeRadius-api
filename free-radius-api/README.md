@@ -149,18 +149,18 @@ Valores mínimos requerido en el Body:
 ```
 JSON {
 
-username  :	string,
-password" :	string,
+username  : string,
+password" : string,
 firstname : string,
 lastname  : string,
 email	  : string (debe ser un formato válido),
 mobilephone : string,
 attribute : string,
-op		  : string (de max-length 2),
+op	  : string (de max-length 2),
 value	  : araujo,
 groupname :	string (plan asociado al cliente),
 priority  : number,
-createby":  string (del usuario que crea el objeto)
+createby  :  string (del usuario que crea el objeto)
 
 }
 
@@ -178,7 +178,7 @@ password	:  string,
 firstname	:  string,
 lastname	:  string,
 email		:  string,
-mobilephone :  string,
+mobilephone 	:  string,
 
 // No obligatorios de "userinfo"
 
@@ -198,7 +198,7 @@ enableportallogin	:  number,
 
 //* RADCHECK *//
 attribute	:  string,
-op			:  string,
+op		:  string,
 value		:  string,
 
 //* RADUSERGROUP *//
@@ -226,7 +226,7 @@ Retorna 0 si la operación fue exitosa o 1 su fue rechazada.
 JSON {
 
 updateby	:  string, # campo requerido
-id			:  number, 	   # campo requerido
+id		:  number, # campo requerido
 
 # el resto de los campo son opcionales,
 # envie los que necesite modificar.
@@ -236,8 +236,8 @@ password	:  string,
 firstname	:  string,
 lastname	:  string,
 email		:  string,
-mobilephone :  string,
-department  :  string,
+mobilephone 	:  string,
+department  	:  string,
 company		:  string,
 workphone	:  string,
 homephone	:  string,
@@ -245,11 +245,11 @@ address		:  string,
 city		:  string,
 state		:  string,
 country		:  string,
-zip			:  string,
+zip		:  string,
 notes		:  string,
-changeuserinfo		: string,
-portalloginpassword	:string,
-enableportallogin	:  number
+changeuserinfo	: string,
+portalloginpassword	: string,
+enableportallogin	: number
 
 }
 
@@ -273,10 +273,10 @@ Permite editar los valores de un fila de la tabla "radcheck", requiere de manera
 ```
 JSON {
 
-id			:  number, # obligatorio
+id		:  number, # obligatorio
 username	:  string,
 attribute	:  string,
-op			:  string,
+op		:  string,
 value		:  string;
 
 }
