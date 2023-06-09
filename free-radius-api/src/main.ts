@@ -20,7 +20,7 @@ async function bootstrap() {
   await app.register(cors, {
     origin: ['localhost'],
     allowedHeaders: ['authorization', 'content-type'],
-    methods: ['GET', 'POST' /*, 'PUT'*/ /*'PATCH', 'DELETE', 'OPTIONS'*/],
+    methods: ['GET', 'POST', 'PUT' /*'PATCH', 'DELETE', 'OPTIONS'*/],
     credentials: true,
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));

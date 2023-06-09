@@ -117,6 +117,18 @@ Las peticiones de un grupo general como puede ser &#39;radcheck&#39; requiere qu
                                     <span class="modifier">Async</span>
                                 <a href="#getUserInfo" >getUserInfo</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#radCheckSearch" >radCheckSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#radUserGroupSearch" >radUserGroupSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#userSearch" >userSearch</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -140,7 +152,7 @@ Las peticiones de un grupo general como puede ser &#39;radcheck&#39; requiere qu
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/appGet.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/appGet.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -222,8 +234,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="77"
-                            class="link-to-prism">src/appGet.service.ts:77</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/appGet.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -301,8 +313,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">src/appGet.service.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/appGet.service.ts:127</a></div>
                 </td>
             </tr>
 
@@ -374,8 +386,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">src/appGet.service.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="174"
+                            class="link-to-prism">src/appGet.service.ts:174</a></div>
                 </td>
             </tr>
 
@@ -453,8 +465,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="140"
-                            class="link-to-prism">src/appGet.service.ts:140</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="195"
+                            class="link-to-prism">src/appGet.service.ts:195</a></div>
                 </td>
             </tr>
 
@@ -526,8 +538,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/appGet.service.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/appGet.service.ts:59</a></div>
                 </td>
             </tr>
 
@@ -599,8 +611,8 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/appGet.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/appGet.service.ts:38</a></div>
                 </td>
             </tr>
 
@@ -651,6 +663,228 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="radCheckSearch"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>radCheckSearch</b></span>
+                        <a href="#radCheckSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>radCheckSearch(query: Array<string>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="148"
+                            class="link-to-prism">src/appGet.service.ts:148</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite buscar objetos de la tabla &quot;radcheck&quot; por medio de de strings que se comparan con el campo username.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                            <code>Array&lt;string&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Arra de objetos [{Object}, {Object}, {Object}, .....]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="radUserGroupSearch"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>radUserGroupSearch</b></span>
+                        <a href="#radUserGroupSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>radUserGroupSearch(query: Array<string>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="216"
+                            class="link-to-prism">src/appGet.service.ts:216</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite buscar objetos de la tabla &quot;radusergroup&quot; por medio de de strings que se comparan con el campo username.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                            <code>Array&lt;string&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Arra de objetos [{Object}, {Object}, {Object}, .....]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userSearch"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>userSearch</b></span>
+                        <a href="#userSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>userSearch(query: Array<string>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/appGet.service.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite buscar objetos de la tabla &quot;userinfo&quot; por medio de de strings que se comparan con los campos: username, fisrtname, lastname y email.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                            <code>Array&lt;string&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Arra de objetos [{Object}, {Object}, {Object}, .....]</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
     </div>
@@ -661,6 +895,7 @@ userGroupRepository obtiene de la tabla &#39;radusergroup&#39;, se acorto el nom
 import { UserInfo } from &#x27;./sequeelize/user/user.entity&#x27;;
 import { UserGroup } from &#x27;./sequeelize/radusergroup/usergroup.entity&#x27;;
 import { RadCheck } from &#x27;./sequeelize/rasdusercheck/radcheck.entity&#x27;;
+import { Op } from &quot;sequelize&quot;;
 
 /**
  * En este servicio se encuentran todas las peticiones GET como lo indica su nombre.
@@ -726,6 +961,34 @@ export class AppGetService {
     } catch (erro) {}
   }
 
+  /**
+   * Permite buscar objetos de la tabla &quot;userinfo&quot; por medio de de strings que se comparan con los campos: username, fisrtname, lastname y email.
+   * @param { Array&lt;string&gt; } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async userSearch(query: Array&lt;string&gt;) {
+    try {
+      const usersInfo &#x3D; await this.userInfoRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+            {firstname: {[Op.or]: query } },
+            {lastname: {[Op.or]: query } },
+            {email: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length &lt; 1) return &#x27;No users Info&#x27;;
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* RADCHECK *//
   /**
    * Solicita a grupos de 50 objetos &#x27;radcheck&#x27;.
@@ -768,6 +1031,32 @@ export class AppGetService {
     }
   }
 
+
+  /**
+   * Permite buscar objetos de la tabla &quot;radcheck&quot; por medio de de strings que se comparan con el campo username.
+   * @param { Array&lt;string&gt; } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async radCheckSearch(query: Array&lt;string&gt;) {
+    try {
+      const usersInfo &#x3D; await this.radcheckRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length &lt; 1) return &#x27;No users Info&#x27;;
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* USERGROUP *//
     /**
    * Solicita a grupos de 50 objetos &#x27;radusergroup&#x27;.
@@ -809,6 +1098,29 @@ export class AppGetService {
       throw new Error(error);
     }
   }
+
+
+  /**
+   * Permite buscar objetos de la tabla &quot;radusergroup&quot; por medio de de strings que se comparan con el campo username.
+   * @param { Array&lt;string&gt; } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async radUserGroupSearch(query: Array&lt;string&gt;) {
+    try {
+      const usersInfo &#x3D; await this.userGroupRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length &lt; 1) return &#x27;No usersgroup find&#x27;;
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
 }
 </code></pre>
     </div>

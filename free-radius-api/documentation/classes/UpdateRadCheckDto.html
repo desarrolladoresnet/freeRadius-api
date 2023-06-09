@@ -72,6 +72,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interfaz que verifica los datos recibidos para hacer un update de cualquier fila de la tabla &quot;radcheck&quot;.
+El campos &#39;id&#39; se obligatorio más un campo a modificar.</p>
+
+            </p>
 
 
 
@@ -162,10 +170,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/dto/updateRadCheck.dto.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/dto/updateRadCheck.dto.ts:35</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Función desconocida.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -199,10 +213,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/dto/updateRadCheck.dto.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/dto/updateRadCheck.dto.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>id en numeros enteros.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -236,10 +256,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/dto/updateRadCheck.dto.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/dto/updateRadCheck.dto.ts:43</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Operación ejecutada por el servidor freeRadius.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -273,10 +299,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/dto/updateRadCheck.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/dto/updateRadCheck.dto.ts:27</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre de usuario asociado a un servicio.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -310,10 +342,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/dto/updateRadCheck.dto.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/dto/updateRadCheck.dto.ts:51</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Por definir.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -336,24 +374,46 @@
 	IsInt,
 } from &#x27;class-validator&#x27;;
 
+/**
+ * Interfaz que verifica los datos recibidos para hacer un update de cualquier fila de la tabla &quot;radcheck&quot;.
+ * El campos &#x27;id&#x27; se obligatorio más un campo a modificar.
+ */
 export class UpdateRadCheckDto {
 
+  /**
+   * id en numeros enteros.
+   */
 	@IsInt()
 	@IsNotEmpty()
 	id: number;
 
+  /**
+   * Nombre de usuario asociado a un servicio.
+   */
   @IsOptional()
   @IsString()
   username: string;
 
+  /**
+   * Función desconocida.
+   * @todo Verificar la lista de atributos.
+   */
   @IsOptional()
   @IsString()
   attribute: string;
 
+  /**
+   * Operación ejecutada por el servidor freeRadius.
+   * @todo Verificar la lista de operaciones.
+   */
   @IsOptional()
   @IsString()
   op: string;
 
+  /**
+   * Por definir.
+   * @todo verificar la logica deseada para el atributo.
+   */
   @IsOptional()
   @IsString()
   value: string;

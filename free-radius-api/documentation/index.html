@@ -34,7 +34,7 @@
 <h1>API para freeRadius de Netcom Plus</h1>
 <p align="center">
 
-<p>Creado usado Nest.JS y sobre Fastify</p>
+<p>Creado haciendo uso del framework Nest.JS sobre Fastify.</p>
 <p><a  href="http://nestjs.com/"  target="blank"><img  src="https://nestjs.com/img/logo-small.svg"  width="200"  alt="Nest Logo" /></a></p>
 <p><a  href="https://www.fastify.io/"  target="blank"><img  src="https://www.fastify.io/images/fastify-logo-menu.d13f8da7a965c800.png"  width="400"  alt="Fastify Logo" /></a></p>
 </p>
@@ -80,6 +80,8 @@ Deno.js debiera poder soportar la App, dando una capa extra de seguridad y una m
 <div><pre class="line-numbers"><code class="language-bash">
 $  npm  install
 </code></pre></div><h2>Corriendo la app</h2>
+<p>  Necesita Node.JS para correr la App.
+  No se ha testeado en Deno.Js.</p>
 <div><pre class="line-numbers"><code class="language-bash">
 # Desarrollo
 
@@ -116,19 +118,166 @@ $  npm  run  test:e2e
 # test coverage
 
 $  npm  run  test:cov
-</code></pre></div><h2>Support</h2>
-<p>Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you&#39;d like to join them, please <a href="https://docs.nestjs.com/support">read more here</a>.</p>
-<h2>Stay in touch</h2>
+</code></pre></div><h2>Rutas</h2>
+<h3>Rutas Post</h3>
+<h5>POST domain/</h5>
+<p>Esta ruta crea un nuevo usuario de los servicios y llena las tres tablas requeridas, &quot;userinfo&quot;, &quot;radcheck&quot; y &quot;radusergroup&quot;.
+Valores mínimos requerido en el Body:</p>
+<div><pre class="line-numbers"><code class="language-none">JSON {
+
+username  :	string,
+password&quot; :	string,
+firstname : string,
+lastname  : string,
+email	  : string (debe ser un formato válido),
+mobilephone : string,
+attribute : string,
+op		  : string (de max-length 2),
+value	  : araujo,
+groupname :	string (plan asociado al cliente),
+priority  : number,
+createby&quot;:  string (del usuario que crea el objeto)
+
+}
+</code></pre></div><p>Sin embargo puede crear una respuesta aún más completa, si no llena los campos completos la API lo hace por usted colocando valores por defecto y evitando dejar espacios vacios en la BD.</p>
+<div><pre class="line-numbers"><code class="language-none">JSON {
+// Campos obligatorio de UserInfo
+creationby	:  string,
+username	:  string,
+password	:  string,
+firstname	:  string,
+lastname	:  string,
+email		:  string,
+mobilephone :  string,
+
+// No obligatorios de &quot;userinfo&quot;
+
+department :  string;
+company	   :  string;
+workphone  :  string;
+homephone  :  string;
+address    :  string;
+city       :  string;
+state      :  string;
+country    :  string;
+zip 	   :  string;
+notes	   :  string;
+changeuserinfo 		:  string,
+portalloginpassword	:  string,
+enableportallogin	:  number,
+
+//* RADCHECK *//
+attribute	:  string,
+op			:  string,
+value		:  string,
+
+//* RADUSERGROUP *//
+groupname	:  string,
+priority	:  number
+
+}</code></pre></div><h3>Rutas Put</h3>
+<h5>PUT domain/</h5>
+<blockquote>
+<p>En domain iría el nombre de dominio o IP donde se aloje la API.
+Por ejemplo: <a href="https://mi-api-freeradius.com/">https://mi-api-freeradius.com/</a>
+ó
+ejemplo: <a href="https://64.192.2.0/">https://64.192.2.0/</a>
+Compare el ejemplo dado con el ejemplo de más abajo.</p>
+</blockquote>
+<p>Esta ruta permite editar los valores de una fila en la tabla &quot;userinfo&quot;, por lo que solo se requiere de manera obligatoria el &quot;id&quot; que debe ser un número entero, &quot;updateby&quot; que debe ser el nombre del usuario que realiza la actualización y finalmente un cambio en alguno de los valores. De faltar alguno se rechaza la operación.</p>
+<p>Retorna 0 si la operación fue exitosa o 1 su fue rechazada.</p>
+<div><pre class="line-numbers"><code class="language-none">
+JSON {
+
+updateby	:  string, # campo requerido
+id			:  number, 	   # campo requerido
+
+# el resto de los campo son opcionales,
+# envie los que necesite modificar.
+
+username	:  string,
+password	:  string,
+firstname	:  string,
+lastname	:  string,
+email		:  string,
+mobilephone :  string,
+department  :  string,
+company		:  string,
+workphone	:  string,
+homephone	:  string,
+address		:  string,
+city		:  string,
+state		:  string,
+country		:  string,
+zip			:  string,
+notes		:  string,
+changeuserinfo		: string,
+portalloginpassword	:string,
+enableportallogin	:  number
+
+}
+</code></pre></div><br/>
+
+<h5>PUT domain/radcheck</h5>
+<p>Permite editar los valores de un fila de la tabla &quot;radcheck&quot;, requiere de manera obligatoria un &quot;id&quot; de tipo número entero para encontrar la fila a editar y y nuevo valor para realizar el cambio, de lo contrario se rechaza la operación.</p>
+<blockquote>
+<p>En domain iría el nombre de dominio o IP donde se aloje la API.
+Por ejemplo: <a href="https://mi-api-freeradius.com/radcheck">https://mi-api-freeradius.com/radcheck</a>
+ó
+ejemplo: <a href="https://64.192.2.0/radcheck">https://64.192.2.0/radcheck</a>
+    Compare el ejemplo dado con el ejemplo de arriba.</p>
+</blockquote>
+<div><pre class="line-numbers"><code class="language-none">JSON {
+
+id			:  number, # obligatorio
+username	:  string,
+attribute	:  string,
+op			:  string,
+value		:  string;
+
+}</code></pre></div>  <br/>
+  
+<h5>PUT domain/radusergroup</h5>
+<p>Permite editar los valores de la tabla &quot;usergroup&quot;, esta tabla particularmente no contiene &quot;id&quot; que permitan identificar los valores contenidos, en Sequelize se usó el campo &quot;username&quot; como Primary Key, por tanto, usamos ese campo para realizar las búsquedas y la ediciones de la tabla.</p>
+<div><pre class="line-numbers"><code class="language-none">JSON {
+
+username	:  string, # obligatorio
+groupname	:  string,
+priority	:  number,
+
+}</code></pre></div><h3>Rutas Get</h3>
+<h5>GET domain/page/:offset</h5>
+<p>Las esta ruta trabaja con paginado de los elementos de la BD en la tabla &quot;userinfo&quot;. Se debe enviar un número entero por <em>Param</em> en el <em>offset</em> dónde la primera página debe ser 0, la segunda 1, la tercera 2 etc.</p>
+<p>Regresa un array de objetos &quot;userinfo&quot;.
+<br/></p>
+<h5>GET domain/:id</h5>
+<p>Regresa un único objeto &quot;userinfo&quot;, se debe enviar un número entero por <em>Param</em> con el id del objeto a buscar. Se pretende que esta ruta sirva de ayuda para ver el detalle de un &quot;userinfo&quot; y poder editar su información.
+<br/></p>
+<h5>GET radcheck/page/:offset</h5>
+<p>Las esta ruta trabaja con paginado de los elementos de la BD en la tabla &quot;radcheck&quot;. Se debe enviar un número entero por <em>Param</em> en el <em>offset</em> dónde la primera página debe ser 0, la segunda 1, la tercera 2 etc.</p>
+<p>Regresa un array de objetos &quot;radusergroup&quot;. 
+<br/></p>
+<h5>GET  radcheck/:username</h5>
+<p>Regresa un único objeto &quot;userinfo&quot;, se debe enviar un nombre en forma de string por <em>Param</em> con el id del objeto a buscar. Se pretende que esta ruta sirva de ayuda para ver el detalle de un &quot;radusergroup&quot; y poder editar su información.
+<br/></p>
+<h5>GET radcheck/:id</h5>
+<p>Las esta ruta trabaja con paginado de los elementos de la BD en la tabla &quot;radcheck&quot;. Se debe enviar un número entero por <em>Param</em> en el <em>offset</em> dónde la primera página debe ser 0, la segunda 1, la tercera 2 etc.</p>
+<p>Regresa un array de objetos &quot;radcheck&quot;. 
+<br/></p>
+<h5>GET radusergroup/:username</h5>
+<p>Regresa un único objeto &quot;userinfo&quot;, se debe enviar un nombre en forma de string por <em>Param</em> con el id del objeto a buscar. Se pretende que esta ruta sirva de ayuda para ver el detalle de un &quot;radusergroup&quot; y poder editar su información.
+<br/></p>
+<h2>Creado por</h2>
 <ul>
-<li><p>Author - <a href="https://kamilmysliwiec.com">Kamil Myśliwiec</a></p>
-</li>
-<li><p>Website - <a href="https://nestjs.com/">https://nestjs.com</a></p>
-</li>
-<li><p>Twitter - <a href="https://twitter.com/nestframework">@nestframework</a></p>
-</li>
+<li>Autor - <a href="https://github.com/FranSabt">FranSabt</a></li>
 </ul>
-<h2>License</h2>
-<p>Nest is <a href="LICENSE">MIT licensed</a>.</p>
+<h2>Licencia</h2>
+<p>&quot;Esta aplicación,  es <em>propiedad exclusiva</em> de <strong>NetcomPlus</strong>. Todos los derechos de propiedad intelectual relacionados con la aplicación, incluyendo, pero no limitándose a, derechos de autor, marcas comerciales y patentes, están debidamente registrados y reservados.</p>
+<p> Se ha invertido tiempo, recursos y esfuerzo considerable en su creación, y su contenido, diseño, funcionalidad y características únicas son propiedad exclusiva de NetcomPlus.</p>
+<p>Cualquier reproducción, distribución, modificación, adaptación o uso no autorizado de esta aplicación sin el consentimiento expreso por escrito de NetcomPlus está estrictamente prohibido. Además, queda prohibida la extracción, recopilación o uso de cualquier dato, información o contenido de esta aplicación sin la autorización correspondiente.</p>
+<p>NetcomPlus se reserva el derecho de tomar las medidas legales adecuadas para proteger sus derechos de propiedad intelectual en caso de infracción. Se realizarán esfuerzos razonables para mantener la precisión y disponibilidad de la aplicación, pero NetcomPlus no se hace responsable de cualquier interrupción o daño que pueda resultar del uso de esta aplicación.</p>
+<p>Al utilizar esta aplicación, aceptas cumplir con estos términos y condiciones, así como con cualquier política o guía adicional establecida por NetcomPlus. En caso de dudas o consultas sobre los derechos de propiedad intelectual de esta aplicación, puedes comunicarte con NetcomPlus.</p>
+<p>Al descargar, acceder o utilizar esta aplicación, reconoces y aceptas que todos los derechos están reservados y que cualquier infracción o uso no autorizado puede dar lugar a acciones legales.</p>
 
 
 

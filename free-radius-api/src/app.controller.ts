@@ -14,6 +14,7 @@ import { UserDto } from './dto/user.dto';
 import { UpdateUserInfoDto } from './dto/updateUserInfo.dto';
 import { UpdateUserGroupDto } from './dto/updateUerGroup.dto';
 import { UpdateRadCheckDto } from './dto/updateRadCheck.dto';
+import { SearchDto } from './dto/seacrh.dto';
 
 /**
  * De momento solo hay un 'Controller', pero se separaron las operacviones en diferente Servicios segun el verbo HTTP.
@@ -61,6 +62,20 @@ export class AppController {
     return this.appPutService.updateUserInfo(query);
   }
 
+  /**
+   * Permite buscar objetos de la tabla "userinfo" por medio de de strings que se comparan con los campos: username, fisrtname, lastname y email.
+   * @param { SearchDto } query
+   * @returns Array de objetos [{Object}, {Object}, {Object}, ....]
+   */
+  @Post('search')
+  userSearch(@Body() query: SearchDto) {
+    return this.appGetService.userSearch(query.query);
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* OPERACIONES DE RADCHECK *//
 
   /**
@@ -95,6 +110,20 @@ export class AppController {
     return this.appPutService.updateRadCheck(query);
   }
 
+  /**
+   * Permite buscar objetos de la tabla "radcheck" por medio de de strings que se comparan con el campo username.
+   * @param { SearchDto } query
+   * @returns Array de objetos [{Object}, {Object}, {Object}, ....]
+   */
+  @Post('radcheck')
+  adCheckSearch(@Body() query: SearchDto) {
+    return this.appGetService.radCheckSearch(query.query);
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* OPERACIONES DE USERGROUP *//
   /**
    * Retorna ala info del 'radusergroup' de manera paginada en grupos de 50 para no cargar demasiado la BD durante las peticiones asi como la API enviando informacion.
@@ -128,7 +157,19 @@ export class AppController {
     return this.appPutService.updateUserGroup(query);
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Permite buscar objetos de la tabla "radcheck" por medio de de strings que se comparan con el campo username.
+   * @param { SearchDto } query
+   * @returns Array de objetos [{Object}, {Object}, {Object}, ....]
+   */
+  @Post('radusergroup')
+  radUserGroupSearch(@Body() query: SearchDto) {
+    return this.appGetService.radUserGroupSearch(query.query);
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //* RUTA POST PARA CREACION DE NUEVAS FILAS EN LA TRES TABLAS *//
   /**

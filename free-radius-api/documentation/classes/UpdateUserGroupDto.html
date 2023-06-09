@@ -72,6 +72,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Intefaz para modificar la tabla &quot;radusergroup&quot;.</p>
+
+            </p>
 
 
 
@@ -152,10 +159,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/dto/updateUerGroup.dto.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/dto/updateUerGroup.dto.ts:25</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tipo de servicio asociado al usuario.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -189,10 +202,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/dto/updateUerGroup.dto.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/dto/updateUerGroup.dto.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Prioridad de servicio.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -226,10 +245,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/dto/updateUerGroup.dto.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/dto/updateUerGroup.dto.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre de usuario asociado a un servicio.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -252,15 +277,27 @@
   IsOptional,
 } from &#x27;class-validator&#x27;;
 
+/**
+ * Intefaz para modificar la tabla &quot;radusergroup&quot;.
+ */
 export class UpdateUserGroupDto {
+  /**
+   * Nombre de usuario asociado a un servicio.
+   */
   @IsNotEmpty()
   @IsString()
   username: string;
 
+  /**
+   * Tipo de servicio asociado al usuario.
+   */
   @IsOptional()
   @IsString()
   groupname: string;
 
+  /**
+   * Prioridad de servicio.
+   */
   @IsOptional()
   @IsNumber()
   priority: number;

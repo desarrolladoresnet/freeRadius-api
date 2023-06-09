@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserInfo } from './sequeelize/user/user.entity';
 import { UserGroup } from './sequeelize/radusergroup/usergroup.entity';
 import { RadCheck } from './sequeelize/rasdusercheck/radcheck.entity';
+import { Op } from "sequelize";
 
 /**
  * En este servicio se encuentran todas las peticiones GET como lo indica su nombre.
@@ -68,6 +69,34 @@ export class AppGetService {
     } catch (erro) {}
   }
 
+  /**
+   * Permite buscar objetos de la tabla "userinfo" por medio de de strings que se comparan con los campos: username, fisrtname, lastname y email.
+   * @param { Array<string> } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async userSearch(query: Array<string>) {
+    try {
+      const usersInfo = await this.userInfoRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+            {firstname: {[Op.or]: query } },
+            {lastname: {[Op.or]: query } },
+            {email: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length < 1) return 'No users Info';
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* RADCHECK *//
   /**
    * Solicita a grupos de 50 objetos 'radcheck'.
@@ -110,6 +139,32 @@ export class AppGetService {
     }
   }
 
+
+  /**
+   * Permite buscar objetos de la tabla "radcheck" por medio de de strings que se comparan con el campo username.
+   * @param { Array<string> } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async radCheckSearch(query: Array<string>) {
+    try {
+      const usersInfo = await this.radcheckRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length < 1) return 'No users Info';
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //* USERGROUP *//
     /**
    * Solicita a grupos de 50 objetos 'radusergroup'.
@@ -151,4 +206,27 @@ export class AppGetService {
       throw new Error(error);
     }
   }
+
+
+  /**
+   * Permite buscar objetos de la tabla "radusergroup" por medio de de strings que se comparan con el campo username.
+   * @param { Array<string> } query 
+   * @returns  Arra de objetos [{Object}, {Object}, {Object}, .....]
+   */
+  async radUserGroupSearch(query: Array<string>) {
+    try {
+      const usersInfo = await this.userGroupRepository.findAll({
+        where: {
+          [Op.or]: [
+            {username: {[Op.or]: query } },
+          ]
+        },
+      });
+
+      if (usersInfo?.length < 1) return 'No usersgroup find';
+
+      return usersInfo;
+    } catch (erro) {}
+  }
+
 }

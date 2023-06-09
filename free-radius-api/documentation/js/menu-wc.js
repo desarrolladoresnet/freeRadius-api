@@ -139,6 +139,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/RadCheck.html" data-type="entity-link" >RadCheck</a>
                             </li>
                             <li class="link">
+                                <a href="classes/SearchDto.html" data-type="entity-link" >SearchDto</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/UpdateRadCheckDto.html" data-type="entity-link" >UpdateRadCheckDto</a>
                             </li>
                             <li class="link">

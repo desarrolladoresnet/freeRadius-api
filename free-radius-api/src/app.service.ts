@@ -67,8 +67,8 @@ export class AppService {
 
       const radcheck = await this.radcheckRepository.create({
         username: dto.username,
-        attribute: dto.attribute,
-        op: dto.op,
+        attribute: dto.attribute, //! Pediente lista de atributos
+        op: dto.op, //! Pediente lista de op
         value: dto.value,
       });
 
@@ -79,7 +79,7 @@ export class AppService {
       const usergroup = await this.userGroupRepository.create({
         username: dto.username,
         groupname: dto.groupname,
-        priority: dto.priority,
+        priority: dto.priority ? dto.priority : 1,
       });
 
       if (!usergroup) return 'No se creo el usergoup';
