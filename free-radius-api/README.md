@@ -234,14 +234,8 @@ query: ["string", "string", "string"]
 ### Rutas Put
 ##### PUT domain/
 
-> En domain iría el nombre de dominio o IP donde se aloje la API.
-<br/>
-> Por ejemplo: https://mi-api-freeradius.com/
-> <br/>
-> ó
-> <br/>
-	>ejemplo: https://64.192.2.0/
-Compare el ejemplo dado con el ejemplo de más abajo.
+> En domain iría el nombre de dominio o IP donde se aloje la API. Por ejemplo: https://mi-api-freeradius.com/ ó ejemplo: https://64.192.2.0/
+> Compare el ejemplo dado con el ejemplo de más abajo.
 
 Esta ruta permite editar los valores de una fila en la tabla "userinfo", por lo que solo se requiere de manera obligatoria el "id" que debe ser un número entero, "updateby" que debe ser el nombre del usuario que realiza la actualización y finalmente un cambio en alguno de los valores. De faltar alguno se rechaza la operación.
 
