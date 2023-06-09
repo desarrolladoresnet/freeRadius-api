@@ -1,7 +1,7 @@
 # API para freeRadius de Netcom Plus
 <p align="center">
 
-Creado haciendo uso del framework Nest.JS sobre Fastify.
+Creado usado Nest.JS y sobre Fastify
 
 <a  href="http://nestjs.com/"  target="blank"><img  src="https://nestjs.com/img/logo-small.svg"  width="200"  alt="Nest Logo" /></a>
 
@@ -149,18 +149,18 @@ Valores mínimos requerido en el Body:
 ```
 JSON {
 
-username  : string,
-password" : string,
+username  :	string,
+password" :	string,
 firstname : string,
 lastname  : string,
 email	  : string (debe ser un formato válido),
 mobilephone : string,
 attribute : string,
-op	  : string (de max-length 2),
+op		  : string (de max-length 2),
 value	  : araujo,
 groupname :	string (plan asociado al cliente),
 priority  : number,
-createby  :  string (del usuario que crea el objeto)
+createby":  string (del usuario que crea el objeto)
 
 }
 
@@ -178,7 +178,7 @@ password	:  string,
 firstname	:  string,
 lastname	:  string,
 email		:  string,
-mobilephone 	:  string,
+mobilephone :  string,
 
 // No obligatorios de "userinfo"
 
@@ -198,7 +198,7 @@ enableportallogin	:  number,
 
 //* RADCHECK *//
 attribute	:  string,
-op		:  string,
+op			:  string,
 value		:  string,
 
 //* RADUSERGROUP *//
@@ -207,13 +207,39 @@ priority	:  number
 
 }
 ```
+##### POST domain/search
+Permite buscar objetos de la tabla "userinfo" por medio de de strings que se comparan con los campos: username, fisrtname, lastname y email
+```
+JSON {
+query: ["string", "string", "string"]
+}
+```
+
+##### POST domain/radcheck
+Permite buscar objetos de la tabla "radcheck" por medio de de strings que se comparan con el campo username.
+```
+JSON {
+query: ["string", "string", "string"]
+}
+```
+
+##### POST domain/radusergroup
+Permite buscar objetos de la tabla "radusergroup" por medio de de strings que se comparan con el campo username.
+```
+JSON {
+query: ["string", "string", "string"]
+}
+```
 
 ### Rutas Put
 ##### PUT domain/
 
 > En domain iría el nombre de dominio o IP donde se aloje la API.
+<br/>
 > Por ejemplo: https://mi-api-freeradius.com/
+> <br/>
 > ó
+> <br/>
 	>ejemplo: https://64.192.2.0/
 Compare el ejemplo dado con el ejemplo de más abajo.
 
@@ -226,7 +252,7 @@ Retorna 0 si la operación fue exitosa o 1 su fue rechazada.
 JSON {
 
 updateby	:  string, # campo requerido
-id		:  number, # campo requerido
+id			:  number, 	   # campo requerido
 
 # el resto de los campo son opcionales,
 # envie los que necesite modificar.
@@ -236,8 +262,8 @@ password	:  string,
 firstname	:  string,
 lastname	:  string,
 email		:  string,
-mobilephone 	:  string,
-department  	:  string,
+mobilephone :  string,
+department  :  string,
 company		:  string,
 workphone	:  string,
 homephone	:  string,
@@ -245,11 +271,11 @@ address		:  string,
 city		:  string,
 state		:  string,
 country		:  string,
-zip		:  string,
+zip			:  string,
 notes		:  string,
-changeuserinfo	: string,
-portalloginpassword	: string,
-enableportallogin	: number
+changeuserinfo		: string,
+portalloginpassword	:string,
+enableportallogin	:  number
 
 }
 
@@ -273,10 +299,10 @@ Permite editar los valores de un fila de la tabla "radcheck", requiere de manera
 ```
 JSON {
 
-id		:  number, # obligatorio
+id			:  number, # obligatorio
 username	:  string,
 attribute	:  string,
-op		:  string,
+op			:  string,
 value		:  string;
 
 }
