@@ -1,10 +1,10 @@
 Comando para construi imagen y contenedor
 
 
-docker build -t your-image-name .
+docker build -t freeradius-api .
 
 
-docker run -p 3003:3003 --name free-radius-api --network host free-radius-api
+docker run -p 3003:3003 --name free-radius-api --network host freeradius-api
 
 
 MODIFICACION A MYSQL
