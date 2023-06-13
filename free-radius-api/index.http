@@ -17,3 +17,23 @@ Content-Type: application/json
 {
     "query": ["haraujo", "Hugo"]
 }
+
+###
+
+POST http://localhost:3003/
+Content-Type: application/json
+
+{
+    "username"  :	"Comino",
+    "password" :	"lagata",
+    "firstname" : "Lagata",
+    "lastname"  : "Comino",
+    "email"	  : "eslagata@lagata.com",
+    "mobilephone" : "4124-4563453",
+    "attribute" : "gata",
+    "op"		  : "==",
+    "value"	  : 1,
+    "groupname" :"ftth",
+    "priority"  :1,
+    "creationby":  "admin"
+}
