@@ -1,0 +1,33 @@
+Comando para construi imagen y contenedor
+
+
+docker build -t your-image-name .
+
+
+docker run -p 3003:3003 --name free-radius-api --network host free-radius-api
+
+
+MODIFICACION A MYSQL
+
+La forma exacta de configurar la base de datos para permitir conexiones desde el contenedor Docker puede variar dependiendo del sistema de gestión de la base de datos que estés utilizando. A continuación, te proporcionaré un ejemplo general de cómo configurar MySQL/MariaDB para permitir conexiones desde un contenedor Docker:
+
+    Inicia sesión en el servidor de base de datos o en la máquina que aloja la base de datos.
+
+    Abre el archivo de configuración de MySQL/MariaDB. En sistemas basados en Linux, el archivo de configuración suele ubicarse en /etc/mysql/my.cnf o /etc/my.cnf.
+
+    Busca la sección [mysqld] en el archivo de configuración. Si no existe, puedes agregarla al final del archivo.
+
+    Dentro de la sección [mysqld], agrega o modifica la siguiente línea para permitir conexiones desde cualquier dirección IP:
+"""
+    bind-address = 0.0.0.0
+
+"""
+    Si solo deseas permitir conexiones desde la dirección IP específica del host del contenedor Docker, puedes establecer esa dirección IP en lugar de 0.0.0.0.
+
+    Guarda los cambios en el archivo de configuración.
+
+    Reinicia el servicio de MySQL/MariaDB para aplicar los cambios. Puedes usar comandos como sudo systemctl restart mysql o sudo service mysql restart.
+
+Una vez que hayas realizado estos pasos, la base de datos debería estar configurada para permitir conexiones desde el contenedor Docker. Luego, puedes intentar ejecutar tu aplicación nuevamente y comprobar si puede establecer la conexión con la base de datos.
+
+Recuerda que estos pasos son un ejemplo general y pueden variar según el sistema operativo y la versión específica de MySQL/MariaDB que estés utilizando. Consulta la documentación oficial de tu sistema de gestión de base de datos para obtener instrucciones más precisas sobre cómo configurar la base de datos para permitir conexiones desde Docker.
