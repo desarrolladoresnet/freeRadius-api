@@ -149,14 +149,12 @@ Valores mínimos requerido en el Body:
 ```
 JSON {
 
-username  :	string,
+username  :	string, // No se debe repetir un valor.
 password" :	string,
 firstname : string,
 lastname  : string,
 email	  : string (debe ser un formato válido),
 mobilephone : string,
-attribute : string,
-op		  : string (de max-length 2),
 value	  : araujo,
 groupname :	string (plan asociado al cliente),
 priority  : number,

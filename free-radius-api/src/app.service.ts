@@ -33,6 +33,18 @@ export class AppService {
    */
   async postUser(dto: UserDto) {
     try {
+      const checkGroup = await this.userGroupRepository.findOne({
+        where: { groupname: dto.groupname },
+      });
+
+      if (!checkGroup) return 'Invalid Groupname';
+
+      const checUserName = await this.userInfoRepository.findOne({
+        where: { username: dto.username },
+      });
+
+      if (checUserName) return 'The username has already taken';
+
       const date = new Date();
 
       const userinfo = await this.userInfoRepository.create({
@@ -66,8 +78,8 @@ export class AppService {
 
       const radcheck = await this.radcheckRepository.create({
         username: dto.username,
-        attribute: dto.attribute, //! Pediente lista de atributos
-        op: dto.op, //! Pediente lista de op
+        attribute: dto.attribute || 'Cleartext-Password',
+        op: dto.op || ':=',
         value: dto.value,
       });
 

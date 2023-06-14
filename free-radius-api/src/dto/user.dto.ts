@@ -163,14 +163,12 @@ export class UserDto {
   /**
    * Por definir
    */
-  @IsNotEmpty()
   @IsString()
   attribute: string;
 
   /**
    * Operacion realizada por el router.
    */
-  @IsNotEmpty()
   @IsString()
   op: string;
 

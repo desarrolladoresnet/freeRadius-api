@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, Unique } from 'sequelize-typescript';
 
 /**
  * Modelo de la tabla 'userinfo'.
@@ -18,7 +18,7 @@ export class UserInfo extends Model {
   /**
    * Nombre de usuario.
    */
-  @Column({ type: DataType.STRING(128), field: 'username' })
+  @Column({ type: DataType.STRING(128), field: 'username', unique: true })
   username: string;
   /**
    * Nombre legarl
