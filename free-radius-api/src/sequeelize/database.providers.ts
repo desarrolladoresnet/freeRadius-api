@@ -20,14 +20,12 @@ export const databaseProviders = [
        /* host: '10.2.73.20', */
         host: "localhost",
         port: 3306,
-        username: 'root',
-        /*// username: "radius",*/
-        password: "7448280",
-        /*
-        // password: "zh49cUPs8sQMvPgX",
-        // database: 'radius',
-        */
-        database:'nest',
+        // username: 'root',
+        username: "radius",
+        // password: "7448280",
+        password: "zh49cUPs8sQMvPgX",
+        database: 'radius',
+        // database:'nest',
         dialectOptions: {
           allowPublicKeyRetrieval: true,
         },
