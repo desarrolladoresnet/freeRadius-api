@@ -5,10 +5,6 @@ import { UserGroup } from './radusergroup/usergroup.entity';
 import { RadCheck } from './rasdusercheck/radcheck.entity';
 
 
-// const HOST = process.env.DB_HOST
-// const USERNAME = process.env.DB_USERNAME
-// const PASSWORD = process.env.DB_PASSWORD 
-// const DB = process.env.DB_NAME
 
 
 /**
@@ -21,15 +17,20 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'mariadb',
-        // host: '10.2.73.20',
+       /* host: '10.2.73.20', */
         host: "localhost",
         port: 3306,
         username: 'root',
-        // username: "radius",
+        /*// username: "radius",*/
         password: "7448280",
+        /*
         // password: "zh49cUPs8sQMvPgX",
         // database: 'radius ',
+        */
         database:'nest',
+        dialectOptions: {
+          allowPublicKeyRetrieval: true,
+        },
 
       });
       sequelize.addModels([UserInfo, UserGroup, RadCheck]);

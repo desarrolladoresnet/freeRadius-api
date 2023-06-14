@@ -18,10 +18,9 @@ async function bootstrap() {
   );
   await app.register(helmet);
   await app.register(cors, {
-    origin: ['*'],
-    allowedHeaders: ['authorization', 'content-type'],
-    methods: ['GET', 'POST', 'PUT' /*'PATCH', 'DELETE', 'OPTIONS'*/],
-    credentials: true,
+    origin: true, // Permitir todas las solicitudes de origen (puedes configurarlo según tus necesidades)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await app.listen(3003);
