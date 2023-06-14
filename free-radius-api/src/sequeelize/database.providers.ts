@@ -25,7 +25,7 @@ export const databaseProviders = [
         password: "7448280",
         /*
         // password: "zh49cUPs8sQMvPgX",
-        // database: 'radius ',
+        // database: 'radius',
         */
         database:'nest',
         dialectOptions: {
