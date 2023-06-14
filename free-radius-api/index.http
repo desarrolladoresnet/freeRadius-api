@@ -24,16 +24,18 @@ POST http://localhost:3003/
 Content-Type: application/json
 
 {
-    "username"  :	"Comino",
-    "password" :	"lagata",
-    "firstname" : "Lagata",
+    "username"  :	"Comino2",
+    "password" :	"lagata2",
+    "firstname" : "Lagata2",
     "lastname"  : "Comino",
     "email"	  : "eslagata@lagata.com",
     "mobilephone" : "4124-4563453",
     "attribute" : "gata",
     "op"		  : "==",
-    "value"	  : 1,
+    "value"	  : "1",
     "groupname" :"ftth",
     "priority"  :1,
     "creationby":  "admin"
 }
+###
+curl -X POST -H "Content-Type: application/json" -d '{"username":"Comino","password":"lagata","firstname": "Lagata","lastname": "Comino","email": "eslagata@lagata.com","mobilephone": "4124-4563453","attribute": "gata","op": "==","value": "1","groupname" :"ftth","priority":1,"creationby":"admin"}' http://127.0.0.1:3003/

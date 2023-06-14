@@ -22,7 +22,7 @@ export const databaseProviders = [
       const sequelize = new Sequelize({
         dialect: 'mariadb',
         // host: '10.2.73.20',
-        host: "host.docker.internal",
+        host: "localhost",
         port: 3306,
         // username: 'fran',
         username: "radius",

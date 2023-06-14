@@ -33,9 +33,34 @@ export class AppService {
    */
   async postUser(dto: UserDto) {
     try {
-      const data = this.createUserData(dto);
+      const date = new Date();
 
-      const userinfo = await this.userInfoRepository.create({ data });
+      const userinfo = await this.userInfoRepository.create({
+        username: dto.username,
+        firstname: dto.firstname,
+        lastname: dto.lastname,
+        email: dto.email,
+        department: dto.department ? dto.department : 'No department info',
+        company: dto.company ? dto.company : 'No company phone',
+        workphone: dto.workphone ? dto.workphone : 'No work phone',
+        homephone: dto.homephone ? dto.homephone : 'No home phone',
+        mobilephone: dto.mobilephone,
+        address: dto.address ? dto.address : 'No address',
+        city: dto.city ? dto.city : 'No city',
+        state: dto.state ? dto.state : 'No state',
+        country: dto.country ? dto.country : 'Venezuela',
+        zip: dto.zip ? dto.zip : '0000',
+        notes: dto.notes ? dto.notes : '',
+        changeuserinfo: dto.changeuserinfo ? dto.changeuserinfo : '0',
+        portalloginpassword: dto.portalloginpassword
+          ? dto.portalloginpassword
+          : '',
+        enableportallogin: dto.enableportallogin ? dto.enableportallogin : '0',
+        creationdate: date,
+        updatedate: date,
+        creationby: dto.creationby,
+        updateby: 'No update',
+      });
 
       if (!userinfo) return 'No se creo el usuario';
 
@@ -62,43 +87,5 @@ export class AppService {
     } catch (err) {
       return err;
     }
-  }
-
-  /**
-   * Formatea los datos para ser ingresado en la BD.
-   * @param { UserDto } dto
-   * @returns Object
-   */
-  createUserData(dto: UserDto) {
-    const date = new Date();
-
-    const data = {
-      username: dto.username,
-      firstname: dto.firstname,
-      lastname: dto.lastname,
-      email: dto.email,
-      department: dto.department ? dto.department : 'No department info',
-      company: dto.company ? dto.company : 'No company phone',
-      workphone: dto.workphone ? dto.workphone : 'No work phone',
-      homephone: dto.homephone ? dto.homephone : 'No home phone',
-      mobilephone: dto.mobilephone,
-      address: dto.address ? dto.address : 'No address',
-      city: dto.city ? dto.city : 'No city',
-      state: dto.state ? dto.state : 'No state',
-      country: dto.country ? dto.country : 'Venezuela',
-      zip: dto.zip ? dto.zip : '0000',
-      notes: dto.notes ? dto.notes : '',
-      changeuserinfo: dto.changeuserinfo ? dto.changeuserinfo : '0',
-      portalloginpassword: dto.portalloginpassword
-        ? dto.portalloginpassword
-        : '',
-      enableportallogin: dto.enableportallogin ? dto.enableportallogin : '0',
-      creationdate: date,
-      updatedate: date,
-      creationby: dto.creationby,
-      updateby: 'No update',
-    };
-
-    return data;
   }
 }
