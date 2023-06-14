@@ -149,16 +149,18 @@ Valores mínimos requerido en el Body:
 ```
 JSON {
 
-username  :	string, // No se debe repetir un valor.
-password" :	string,
+username  : string,
+password  : string,
 firstname : string,
 lastname  : string,
 email	  : string (debe ser un formato válido),
 mobilephone : string,
+attribute : string,
+op	  : string (de max-length 2),
 value	  : araujo,
-groupname :	string (plan asociado al cliente),
+groupname : string (plan asociado al cliente),
 priority  : number,
-createby":  string (del usuario que crea el objeto)
+createby  : string (del usuario que crea el objeto)
 
 }
 
@@ -196,7 +198,7 @@ enableportallogin	:  number,
 
 //* RADCHECK *//
 attribute	:  string,
-op			:  string,
+op		:  string,
 value		:  string,
 
 //* RADUSERGROUP *//
@@ -232,8 +234,14 @@ query: ["string", "string", "string"]
 ### Rutas Put
 ##### PUT domain/
 
-> En domain iría el nombre de dominio o IP donde se aloje la API. Por ejemplo: https://mi-api-freeradius.com/ ó ejemplo: https://64.192.2.0/
-> Compare el ejemplo dado con el ejemplo de más abajo.
+> En domain iría el nombre de dominio o IP donde se aloje la API.
+<br/>
+> Por ejemplo: https://mi-api-freeradius.com/
+> <br/>
+> ó
+> <br/>
+	>ejemplo: https://64.192.2.0/
+Compare el ejemplo dado con el ejemplo de más abajo.
 
 Esta ruta permite editar los valores de una fila en la tabla "userinfo", por lo que solo se requiere de manera obligatoria el "id" que debe ser un número entero, "updateby" que debe ser el nombre del usuario que realiza la actualización y finalmente un cambio en alguno de los valores. De faltar alguno se rechaza la operación.
 
@@ -244,7 +252,7 @@ Retorna 0 si la operación fue exitosa o 1 su fue rechazada.
 JSON {
 
 updateby	:  string, # campo requerido
-id			:  number, 	   # campo requerido
+id		:  number, # campo requerido
 
 # el resto de los campo son opcionales,
 # envie los que necesite modificar.
@@ -254,8 +262,8 @@ password	:  string,
 firstname	:  string,
 lastname	:  string,
 email		:  string,
-mobilephone :  string,
-department  :  string,
+mobilephone 	:  string,
+department 	:  string,
 company		:  string,
 workphone	:  string,
 homephone	:  string,
@@ -263,7 +271,7 @@ address		:  string,
 city		:  string,
 state		:  string,
 country		:  string,
-zip			:  string,
+zip		:  string,
 notes		:  string,
 changeuserinfo		: string,
 portalloginpassword	:string,
@@ -291,10 +299,10 @@ Permite editar los valores de un fila de la tabla "radcheck", requiere de manera
 ```
 JSON {
 
-id			:  number, # obligatorio
+id		:  number, # obligatorio
 username	:  string,
 attribute	:  string,
-op			:  string,
+op		:  string,
 value		:  string;
 
 }
