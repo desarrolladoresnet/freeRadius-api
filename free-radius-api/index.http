@@ -7,11 +7,11 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:3003/radusergroup/page/1
+GET  http://10.10.20.7:3003/radcheck/page/1
 
 ###
 
-POST http://10.10.20.7:3003/search
+POST http://10.10.20.7:3003/radcheck/
 Content-Type: application/json
 
 {
@@ -20,15 +20,15 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3003/
+POST http://10.10.20.7:3003/
 Content-Type: application/json
 
 {
-    "username"  :	"Miry",
-    "password" :	"lagata2",
-    "firstname" : "Miry",
-    "lastname"  : "Gomez",
-    "email"	  : "miry@miry.com",
+    "username"  :	"Juancito",
+    "password" :	"Rodriguez",
+    "firstname" : "Juan",
+    "lastname"  : "Rodriguez",
+    "email"	  : "juan@vader.com",
     "mobilephone" : "4124-4563453",
     "value"	  : "456132",
     "creationby":"Fran",
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 }
 ###
-PUT http://localhost:3003/radcheck
+PUT http://localhost:3003/radusergroup
 Content-Type: application/json
 
 {
@@ -48,3 +48,9 @@ Content-Type: application/json
 }
 ###
 curl -X POST -H "Content-Type: application/json" -d '{"username":"Comino","password":"lagata","firstname": "Lagata","lastname": "Comino","email": "eslagata@lagata.com","mobilephone": "4124-4563453","attribute": "gata","op": "==","value": "1","groupname" :"ftth","priority":1,"creationby":"admin"}' http://127.0.0.1:3003/
+
+
+
+
+###
+GET http://localhost:3003/coa/ls

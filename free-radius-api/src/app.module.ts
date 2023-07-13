@@ -9,6 +9,8 @@ import { radcheckProvider } from './sequeelize/rasdusercheck/radusercheck.provid
 import { userGroupProviders } from './sequeelize/radusergroup/usergroup.providers';
 import { AppGetService } from './appGet.service';
 import { AppPutService } from './appPut.service';
+import { CoaModule } from './coa/coa.module';
+import { CoaService } from './coa/coa.service';
 
 /**
  * Modulo principal de la aplicacion. Se injectan todas las depedencias, servicios y modulos necesarios.
@@ -18,6 +20,7 @@ import { AppPutService } from './appPut.service';
     // PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
+    CoaModule,
   ],
   controllers: [AppController],
   providers: [
@@ -27,6 +30,7 @@ import { AppPutService } from './appPut.service';
     ...userProviders,
     ...radcheckProvider,
     ...userGroupProviders,
+    CoaService,
   ],
 })
 export class AppModule {}

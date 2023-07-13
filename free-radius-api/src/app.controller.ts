@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -182,5 +183,11 @@ export class AppController {
   @Post()
   async postTest(@Body() dto: UserDto) {
     return this.appService.postUser(dto);
+  }
+
+
+  @Get('coa/:msj')
+  async coa(@Param('msj') msj: string){
+    return await this.appService.coaAction(msj);
   }
 }

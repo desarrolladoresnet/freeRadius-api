@@ -3,6 +3,7 @@ import { UserInfo } from './sequeelize/user/user.entity';
 import { UserDto } from './dto/user.dto';
 import { UserGroup } from './sequeelize/radusergroup/usergroup.entity';
 import { RadCheck } from './sequeelize/rasdusercheck/radcheck.entity';
+import { CoaService } from './coa/coa.service';
 
 /**
  * Este servicio tiene como objetivo crear un nuevo userinfo, radcheck y radusergroup en una solo peticion para llenar los datos de las tablas. Por ende, solo se encuentra una unica peticion PUT en esta clase.
@@ -23,6 +24,7 @@ export class AppService {
     private userGroupRepository: typeof UserGroup,
     @Inject('RADCHECK_REPOSITORY')
     private radcheckRepository: typeof RadCheck,
+    private readonly coaService: CoaService,
   ) {}
   /**
    * este metodo llenara las tablas userinfo, radcheck y radusergroup.
@@ -99,5 +101,13 @@ export class AppService {
     } catch (err) {
       return err;
     }
+  }
+
+  async coaAction(cmd: string) {
+    console.log(cmd)
+    const msj = await this.coaService.coaCmd(cmd);
+
+    console.log(msj);
+    return msj;
   }
 }
