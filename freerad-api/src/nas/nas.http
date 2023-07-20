@@ -1,0 +1,18 @@
+###
+GET http://localhost:3000/nas
+Content-Type: application/json
+
+{
+    "name":"Hola Mundo"
+}
+
+###
+
+POST http://localhost:3000/nas
+Content-Type: application/json
+
+{
+    "name":"Hola Mundo!",
+    "ip_address": "5557",
+    "secret": "123"
+}
