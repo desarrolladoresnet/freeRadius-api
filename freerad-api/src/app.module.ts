@@ -11,11 +11,11 @@ import { CoaService } from './coa/coa.service';
 import { CoaModule } from './coa/coa.module';
 import { RadusergroupModule } from './radusergroup/radusergroup.module';
 import { RadcheckModule } from './radcheck/radcheck.module';
-import { UserinfoController } from './userinfo/userinfo.controller';
-import { UserinfoModule } from './userinfo/userinfo.module';
 import { ZoneModule } from './zone/zone.module';
 import { NasModule } from './nas/nas.module';
 import { RadCheck } from './database/radcheck.entity';
+import { RadUserGroup } from './database/radusergroup.entity';
+import { UserInfoModule } from './user-info/user-info.module';
 
 @Module({
   imports: [
@@ -26,18 +26,18 @@ import { RadCheck } from './database/radcheck.entity';
       username: 'root',
       password: '7448280',
       database: 'nest',
-      entities: [UserInfo, Nas, Zone, RadCheck],
+      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone],
       synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),
     RadiusModule,
     CoaModule,
     RadusergroupModule,
     RadcheckModule,
-    UserinfoModule,
+    UserInfoModule,
     ZoneModule,
     NasModule,
   ],
-  controllers: [AppController, CoaController, UserinfoController],
+  controllers: [AppController, CoaController],
   providers: [AppService, CoaService],
 })
 export class AppModule {}

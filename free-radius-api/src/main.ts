@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
@@ -16,4 +17,3 @@ async function bootstrap() {
   await app.listen(PORT);
 }
 bootstrap();
-

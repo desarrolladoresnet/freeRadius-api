@@ -2,11 +2,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('radusergroup')
-export class UserGroup {
+export class RadUserGroup {
   @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ type: 'varchar', length: 128 })
   username: string;
 
   @Column({ type: 'varchar', length: 200 })

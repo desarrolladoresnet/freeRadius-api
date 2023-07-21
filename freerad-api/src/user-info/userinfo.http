@@ -1,0 +1,46 @@
+POST http://localhost:3000/user-info
+Content-Type: application/json
+
+{
+    "name": "Juancito-Netcom",
+    "username": "456",
+    "firstname": "Cod-Netcom",
+    "lastname": "456123",
+    "groupname": "ftth residencial 30mg",
+    "updateby": "test",
+    "creationby": "test",
+    "priority":  10
+}
+
+###
+PUT http://localhost:3000/user-info/49
+Content-Type: application/json
+
+{
+    "name": "Juancito-Netcom",
+    "username": "456",
+    "firstname": "Cod-Netcom",
+    "lastname": "7777",
+    "groupname": "ftth residencial 30mg",
+    "updateby": "tost",
+    "creationby": "ast",
+    "priority":  1
+}
+
+###
+GET http://localhost:3000/user-info
+Content-Type: application/json
+
+{
+    "name": "Juancito Netcom",
+    "username": "131313",
+    "firstname": "Cod-Netcom",
+    "lastname": "131313",
+    "groupname": "ftth residencial 30mg",
+    "updateby": "test",
+    "creationby": "test",
+    "priority":  10
+}
+
+###
+GET http://localhost:3000/user-info/49

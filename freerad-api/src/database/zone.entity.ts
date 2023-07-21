@@ -16,7 +16,7 @@ export class Zone {
   codigo_zona: string;
 
 	@Column({ type: 'int', unique: false })
-  Nas: string;
+  Nas: number;
 
 	@Column({ type: 'varchar', length: 60, unique: false })
   coord: string;

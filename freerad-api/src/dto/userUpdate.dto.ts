@@ -1,56 +1,49 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class UserDto {
+export class UserUpdateDto {
     /**
    * El cliente en Odoo.
    */
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     name: string;
 
   /**
    * Serial de la Onu.
    */
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   username: string;
 
   /**
    * Nombre de la empresa asociada (Netcom o NC)
    */
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   firstname: string;
 
   /**
    * ID de Wisphub.
    */
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lastname: string;
 
   /**
    * Usuario que realiza el ultimo update
    */
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   updateby: string;
 
   /**
    * Usuario que crea el registro
    */
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   creationby: string;
 
-
-  /***********************************************************************
-   *                                                                     *
-   * CAMPOS OPCIONALES                                                   *
-   * Se dejan estos campos para un posible uso futuro                    *
-   *                                                                     *
-   ***********************************************************************/
   @IsOptional()
   @IsString()
   email: string;
@@ -106,28 +99,5 @@ export class UserDto {
   @IsOptional()
   @IsNumber()
   enableportallogin: number;
-
-  // RADCHECK
-  @IsOptional()
-  @IsString()
-  value: string;
-
-  // RADUSERGROUP
-    /**
-   * Plan asignado al cliente
-   */
-    @IsNotEmpty()
-    @IsString()
-    groupname: string;
-
-    /**
-     * Prioridad del cliente
-     */
-    @IsOptional()
-    @IsNumber()
-    @Min(0)
-    @Max(10)
-    priority: number;
-
 
 }

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ZoneDto {
   @IsNotEmpty()
@@ -15,8 +15,8 @@ export class ZoneDto {
   codigo_zona: string;
 
 	@IsNotEmpty()
-  @IsString()
-  Nas: string;
+  @IsNumber()
+  Nas: number;
 
 	@IsNotEmpty()
   @IsString()

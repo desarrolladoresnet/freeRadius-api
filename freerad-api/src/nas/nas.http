@@ -6,6 +6,11 @@ Content-Type: application/json
     "name":"Hola Mundo"
 }
 
+
+###
+GET http://localhost:3000/nas/9
+
+
 ###
 
 POST http://localhost:3000/nas
@@ -13,6 +18,16 @@ Content-Type: application/json
 
 {
     "name":"Hola Mundo!",
+    "ip_address": "5557",
+    "secret": "123"
+}
+
+###
+PUT http://localhost:3000/nas/3
+Content-Type: application/json
+
+{
+    "name":"Hello World!",
     "ip_address": "5557",
     "secret": "123"
 }

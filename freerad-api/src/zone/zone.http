@@ -4,11 +4,11 @@ POST http://localhost:3000/zone
 Content-Type: application/json
 
 {
-    "name":"Hola Mundo!",
+    "name":"Hello World!",
     "tlf": "55-555-5555",
-    "codigo_zona": "Las aguitas",
+    "codigo_zona": "The little waters",
     "Nas": "1",
-    "coord": "12345, 54321"
+    "coord": "54321, 12345"
 }
 
 
@@ -18,9 +18,36 @@ GET http://localhost:3000/zone
 Content-Type: application/json
 
 {
+    "name":"Hello World!",
+    "tlf": "55-555-5555",
+    "codigo_zona": "The little waters",
+    "Nas": "1",
+    "coord": "54321, 12345"
+}
+
+
+###
+
+GET http://localhost:3000/zone/2
+Content-Type: application/json
+
+{
     "name":"Hola Mundo!",
     "tlf": "55-555-5555",
     "codigo_zona": "Las aguitas",
     "Nas": "1",
+    "coord": "12345, 54321"
+}
+
+###
+
+PUT http://localhost:3000/zone/2
+Content-Type: application/json
+
+{
+    "name":"hello world!",
+    "tlf": "55-555-5555",
+    "codigo_zona": "Las aguitas",
+    "Nas": -2,
     "coord": "12345, 54321"
 }
