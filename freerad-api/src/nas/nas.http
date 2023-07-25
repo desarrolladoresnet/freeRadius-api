@@ -8,7 +8,7 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/nas/9
+GET http://localhost:3000/nas/3
 
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
     "name":"Hola Mundo!",
-    "ip_address": "5557",
+    "ip_address": "5558",
     "secret": "123"
 }
 
@@ -28,6 +28,6 @@ Content-Type: application/json
 
 {
     "name":"Hello World!",
-    "ip_address": "5557",
+    "ip_address": "5558",
     "secret": "123"
 }

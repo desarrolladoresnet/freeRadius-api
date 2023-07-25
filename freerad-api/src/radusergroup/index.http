@@ -1,0 +1,29 @@
+GET http://localhost:3000/radusergroup
+
+###
+
+POST http://localhost:3000/radusergroup
+Content-Type: application/json
+
+{
+    "username": "Juancito",
+    "groupname": "ftth"
+}
+
+###
+POST http://localhost:3000/radusergroup/find
+Content-Type: application/json
+
+{
+    "username": "Juancitox",
+    "groupname": "ftth"
+}
+
+###
+PUT http://localhost:3000/radusergroup/
+Content-Type: application/json
+
+{
+    "username": "Juancito",
+    "priority": 3
+}

@@ -48,6 +48,6 @@ Content-Type: application/json
     "name":"hello world!",
     "tlf": "55-555-5555",
     "codigo_zona": "Las aguitas",
-    "Nas": -2,
+    "Nas": 99,
     "coord": "12345, 54321"
 }
