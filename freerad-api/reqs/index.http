@@ -1,0 +1,58 @@
+POST http://localhost:3000/radius
+Content-Type: application/json
+
+{
+    "name": "Juancito Netcom",
+    "username": "131313",
+    "firstname": "Cod-Netcom",
+    "lastname": "131313",
+    "groupname": "ftth residencial 30mg"
+}
+
+###
+GET http://localhost:3000/radius
+Content-Type: application/json
+
+{
+    "name":"Hola Mundo"
+}
+
+
+cret": "secret!"
+}
+
+###
+
+POST http://localhost:3000/radius/zone
+Content-Type: application/json
+
+{
+    "name":"Hola Mundo!",
+    "tlf": "55-555-5555",
+    "codigo_zona": "Las aguitas",
+    "Nas": "1",
+    "coord": "12345, 54321"
+}
+
+
+###
+
+GET http://localhost:3000/radius/zone
+Content-Type: application/json
+
+{
+    "name":"Hola Mundo!",
+    "tlf": "55-555-5555",
+    "codigo_zona": "Las aguitas",
+    "Nas": "1",
+    "coord": "12345, 54321"
+}
+
+###
+
+POST http://localhost:3000/coa
+Content-Type: application/json
+
+{
+    "cmd":"ping 8.8.8.8"
+}

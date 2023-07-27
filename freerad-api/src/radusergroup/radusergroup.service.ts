@@ -31,6 +31,7 @@ export class RadusergroupService {
         console.log(
           `Ya existe un UserGroup con username ${username} y groupname ${groupname}.`,
         );
+        console.log(`------------------------------------------------\n`);
         return `Ya existe un UserGroup con username ${username} y groupname ${groupname}.`;
       }
 
@@ -46,15 +47,19 @@ export class RadusergroupService {
         console.log(
           `Hubo un problema al salvar los datos de username ${username} y groupname ${groupname}`,
         );
+        console.log(`------------------------------------------------\n`);
         return `Hubo un problema al salvar los datos de username ${username} y groupname ${groupname}`;
       }
 
       return saveUserGroup;
     } catch (error) {
       console.error(error);
+      console.log(`------------------------------------------------\n`);
       return error;
     }
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async GetAllUserGroups() {
     try {
@@ -65,9 +70,11 @@ export class RadusergroupService {
         return `No se encontraron UserGroups en la Base de Datos`;
       }
 
+      console.log(`------------------------------------------------\n`);
       return allUserGroups;
     } catch (error) {
       console.error(error);
+      console.log(`------------------------------------------------\n`);
       return error;
     }
   }
@@ -77,6 +84,8 @@ export class RadusergroupService {
     let groupname = data.groupname || '"vacio"';
 
     if (username == 'vacio' && groupname == 'vacio') {
+      console.log('Busqueda invalida');
+      console.log(`------------------------------------------------\n`);
       return 'Busqueda invalida';
     }
 
@@ -116,15 +125,19 @@ export class RadusergroupService {
       if (userGroup?.length < 1 || !userGroup) {
         username = username || '(No se evnvio valor para Username)';
         groupname = groupname || '(No se evnvio valor para Groupname)';
+        console.log(`------------------------------------------------\n`);
         return `No se encontraron datos con los valores username: ${username} y groupname: ${groupname}`;
       }
 
       return userGroup;
     } catch (error) {
       console.error(error);
+      console.log(`------------------------------------------------\n`);
       return error;
     }
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async UpdateUserGroup(data: RadUserGroupUpdateDto) {
     const { username, groupname, priority } = data;

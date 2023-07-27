@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsIP, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class NasDto {
   @IsNotEmpty()
@@ -7,7 +7,7 @@ export class NasDto {
   name: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsIP()
   ip_address: string;
 
   @IsNotEmpty()

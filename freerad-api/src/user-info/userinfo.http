@@ -43,4 +43,4 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/user-info/49
+GET http://localhost:3000/user-info/

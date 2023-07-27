@@ -15,8 +15,7 @@ POST http://localhost:3000/radusergroup/find
 Content-Type: application/json
 
 {
-    "username": "Juancitox",
-    "groupname": "ftth"
+    "username": "Juancito"
 }
 
 ###

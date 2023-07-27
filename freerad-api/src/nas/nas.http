@@ -28,6 +28,6 @@ Content-Type: application/json
 
 {
     "name":"Hello World!",
-    "ip_address": "5558",
-    "secret": "123"
+    "ip_address": "172.16.10.2",
+    "secret": "Secreto"
 }

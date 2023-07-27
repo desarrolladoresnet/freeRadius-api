@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RadiusModule } from './radius/radius.module';
 import { UserInfo } from './database/user.entity';
 import { Nas } from './database/nas.entity';
 import { Zone } from './database/zone.entity';
@@ -16,6 +15,7 @@ import { NasModule } from './nas/nas.module';
 import { RadCheck } from './database/radcheck.entity';
 import { RadUserGroup } from './database/radusergroup.entity';
 import { UserInfoModule } from './user-info/user-info.module';
+import { Radacct } from './database/radacct.entity';
 
 @Module({
   imports: [
@@ -26,10 +26,9 @@ import { UserInfoModule } from './user-info/user-info.module';
       username: 'root',
       password: '7448280',
       database: 'nest',
-      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone],
+      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct],
       synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),
-    RadiusModule,
     CoaModule,
     RadusergroupModule,
     RadcheckModule,
@@ -37,7 +36,7 @@ import { UserInfoModule } from './user-info/user-info.module';
     ZoneModule,
     NasModule,
   ],
-  controllers: [AppController, CoaController],
-  providers: [AppService, CoaService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
