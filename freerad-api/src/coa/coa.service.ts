@@ -20,9 +20,9 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(cmd: string, option: string): Promise<string> {
+  async CoA_cmd(cmd: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      const childProcess = spawn(cmd, [option]);
+      const childProcess = spawn('echo ', [option]);
 
       let stdoutData = '';
       let stderrData = '';
@@ -91,11 +91,10 @@ export class CoaService {
       }
       const secret = nas.secret;
 
-      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0`;
-      const option = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
 
       console.log(`Activando`);
-      const res = await this.CoA_cmd(cmd, option);
+      const res = await this.CoA_cmd(cmd);
       console.log(res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
