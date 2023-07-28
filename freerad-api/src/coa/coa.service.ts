@@ -22,12 +22,12 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(echoCommand: string, radClientCommand: string): Promise<string> {
+  async CoA_cmd(Command: string, ClientCommand: string): Promise<string> {
     try {
-      /*
+      
       const echoCommand = `echo "User-Name='0055',User-Name='0055',NetElastic-Portal-Mode=0"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'coa' 'NetcomwirelesS++' 2>&1`;
-      */
+      
 
       const { stdout } = await execAsync(`${echoCommand} | ${radClientCommand}`);
       console.log('Command output:', stdout);
@@ -83,6 +83,9 @@ export class CoaService {
 
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+
+
+      
 
       console.log(`Activando`);
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
