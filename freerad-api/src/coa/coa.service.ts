@@ -33,8 +33,10 @@ export class CoaService {
       console.log('Command output:', stdout);
       return stdout;
     } catch (error) {
+      console.log('')
       console.error('Error executing the command:', error.message);
-      return error;
+      console.log('------------------------------------------------------------------------------')
+      throw error;
     }
   }
   
