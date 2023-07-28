@@ -78,8 +78,8 @@ export class CoaService {
       const cmd = `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
 
       console.log(`Activando`);
-      //const res = await this.CoA_cmd(cmd);
-      // console.log(res);
+      const res = await this.CoA_cmd(cmd);
+      console.log(res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
