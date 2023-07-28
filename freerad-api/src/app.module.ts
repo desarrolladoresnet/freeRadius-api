@@ -21,9 +21,9 @@ import { Radacct } from './database/radacct.entity';
       type: 'mariadb',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: '7448280',
-      database: 'nest',
+      username: 'radius',
+      password: 'zh49cUPs8sQMvPgX',
+      database: 'radius',
       entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct],
       synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),

@@ -162,8 +162,8 @@ export class CoaService {
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
        */
-      // const res = await this.CoA_cmd(cmd);
-      // console.log('Respuesta de terminal', res);
+      const res = await this.CoA_cmd(cmd);
+      console.log('Respuesta de terminal', res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
@@ -171,6 +171,8 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
+
+      console.log('\n', re)
       // const statusCoa = this.CoA_Status(res, re);
       // if (!statusCoa) {
       //   console.log(`No se pudo suspender al usuario ${username}`);
