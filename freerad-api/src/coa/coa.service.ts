@@ -75,7 +75,7 @@ export class CoaService {
       }
       const secret = nas.secret;
 
-      const cmd = `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      const cmd = `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=0" | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Activando`);
       const res = await this.CoA_cmd(cmd);
@@ -160,13 +160,14 @@ export class CoaService {
       const url_suspension = 'http://10.10.20.7/avisodecorte';
       const acl_suspension = 'suspendido';
 
-      const cmd = `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=1, \ NetElastic-HTTP-Redirect-URL=${url_suspension} ,Filter-Id=${acl_suspension} " | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      const cmd =  `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=1," | NetElastic-HTTP-Redirect-URL=${url_suspension} ,Filter-Id=${acl_suspension} " | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
        */
-      // const res = await this.CoA_cmd(cmd);
-      // console.log('Respuesta de terminal', res);
+    
+      const res = await this.CoA_cmd(cmd);
+      console.log('Respuesta de terminal', res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
