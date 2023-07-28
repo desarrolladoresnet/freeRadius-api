@@ -6,6 +6,7 @@ import { Radacct } from 'src/database/radacct.entity';
 import { UserInfo } from 'src/database/user.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { Repository } from 'typeorm';
+import { exec } from 'child_process';
 
 
 @Injectable()
@@ -21,36 +22,19 @@ export class CoaService {
   ) {}
 
   async CoA_cmd(cmd: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      const childProcess = spawn('echo ', [cmd]);
-
-      let stdoutData = '';
-      let stderrData = '';
-
-      childProcess.stdout.on('data', (data) => {
-        stdoutData += data.toString();
-      });
-
-      childProcess.stderr.on('data', (data) => {
-        stderrData += data.toString();
-      });
-
-      childProcess.on('error', (error) => {
-        console.error(`Error al ejecutar el comando: ${error.message}`);
-        reject(error);
-      });
-
-      childProcess.on('close', (code) => {
-        if (code !== 0) {
-          console.error(`El proceso se cerró con código de salida ${code}`);
-          console.error(`stderr: ${stderrData}`);
-          reject(new Error(`El proceso se cerró con código de salida ${code}`));
+    return new Promise((resolve, reject) => {
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error executing the command: ${error.message}`);
+          reject(error);
         } else {
-          console.log(`stdout: ${stdoutData}`);
-          resolve(stdoutData);
+          console.log('Command output (stdout):', stdout);
+          console.error('Command errors (stderr):', stderr);
+          resolve(stdout);
         }
       });
     });
+  }
   }
 
   ////////////////////////////////////////////////////////////////////////////
