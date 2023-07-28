@@ -38,7 +38,7 @@ export class CoaService {
       console.log('')
       console.error('Error executing the command:', error.message);
       console.log('------------------------------------------------------------------------------')
-      throw error;
+      return error;
     }
   }
   
@@ -172,14 +172,14 @@ export class CoaService {
       const url_suspension = 'http://10.10.20.7/avisodecorte';
       const acl_suspension = 'suspendido';
 
-      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'" | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      //const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'" | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
        */
     
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
-      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Suspendiendo`);
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
