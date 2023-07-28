@@ -59,6 +59,8 @@ export class CoaService {
       }
       const ip_address = radacct.nasipaddress;
 
+      console.log(`ip: `, ip_address);
+
       console.log(`Localizando Secret`);
       // Busqueda del secret
       const nas = await this.nasRepository.findOneBy({
@@ -121,8 +123,8 @@ export class CoaService {
       /*
        * Busqueda de usuario en BD
        */
+      console.log(`Supendiendo al usuario ${username}`);
       const isUser = await this.userInfo.findOneBy({ username });
-
       if (!isUser) {
         console.log(`No existe el username: ${username}`);
         console.log(`------------------------------------------------\n`);
@@ -132,11 +134,12 @@ export class CoaService {
       /*
        * Busqueda de Ip en radacct
        */
+      console.log(`Bucando IP`);
       const radacct = await this.radacctRepository.findOneBy({ username });
       if (!radacct) {
-        console.log(`El username:${username}, no pudo ser encontrado.`);
+        console.log(`El username:${username}, no pudo ser encontrado en la tabla radacct.`);
         console.log(`------------------------------------------------\n`);
-        return `El username:${username}, no pudo ser encontrado.`;
+        return `El username:${username}, no pudo ser encontrado radacct.`;
       }
       const ip_address = radacct.nasipaddress;
 
@@ -162,8 +165,8 @@ export class CoaService {
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
        */
-      const res = await this.CoA_cmd(cmd);
-      console.log('Respuesta de terminal', res);
+      // const res = await this.CoA_cmd(cmd);
+      // console.log('Respuesta de terminal', res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
@@ -171,8 +174,6 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-
-      console.log('\n', re)
       // const statusCoa = this.CoA_Status(res, re);
       // if (!statusCoa) {
       //   console.log(`No se pudo suspender al usuario ${username}`);
@@ -207,6 +208,7 @@ export class CoaService {
     return x[0] == y[0] && x[1] == y[1] && x[5] == y[5];
   }
 }
+
 
 /*
 @Injectable()
