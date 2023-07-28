@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { spawn } from 'child_process';
 import { Nas } from 'src/database/nas.entity';
 import { Radacct } from 'src/database/radacct.entity';
 import { UserInfo } from 'src/database/user.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { Repository } from 'typeorm';
 import { exec } from 'child_process';
+import { promisify } from 'util';
+const execAsync = promisify(exec);
 
 
 @Injectable()
