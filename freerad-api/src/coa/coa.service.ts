@@ -91,7 +91,7 @@ export class CoaService {
 
       console.log(`Activando`);
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
-      console.log(res);
+      console.log("COA Response", res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
@@ -183,6 +183,7 @@ export class CoaService {
 
       console.log(`Suspendiendo`);
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log("COA Response", res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
