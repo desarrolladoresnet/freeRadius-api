@@ -6,6 +6,8 @@ import { Radacct } from 'src/database/radacct.entity';
 import { UserInfo } from 'src/database/user.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { Repository } from 'typeorm';
+import { spawn } from 'child_process';
+import { promisify } from 'util';
 
 @Injectable()
 export class CoaService {
@@ -19,22 +21,24 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(cmd: any): Promise<string> {
-    //const { cmd } = data;
-    return new Promise<string>((resolve, reject) => {
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error al ejecutar el comando: ${error}`);
-          reject(error);
-        } else if (stderr) {
-          console.error(`stderr: ${stderr}`);
-          reject(stderr);
-        } else {
-          console.log(`stdout: ${stdout}`);
-          resolve(stdout);
-        }
+  async CoA_cmd(): Promise<string> {
+    const echoCommand = "echo \"User-Name='0055',User-Name='0055',NetElastic-Portal-Mode=0\"";
+    const radclientCommand = "radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'coa' 'NetcomwirelesS++'";
+
+    const execAsync = promisify(exec);
+
+    try {
+      const { stdout: echoOutput } = await execAsync(echoCommand);
+      const { stdout: radclientOutput } = await execAsync(radclientCommand, {
+        input: echoOutput, // Utilizar la salida del comando echo como entrada para radclient
       });
-    });
+
+      console.log(`stdout: ${radclientOutput}`);
+      return radclientOutput;
+    } catch (error) {
+      console.error(`Error al ejecutar el comando: ${error.message}`);
+      throw error;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
