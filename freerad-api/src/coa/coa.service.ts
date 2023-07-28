@@ -30,7 +30,7 @@ export class CoaService {
           console.error(`stderr: ${stderr}`);
           reject(stderr);
         } else {
-          //console.log(`stdout: ${stdout}`);
+          console.log(`stdout: ${stdout}`);
           resolve(stdout);
         }
       });
