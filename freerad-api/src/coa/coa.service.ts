@@ -22,18 +22,17 @@ export class CoaService {
   ) {}
 
   async CoA_cmd(cmd: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error executing the command: ${error.message}`);
-          reject(error);
-        } else {
-          console.log('Command output (stdout):', stdout);
-          console.error('Command errors (stderr):', stderr);
-          resolve(stdout);
-        }
-      });
-    });
+    try {
+      const echoCommand = `echo "User-Name='0055',User-Name='0055',NetElastic-Portal-Mode=0"`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'coa' 'NetcomwirelesS++' 2>&1`;
+
+      const { stdout } = await execAsync(`${echoCommand} | ${radClientCommand}`);
+      console.log('Command output:', stdout);
+      return stdout;
+    } catch (error) {
+      console.error('Error executing the command:', error.message);
+      throw error;
+    }
   }
   
 
