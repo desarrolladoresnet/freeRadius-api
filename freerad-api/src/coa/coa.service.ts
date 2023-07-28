@@ -23,7 +23,7 @@ export class CoaService {
 
   async CoA_cmd(cmd: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      exec(command, (error, stdout, stderr) => {
+      exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.error(`Error executing the command: ${error.message}`);
           reject(error);
@@ -35,7 +35,7 @@ export class CoaService {
       });
     });
   }
-  }
+  
 
   ////////////////////////////////////////////////////////////////////////////
 
