@@ -22,17 +22,19 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(cmd: string): Promise<string> {
+  async CoA_cmd(echoCommand: string, radClientCommand: string): Promise<string> {
     try {
+      /*
       const echoCommand = `echo "User-Name='0055',User-Name='0055',NetElastic-Portal-Mode=0"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'coa' 'NetcomwirelesS++' 2>&1`;
+      */
 
       const { stdout } = await execAsync(`${echoCommand} | ${radClientCommand}`);
       console.log('Command output:', stdout);
       return stdout;
     } catch (error) {
       console.error('Error executing the command:', error.message);
-      throw error;
+      return error;
     }
   }
   
@@ -75,10 +77,13 @@ export class CoaService {
       }
       const secret = nas.secret;
 
-      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+      // const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+
+      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Activando`);
-      const res = await this.CoA_cmd(cmd);
+      const res = await this.CoA_cmd(echoCommand, radClientCommand);
       console.log(res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
@@ -166,8 +171,11 @@ export class CoaService {
        * Envio de comando a terminal Linux y recibe respuesta.
        */
     
-      //const res = await this.CoA_cmd(cmd);
-      //console.log('Respuesta de terminal', res);
+      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+
+      console.log(`Suspendiendo`);
+      const res = await this.CoA_cmd(echoCommand, radClientCommand);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
