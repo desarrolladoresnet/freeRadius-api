@@ -22,7 +22,7 @@ export class CoaService {
 
   async CoA_cmd(cmd: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      const childProcess = spawn('echo ', [option]);
+      const childProcess = spawn('echo ', [cmd]);
 
       let stdoutData = '';
       let stderrData = '';
