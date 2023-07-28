@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 import { Nas } from 'src/database/nas.entity';
 import { Radacct } from 'src/database/radacct.entity';
 import { UserInfo } from 'src/database/user.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { Repository } from 'typeorm';
-import { spawn } from 'child_process';
-import { promisify } from 'util';
+
 
 @Injectable()
 export class CoaService {
@@ -21,24 +20,11 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(): Promise<string> {
-    const echoCommand = "echo \"User-Name='0055',User-Name='0055',NetElastic-Portal-Mode=0\"";
-    const radclientCommand = "radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'coa' 'NetcomwirelesS++'";
-
-    const execAsync = promisify(exec);
-
-    try {
-      const { stdout: echoOutput } = await execAsync(echoCommand);
-      const { stdout: radclientOutput } = await execAsync(radclientCommand, {
-        input: echoOutput, // Utilizar la salida del comando echo como entrada para radclient
-      });
-
-      console.log(`stdout: ${radclientOutput}`);
-      return radclientOutput;
-    } catch (error) {
-      console.error(`Error al ejecutar el comando: ${error.message}`);
-      throw error;
-    }
+  async CoA_cmd(cmd: any, option: string): Promise<string> {
+    //const { cmd } = data;
+    return new Promise<string>((resolve, reject) => {
+      spawn(cmd, [option]);
+    });
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -79,10 +65,11 @@ export class CoaService {
       }
       const secret = nas.secret;
 
-      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
+      const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0`;
+      const option = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
 
       console.log(`Activando`);
-      const res = await this.CoA_cmd();
+      const res = await this.CoA_cmd(cmd, option);
       console.log(res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
@@ -170,7 +157,7 @@ export class CoaService {
        * Envio de comando a terminal Linux y recibe respuesta.
        */
     
-      const res = await this.CoA_cmd();
+      const res = await this.CoA_cmd(cmd);
       console.log('Respuesta de terminal', res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
