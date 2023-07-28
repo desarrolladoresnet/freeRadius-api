@@ -2,8 +2,8 @@ POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
-    "name": "Juancito-Netcom",
-    "username": "456",
+    "name": "Juancito",
+    "username": "0055",
     "firstname": "Cod-Netcom",
     "lastname": "456123",
     "groupname": "ftth residencial 30mg",

@@ -44,10 +44,10 @@ export class UserInfoService {
       });
 
       if (ifUser) {
-        console.log(`La onu: ${username} ya existe.`);
+        console.log(`La onu: ${username} ya esta registrada.`);
         console.log(`------------------------------------------------\n`);
 
-        return `La onu: ${username} ya existe.`;
+        return `La onu: ${username} ya esta registrada.`;
       }
 
       const newLocal = this.usersRepository.create({
@@ -82,10 +82,10 @@ export class UserInfoService {
       const user = await this.usersRepository.save(newUser);
 
       if (!user) {
-        console.log(`No se pudo crear el usuario: ${username}`);
+        console.log(`No se pudo crear el usuario/onu: ${username}`);
         console.log(`------------------------------------------------\n`);
 
-        return `No se pudo crear el usuario: ${username}`;
+        return `No se pudo crear el usuario/onu: ${username}`;
       }
 
       /*
@@ -104,11 +104,11 @@ export class UserInfoService {
 
       if (!saveRadCheck) {
         console.log(
-          `Hubo un error al guardar los datos del usuario ${username} en la tabla "radcheck"`,
+          `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"`,
         );
         console.log(`------------------------------------------------\n`);
 
-        return `Hubo un error al guardar los datos del usuario ${username} en la tabla "radcheck"`;
+        return `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radcheck"`;
       }
       console.log(`\nExito al registrar el RADCHECK`);
 
@@ -127,13 +127,13 @@ export class UserInfoService {
 
       if (!saveUserGroup) {
         console.log(
-          `Hubo un error al guardar los datos del usuario ${username} en la tabla "radusergroup"`,
+          `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`,
         );
         console.log(`------------------------------------------------\n`);
-        return `Hubo un error al guardar los datos del usuario ${username} en la tabla "radusergroup"`;
+        return `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`;
       }
 
-      console.log(`Usuario ${username} registrado exitosamente`);
+      console.log(`Usuario/Onu ${username} registrado exitosamente`);
       console.log(`------------------------------------------------\n`);
 
       return user;
@@ -146,17 +146,17 @@ export class UserInfoService {
 
   async FindAllUsers() {
     try {
-      console.log(`Bucando usuarios`);
+      console.log(`Bucando usuarios/onu`);
       const users = await this.usersRepository.find();
 
       if (users?.length < 1) {
-        console.log('No se encontraron usuarios');
+        console.log('No se encontraron usuarios/onu');
         console.log(`------------------------------------------------\n`);
-        return 'No se encontraron usuarios';
+        return 'No se encontraron usuarios/onu';
       }
 
       console.log(
-        `Usuarios encontrados!\n------------------------------------------------\n`,
+        `Se encontraron ${users.length} usuarios/onus \n------------------------------------------------\n`,
       );
       return users;
     } catch (error) {

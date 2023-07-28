@@ -6,7 +6,7 @@ POST http://localhost:3000/radusergroup
 Content-Type: application/json
 
 {
-    "username": "Juancito",
+    "username": "MONU0031944D",
     "groupname": "ftth"
 }
 
@@ -15,14 +15,14 @@ POST http://localhost:3000/radusergroup/find
 Content-Type: application/json
 
 {
-    "username": "Juancito"
+    "username": "MONU0031944D"
 }
 
 ###
-PUT http://localhost:3000/radusergroup/
+PUT http://localhost:3000/radusergroup/delete
 Content-Type: application/json
 
 {
-    "username": "Juancito",
-    "priority": 3
+    "username": "4561232",
+    "groupname": "suspendido"
 }

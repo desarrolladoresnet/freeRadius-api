@@ -28,4 +28,9 @@ export class RadusergroupController {
   updateUserGroup(@Body() data: RadUserGroupUpdateDto) {
     return this.radUserGroupService.UpdateUserGroup(data);
   }
+
+  // @Put('delete')
+  // delete(@Body() data: RadUserGroupUpdateDto) {
+  //   return this.radUserGroupService.DeleteUserGroup(data);
+  // }
 }

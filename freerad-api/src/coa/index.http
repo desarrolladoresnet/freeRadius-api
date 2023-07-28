@@ -1,1 +1,5 @@
-GET http://localhost:3000/coa/Juancito
+GET http://localhost:3000/coa/activate/Fran
+
+###
+
+GET http://localhost:3000/coa/suspend/MONU0031944D

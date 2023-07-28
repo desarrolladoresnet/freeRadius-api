@@ -5,8 +5,6 @@ import { AppService } from './app.service';
 import { UserInfo } from './database/user.entity';
 import { Nas } from './database/nas.entity';
 import { Zone } from './database/zone.entity';
-import { CoaController } from './coa/coa.controller';
-import { CoaService } from './coa/coa.service';
 import { CoaModule } from './coa/coa.module';
 import { RadusergroupModule } from './radusergroup/radusergroup.module';
 import { RadcheckModule } from './radcheck/radcheck.module';

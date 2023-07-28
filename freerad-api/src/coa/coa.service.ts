@@ -41,14 +41,15 @@ export class CoaService {
 
   async ActivateUser(username: string) {
     try {
+      console.log(`Activando al usuario ${username}`);
       const isUser = await this.userInfo.findOneBy({ username });
-
       if (!isUser) {
         console.log(`No existe el username: ${username}`);
         console.log(`------------------------------------------------\n`);
         return `No existe el username: ${username}`;
       }
 
+      console.log(`Buscando IP`);
       // Busqueda de Ip en radacct
       const radacct = await this.radacctRepository.findOneBy({ username });
       if (!radacct) {
@@ -58,6 +59,7 @@ export class CoaService {
       }
       const ip_address = radacct.nasipaddress;
 
+      console.log(`Localizando Secret`);
       // Busqueda del secret
       const nas = await this.nasRepository.findOneBy({
         nasname: ip_address,
@@ -73,12 +75,14 @@ export class CoaService {
 
       const cmd = `"User-Name=${username},User-Name=${username},NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}’ 2>&1`;
 
-      const res = await this.CoA_cmd(cmd);
-      console.log(res);
+      console.log(`Activando`);
+      //const res = await this.CoA_cmd(cmd);
+      // console.log(res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
-      const statusCoa = this.CoA_Status(res, re);
+      console.log(`Confrimando`);
+      const statusCoa = this.CoA_Status(re, re);
 
       if (!statusCoa) {
         return `El usuario ${username} no pudo ser activado`;
@@ -87,6 +91,22 @@ export class CoaService {
       /**
        * borrar entrada de la tabla radusergroup
        */
+      const data = { username, groupname: 'suspendido', priority: 1 };
+      const eliminateSuspend = await this.userGroupService.DeleteUserGroup(
+        data,
+      );
+
+      if (!eliminateSuspend) {
+        console.log(
+          `El usuario no pudo ser eliminado de la tabla radusergroup`,
+        );
+        console.log(`------------------------------------------------\n`);
+        return `El usuario no pudo ser eliminado de la tabla radusergroup`;
+      }
+
+      console.log(`El usuario "${username} fue activado con exito"`);
+      console.log(`------------------------------------------------\n`);
+      return `El usuario "${username} fue activado con exito"`;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
@@ -98,7 +118,7 @@ export class CoaService {
 
   async SuspendUser(username: string) {
     try {
-      /**
+      /*
        * Busqueda de usuario en BD
        */
       const isUser = await this.userInfo.findOneBy({ username });
@@ -109,7 +129,7 @@ export class CoaService {
         return `No existe el username: ${username}`;
       }
 
-      /**
+      /*
        * Busqueda de Ip en radacct
        */
       const radacct = await this.radacctRepository.findOneBy({ username });
@@ -142,8 +162,8 @@ export class CoaService {
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
        */
-      const res = await this.CoA_cmd(cmd);
-      console.log('Respuesta de terminal', res);
+      // const res = await this.CoA_cmd(cmd);
+      // console.log('Respuesta de terminal', res);
 
       const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
@@ -151,12 +171,12 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      const statusCoa = this.CoA_Status(res, re);
-      if (!statusCoa) {
-        console.log(`No se pudo suspender al usuario ${username}`);
-        console.log(`------------------------------------------------\n`);
-        return `No se pudo suspender al usuario ${username}`;
-      }
+      // const statusCoa = this.CoA_Status(res, re);
+      // if (!statusCoa) {
+      //   console.log(`No se pudo suspender al usuario ${username}`);
+      //   console.log(`------------------------------------------------\n`);
+      //   return `No se pudo suspender al usuario ${username}`;
+      // }
 
       const data = { username, groupname: 'suspendido', priority: 1 };
 
