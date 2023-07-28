@@ -20,10 +20,36 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
-  async CoA_cmd(cmd: any, option: string): Promise<string> {
-    //const { cmd } = data;
+  async CoA_cmd(cmd: string, option: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      spawn(cmd, [option]);
+      const childProcess = spawn(cmd, [option]);
+
+      let stdoutData = '';
+      let stderrData = '';
+
+      childProcess.stdout.on('data', (data) => {
+        stdoutData += data.toString();
+      });
+
+      childProcess.stderr.on('data', (data) => {
+        stderrData += data.toString();
+      });
+
+      childProcess.on('error', (error) => {
+        console.error(`Error al ejecutar el comando: ${error.message}`);
+        reject(error);
+      });
+
+      childProcess.on('close', (code) => {
+        if (code !== 0) {
+          console.error(`El proceso se cerró con código de salida ${code}`);
+          console.error(`stderr: ${stderrData}`);
+          reject(new Error(`El proceso se cerró con código de salida ${code}`));
+        } else {
+          console.log(`stdout: ${stdoutData}`);
+          resolve(stdoutData);
+        }
+      });
     });
   }
 
