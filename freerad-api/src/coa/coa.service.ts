@@ -83,7 +83,7 @@ export class CoaService {
 
       // const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0 | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
-      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0`;
+      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
 
