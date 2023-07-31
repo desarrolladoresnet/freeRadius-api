@@ -7,6 +7,7 @@ import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { Repository } from 'typeorm';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
 const execAsync = promisify(exec);
 
 
@@ -22,6 +23,12 @@ export class CoaService {
     private readonly userGroupService: RadusergroupService,
   ) {}
 
+  /**
+   * Inserta los comandos a la terminal unix.
+   * @param echoCommand 
+   * @param radClientCommand 
+   * @returns 
+   */
   async CoA_cmd(echoCommand: string, radClientCommand: string): Promise<string> {
     try {
       
@@ -41,7 +48,20 @@ export class CoaService {
       return error;
     }
   }
-  
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Verefica que el comando se haya ejecutado exitosamente.
+     * TODO: creo que es mas facil verificar que se encuentre el string " CoA-ACK".
+     * @param response 
+     * @param str 
+     * @returns 
+     */
+    CoA_Status(response: string) {
+      const r = response.toLowerCase();
+      return r.includes('coa-ack');
+    }
 
   ////////////////////////////////////////////////////////////////////////////
 
@@ -71,6 +91,8 @@ export class CoaService {
       // Busqueda del secret
       const nas = await this.nasRepository.findOneBy({
         nasname: ip_address,
+        orderBy: { createdAt: 'desc' },
+        take: 1
       });
       if (!nas) {
         console.log(
@@ -93,10 +115,9 @@ export class CoaService {
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
       console.log("COA Response", res);
 
-      const re = `Received CoA-ACK Id ^[0-9]+$ from ${ip_address}:3799`;
 
-      console.log(`Confrimando`);
-      const statusCoa = this.CoA_Status(re, re);
+      console.log(`Confirmando`);
+      const statusCoa = this.CoA_Status(res);
 
       if (!statusCoa) {
         return `El usuario ${username} no pudo ser activado`;
@@ -138,9 +159,9 @@ export class CoaService {
       console.log(`Supendiendo al usuario ${username}`);
       const isUser = await this.userInfo.findOneBy({ username });
       if (!isUser) {
-        console.log(`No existe el username: ${username}`);
-        console.log(`------------------------------------------------\n`);
-        return `No existe el username: ${username}`;
+        const str = `No existe el username: ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
       }
 
       /*
@@ -149,30 +170,28 @@ export class CoaService {
       console.log(`Bucando IP`);
       const radacct = await this.radacctRepository.findOneBy({ username });
       if (!radacct) {
-        console.log(`El username:${username}, no pudo ser encontrado en la tabla radacct.`);
-        console.log(`------------------------------------------------\n`);
-        return `El username:${username}, no pudo ser encontrado radacct.`;
+        const str = `El username:${username}, no pudo ser encontrado en la tabla radacct.`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
       }
       const ip_address = radacct.nasipaddress;
 
       // Busqueda del secret
       const nas = await this.nasRepository.findOneBy({
         nasname: ip_address,
+        orderBy: { createdAt: 'desc' },
+        take: 1
       });
       if (!nas) {
-        console.log(
-          `No se encontro una direccion nas aosciada al username:${username} y su ip.`,
-        );
-        console.log(`------------------------------------------------\n`);
-        return `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
       }
       const secret = nas.secret;
 
       //TODO: crear Tablas para estos valores
       const url_suspension = 'http://10.10.20.7/avisodecorte';
       const acl_suspension = 'suspendido';
-
-      //const cmd = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'" | radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       /**
        * Envio de comando a terminal Linux y recibe respuesta.
@@ -202,45 +221,142 @@ export class CoaService {
 
       const userGroup = this.userGroupService.CreateRadUserGroup(data);
       if (!userGroup) {
-        console.log(
-          `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`,
-        );
-        console.log(`------------------------------------------------\n`);
-        return `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`;
+        const str = `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
       }
       return `El usuario ${username} fue suspendido exitosamente`;
     } catch (error) {
+      console.log(`${error}\n------------------------------------------------\n`);
+      return error;
+    }
+  }
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    async ChangePlan(data: ChangePlanDto) {
+      const { username, newgroupname } = data;
+
+      try {
+        if (!username || !newgroupname) {
+          const str =`Verificar username: ${username} y newgrpouname: ${newgroupname}.`;
+          console.log(`${str}\n------------------------------------------------\n`);
+          return str;
+        }
+
+        /*
+         * Busqueda de usuario en BD
+         */
+        console.log(`Modificando el plan del usuario ${username}`);
+        const isUser = await this.userInfo.findOneBy({ username });
+        if (!isUser) {
+          const str = `No existe el username: ${username}`;
+          console.log(`${str}\n------------------------------------------------\n`);
+          return str;
+        }
+  
+        /*
+         * Busqueda de Ip en radacct
+         */
+        console.log(`Bucando IP`);
+        const radacct = await this.radacctRepository.findOneBy({ username });
+        if (!radacct) {
+          const str = `El username:${username}, no pudo ser encontrado en la tabla radacct.`;
+          console.log(`${str}\n------------------------------------------------\n`);
+          return str;
+        }
+        const ip_address = radacct.nasipaddress;
+  
+        //* Busqueda del secret
+        const nas = await this.nasRepository.findOneBy({
+          nasname: ip_address,
+          orderBy: { createdAt: 'desc' },
+          take: 1
+        });
+        if (!nas) {
+          const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+          console.log(`${str}\n------------------------------------------------\n`);
+          return str;
+        }
+        const secret = nas.secret;  
+  
+        /**
+         ** Envio de comando a terminal Linux y recibe respuesta.
+         */
+        const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=${new}"`;
+        const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+  
+        console.log(`Cambiando Plan`);
+        const res = await this.CoA_cmd(echoCommand, radClientCommand);
+        console.log("COA Response", res);
+    
+        /**
+         * Compara string recibido de la terminal Linux con string esperado.
+         * Retornal bool.
+         */
+        // const statusCoa = this.CoA_Status(res, re);
+        // if (!statusCoa) {
+        //   console.log(`No se pudo suspender al usuario ${username}`);
+        //   console.log(`------------------------------------------------\n`);
+        //   return `No se pudo suspender al usuario ${username}`;
+        // }
+  
+        const data = { username, groupname: newgroupname, priority: 10 };
+  
+        const userGroup = this.userGroupService.UpdateUserGroup(data)
+        if (!userGroup) {
+          const str = `No se pudo cambiar el plan al usuario ${username} en la tabla "radusergroup"`;
+          console.log(`${str}\n------------------------------------------------\n`);
+          return str;
+        }
+        return `Se realizo el cambio de plan al usuario ${username} exitosamente`;
+      } catch (error) {
+        console.error(error);
+        console.log(`------------------------------------------------\n`);
+        return error;
+      }
+    }
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+  async Modify(data: CoaDto) {
+    try{
+      const { username, attribute, value, nasipaddress, secret } = data;
+
+      console.log(`Modificando al usuario ${username}`);
+      const isUser = await this.userInfo.findOneBy({ username });
+      if (!isUser) {
+        const str = `No existe el username: ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
+      }
+
+      const echoCommand = `echo "User-Name=${username},User-Name=${username},${attribute}=${value}"`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${nasipaddress}:3799' 'coa' '${secret}' 2>&1`;
+
+      console.log(`Modificando`);
+      const res = await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log("COA Response", res);
+
+            /**
+       * Compara string recibido de la terminal Linux con string esperado.
+       * Retornal bool.
+       */
+      // const statusCoa = this.CoA_Status(res, re);
+      // if (!statusCoa) {
+      //   console.log(`No se pudo suspender al usuario ${username}`);
+      //   console.log(`------------------------------------------------\n`);
+      //   return `No se pudo suspender al usuario ${username}`;
+      // }
+
+      return `El usuario ${username} fue modificado exitosamente`;
+    }
+    catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       return error;
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////
-
-  CoA_Status(response: string, str: string) {
-    const x = response.split(' ');
-    const y = str.split(' ');
-
-    return x[0] == y[0] && x[1] == y[1] && x[5] == y[5];
-  }
 }
 
-
-/*
-@Injectable()
-export class CoaService {
-  async CoA_cmd(data: any) {
-    const { cmd } = data;
-
-    exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(stdout);
-				return stdout;
-      }
-    });
-  }
-}
-*/

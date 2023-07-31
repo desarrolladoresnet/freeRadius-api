@@ -168,7 +168,7 @@ export class RadusergroupService {
           `Hubo un problema al actualizar el grupo del username: ${username}`,
         );
         console.log(`------------------------------------------------\n`);
-        return `Hubo un problema al actualizar el grupo del username: ${username}`;
+        return false;
       }
 
       console.log(userGroupUpdated);
