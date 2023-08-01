@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { IsIP, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
+/**
+ * 
+ */
 export class NasDto {
   @IsNotEmpty()
   @IsString()

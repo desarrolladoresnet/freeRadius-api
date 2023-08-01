@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/database/nas.entity';
@@ -23,9 +24,9 @@ export class CoaService {
 
   /**
    * Inserta los comandos a la terminal unix.
-   * @param echoCommand
-   * @param radClientCommand
-   * @returns
+   * @param echoCommand {string}
+   * @param radClientCommand {string}
+   * @returns { string }
    */
   async CoA_cmd(
     echoCommand: string,
@@ -52,8 +53,8 @@ export class CoaService {
 
   /**
    * Verefica que el comando se haya ejecutado exitosamente.
-   * @param response
-   * @returns boolean
+   * @param response {string} Toma la Respuesta del CoA y evalua si fue exitosa.
+   * @returns { boolean }
    */
   CoA_Status(response: string) {
     if (!(typeof response === 'string')) return false; // Failsafe por si falla el coa
@@ -63,6 +64,16 @@ export class CoaService {
 
   ////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * para activar el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el "nasipaddress" y su "secret".
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
   async ActivateUser(username: string) {
     try {
       console.log(`Activando al usuario ${username}`);
@@ -87,8 +98,8 @@ export class CoaService {
       }
       const ip_address = radacct.nasipaddress;
 
-      console.log(`Localizando Secret`);
       // Busqueda del secret
+      console.log(`Localizando Secret`);
       const nas = await this.nasRepository.find({
         where: [{ nasname: ip_address }],
         order: { id: 'desc' },
@@ -118,9 +129,7 @@ export class CoaService {
         return `El usuario ${username} no pudo ser activado`;
       }
 
-      /**
-       * borrar entrada de la tabla radusergroup
-       */
+       //borrar entrada de la tabla radusergroup
       const data = { username, groupname: 'suspendido', priority: 1 };
       const eliminateSuspend = await this.userGroupService.DeleteUserGroup(
         data,
@@ -146,6 +155,16 @@ export class CoaService {
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Para Suspender el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el "nasipaddress" y su "secret".
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se agrega  al grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
   async SuspendUser(username: string) {
     try {
       /*
@@ -175,7 +194,7 @@ export class CoaService {
       }
       const ip_address = radacct.nasipaddress;
 
-      //* Busqueda del secret es tabla nas.
+      //* Busqueda del secret es tabla nas. *//
       const nas = await this.nasRepository.find({
         where: [{ nasname: ip_address }],
         order: { id: 'desc' },
@@ -194,7 +213,7 @@ export class CoaService {
       const url_suspension = 'http://10.10.20.7/avisodecorte';
       const acl_suspension = 'suspendido';
 
-      //* Preparacion de comandos para Radius.
+      //* Preparacion de comandos para Radius. *//
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
@@ -206,11 +225,11 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res, re);
+      // const statusCoa = this.CoA_Status(res);
       // if (!statusCoa) {
-      //   console.log(`No se pudo suspender al usuario ${username}`);
-      //   console.log(`------------------------------------------------\n`);
-      //   return `No se pudo suspender al usuario ${username}`;
+      //   const str = `No se pudo suspender al usuario ${username}`;
+      //   console.log(`${str}\n------------------------------------------------\n`);
+      //   return str;
       // }
 
       const data = { username, groupname: 'suspendido', priority: 1 };
@@ -234,9 +253,20 @@ export class CoaService {
 
   ////////////////////////////////////////////////////////////////////////////////
 
+    /**
+   * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { ChangePlanDto } viene con dos string, username con nombre de la ONU y "groupname" con el nuevo plan.
+   * @returns Queda pendiente la respuesta
+   */
   async ChangePlan(data: ChangePlanDto) {
     const { username, newgroupname } = data;
 
+    // Verifica que no hayan campos vacios.
     try {
       if (!username || !newgroupname) {
         const str = `Verificar username: ${username} y newgrpouname: ${newgroupname}.`;
@@ -292,7 +322,6 @@ export class CoaService {
       /**
        ** Envio de comando a terminal Linux y recibe respuesta.
        */
-
       const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=10"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
@@ -331,6 +360,16 @@ export class CoaService {
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  /** Metodo para uso interno de la API, y su objetivo  es permitir enviar un mensaje CoA a un NAS para modificar  parámetros de un servicio, en vivo.
+   * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { CoaDto } Ver CoaDto en la carpeta de Ddto. 
+   * @returns Queda pendiente la respuesta
+   */
   async Modify(data: CoaDto) {
     try {
       const { username, attribute, value } = data;

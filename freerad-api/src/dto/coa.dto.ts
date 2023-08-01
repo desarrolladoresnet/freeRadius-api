@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { IsIP, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsIP, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
+/**
+ * Dto creado para el metodo de modificacion en el coa.service.
+ */
 export class CoaDto {
   @IsNotEmpty()
   @IsString()
@@ -12,7 +15,7 @@ export class CoaDto {
 
   @IsNotEmpty()
   @IsString()
-  secret: string;
+  value: string;
 
   /***********************************************************************
    *                                                                     *
@@ -23,7 +26,7 @@ export class CoaDto {
 
   @IsOptional()
   @IsString()
-  value: string;
+  secret: string;
 
   @IsOptional()
   @IsString()
@@ -34,6 +37,9 @@ export class CoaDto {
   nasipaddress: string;
 }
 
+/**
+ * Dto creado para el metodo de cambio de plan en el coa.service
+ */
 export class ChangePlanDto {
   @IsNotEmpty()
   @IsString()

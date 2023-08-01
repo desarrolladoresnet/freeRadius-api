@@ -13,20 +13,29 @@ export class NasService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Crea una entrada en la tabla NAS.
+   * @param data { NasDto }, ver el nas.dto en la carpeta dto.
+   * @returns { object }
+   */
   async CreateNas(data: NasDto) {
     try {
       const { name, ip_address, secret } = data;
 
+      //* Verifica si el username ya existe. *//
       console.log(`Creando NAS`);
       const isNas = await this.nasRepository.findBy({
         nasname: ip_address,
       });
-
       if (isNas?.length > 0) {
-        console.log(`Ya existe un NAS con ese IP: ${ip_address}`);
+        const srt = `Ya existe un NAS con ese IP: ${ip_address}`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
         return isNas;
       }
 
+      //* Crea una nueva entrada, el metdodo posee valores por defecto para no dejar espacio nulos en la memoria *//
       const newNas = this.nasRepository.create({
         shortname: name,
         nasname: ip_address,
@@ -38,11 +47,15 @@ export class NasService {
         community: data?.community ? data.community : '0',
         description: data?.description ? data.description : '0',
       });
-
       const nas = await this.nasRepository.save(newNas);
 
+      //* Se verifica que se guarde correctamente la entrada. *//
       if (!nas) {
-        console.log(`Hubo un error al guardar los datos`);
+        const srt = `Hubo un error al guardar los datos`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
+        return srt;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -56,14 +69,23 @@ export class NasService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Busca todas las entradas en la tabla NAS.
+   * @TODO paginar!
+   * @returns { array }
+   */
   async FindAllNas() {
     try {
       console.log(`Buscandos NAS`);
       const allNas = await this.nasRepository.find();
 
+      //* Verifica la existencia de entradas en la tabla. *//
       if (allNas?.length < 1) {
-        console.log(`No se encontraron Nas`);
-        return 'no se encontro nas';
+        const srt = `No se encontraron Nas`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
+        return srt;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -77,14 +99,24 @@ export class NasService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Busqueda de una entrada por su id.
+   * @param id { number }
+   * @returns { object }
+   */
   async FindById(id: number) {
     try {
+      //* Busqueda de la entrada *//
+      console.log(`Buscandos NAS con el id: ${id}`);
       const nas = await this.nasRepository.findOneBy({ id: id });
 
-      console.log(`Buscandos NAS con el id: ${id}`);
+      //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        console.log(`No se encontro un nas con el id: ${id}`);
-        return `No se encontro un nas con el id: ${id}`;
+        const srt = `No se encontro un nas con el id: ${id}`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
+        return srt;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -98,15 +130,25 @@ export class NasService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * PErmite hacer update a una entrada del NAS.
+   * Puede que el metodo tenga que ser desechadoo al menos la ruta que lo llama.
+   * @param id { number }
+   * @param data { NasDto }
+   * @returns { object }
+   */
   async UpdateNas(id: number, data: NasDto) {
     try {
+      console.log(`Actualizando NAS con el id: ${id}`);
       const nas = await this.nasRepository.findOneBy({ id: id });
 
-      console.log(`Creando NAS`);
-
+      //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        console.log(`No se encontro un nas con el id: ${id}`);
-        return `No se encontro un nas con el id: ${id}`;
+        const srt = `No se encontro un nas con el id: ${id}`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
+        return srt;
       }
 
       nas.community = data?.community ? data.community : nas.community;
@@ -120,9 +162,13 @@ export class NasService {
 
       const updateNas = await this.nasRepository.save(nas);
 
+      //* Verificacion de update del NAS. *//
       if (!updateNas) {
-        console.log(`No se puedo actualizar el NAS`);
-        return 'No de pudo actualizar el NAS';
+        const srt = `No se puedo actualizar el NAS`;
+        console.log(
+          `${srt}\n------------------------------------------------\n`,
+        );
+        return srt;
       }
 
       console.log(`------------------------------------------------\n`);
