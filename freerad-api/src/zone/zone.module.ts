@@ -6,6 +6,9 @@ import { Zone } from 'src/database/zone.entity';
 import { NasService } from 'src/nas/nas.service';
 import { Nas } from 'src/database/nas.entity';
 
+/**
+ * Esta tabla guarda todo lo reltaivo a las zonas que se relacionan a los servicios.
+ */
 @Module({
   imports: [TypeOrmModule.forFeature([Zone, Nas])],
   controllers: [ZoneController],

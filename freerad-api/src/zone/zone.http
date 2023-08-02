@@ -7,7 +7,7 @@ Content-Type: application/json
     "name":"Hello World!",
     "tlf": "55-555-5555",
     "codigo_zona": "The little waters",
-    "Nas": "1",
+    "nas": "1",
     "coord": "54321, 12345"
 }
 
@@ -21,7 +21,7 @@ Content-Type: application/json
     "name":"Hello World!",
     "tlf": "55-555-5555",
     "codigo_zona": "The little waters",
-    "Nas": "1",
+    "nas": "1",
     "coord": "54321, 12345"
 }
 
@@ -35,7 +35,7 @@ Content-Type: application/json
     "name":"Hola Mundo!",
     "tlf": "55-555-5555",
     "codigo_zona": "Las aguitas",
-    "Nas": "1",
+    "nas": "1",
     "coord": "12345, 54321"
 }
 
@@ -48,6 +48,6 @@ Content-Type: application/json
     "name":"hello world!",
     "tlf": "55-555-5555",
     "codigo_zona": "Las aguitas",
-    "Nas": 99,
+    "nas": 99,
     "coord": "12345, 54321"
 }

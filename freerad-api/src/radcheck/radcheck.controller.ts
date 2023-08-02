@@ -3,7 +3,8 @@ import { RadcheckService } from './radcheck.service';
 import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
 
 /**
- * Aquí van las credenciales de los usuarios. 
+ * Información de autenticación de los  servicios: 
+ * credenciales (serial) y tipo de tecnología (Framed-Protocol).
  */
 @Controller('radcheck')
 export class RadcheckController {

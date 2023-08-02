@@ -6,7 +6,8 @@ import { RadCheck } from 'src/database/radcheck.entity';
 
 /**
  * El modulo de la tabla "radcheck".
- * Aquí van las credenciales de los usuarios. También se puede verificar información que venga en el Access-Request.
+ * Información de autenticación de los  servicios: 
+ * credenciales (serial) y tipo de tecnología (Framed-Protocol).
  */
 @Module({
   imports: [TypeOrmModule.forFeature([RadCheck])],
