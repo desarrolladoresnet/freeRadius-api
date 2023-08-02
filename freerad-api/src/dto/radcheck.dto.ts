@@ -23,6 +23,7 @@ export class RadCheckDto {
 
 export class RadCheckUpdateDto {
 
+  @IsOptional()
   @IsString()
   username: string;
 

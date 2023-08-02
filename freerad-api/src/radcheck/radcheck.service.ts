@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RadCheck } from 'src/database/radcheck.entity';
-import { RadCheckUpdateDto } from 'src/dto/radcheck.dto';
+import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
 import { Repository } from 'typeorm';
 
+/**
+ * Metodos para la manipulacion de la tabla "radcheck".
+ */
 @Injectable()
 export class RadcheckService {
   constructor(
@@ -13,15 +16,25 @@ export class RadcheckService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Retorna toda las entradas de la tabla radcheck.
+   * @todo paginar
+   * @returns { array }
+   */
   async GetAllRadCheck() {
     try {
       const allRadChecks = await this.radcheckRepository.find();
 
       console.log(allRadChecks);
       if (allRadChecks?.length < 1) {
-        return 'no radcheck';
+        const str = `No se han encontrado entradas en la tabla "radcheck"`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        return str;
       }
-
+      const str = `Entradas encontradas`;
+      console.log(`${str}\n------------------------------------------------\n`);
       return allRadChecks;
     } catch (error) {
       return error;
@@ -30,16 +43,27 @@ export class RadcheckService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Busca una entrada por medio del id.
+   * @param id { number } debe ser int.
+   * @returns { object }
+   */
   async GetById(id: number) {
     try {
+      console.log(`Buscando entrada con el id: ${id}.`);
       const rad = await this.radcheckRepository.findOneBy({ id: id });
 
       if (!rad) {
-        console.log(`No hay datos con el id: ${id}`);
-        console.log(`------------------------------------------------\n`);
+        const str = `No hay datos con el id: ${id}`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
         return `No hay datos con el id: ${id}`;
       }
 
+      console.log(
+        `Enviado entrada.\n------------------------------------------------\n`,
+      );
       return rad;
     } catch (error) {
       console.error(error);
@@ -50,20 +74,29 @@ export class RadcheckService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  async CreateRadCheck(data: any) {
+  /**
+   * Permite crear una entrada en la tabla.
+   * En general este proceso es realizado cuando se crea un nuevo usuario en "userinfo", pero puede ser util en casos donde se cree la entrada de "userinfo" pero falle en "radcheck". 
+   * Se requiere "username" de manera obligatoria, los otros parametros pueden ser enviados, sino se aplican el resto por defecto.
+   * @param data { RadCheckDto }
+   * @returns 
+   */
+  async CreateRadCheck(data: RadCheckDto) {
     const { username, attribute, op, value } = data;
 
     try {
-      console.log(`Creado rad para username: ${username}`);
+      console.log(`Creando rad para username: ${username}`);
 
       const isRad = await this.radcheckRepository.findOneBy({
         username: username,
       });
 
       if (isRad) {
-        console.log(`Ya existe un rad con el username: ${username}`);
-        console.log(`------------------------------------------------\n`);
-        return `Ya existe un rad con el username: ${username}`;
+        const str = `Ya existe un rad con el username: ${username}`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        return str;
       }
 
       const newRad = await this.radcheckRepository.create({
@@ -72,17 +105,17 @@ export class RadcheckService {
         op: op ? op : ':=',
         value,
       });
-
       const saveRad = await this.radcheckRepository.save(newRad);
 
-      if (!saveRad) {
+      if (!saveRad){
+        const str = `Surgio un problema al guardar lo datos con el username: ${username}`;
         console.log(
-          `Surgio un problema al guardar lo datos con el username: ${username}`,
+          `${str}\n------------------------------------------------\n`,
         );
-        console.log(`------------------------------------------------\n`);
-        return `Surgio un problema al guardar lo datos con el username: ${username}`;
+        return str;
       }
 
+      console.log(`radcheck creado exitosamente`);
       return saveRad;
     } catch (error) {
       return error;
@@ -91,35 +124,58 @@ export class RadcheckService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Metodo para update de la tabla "radcheck"
+   * Se necesita enviar el id y al menos un valor a modificar que no sea el "username", de lo contrario la operacion es abortada. 
+   * @param id { number }
+   * @param data { RadCheckUpdateDto }
+   * @returns { object }
+   */
   async UpdateRadCheck(id: number, data: RadCheckUpdateDto) {
-    const { username, attribute, op, value } = data;
+    const { attribute, op, value } = data;
+
+    //* Verifica que haya valores para modificar *//
+    if (!attribute && !op && !value) {
+      const str = `No se enviaron atributos para modificar.\n attributre: ${attribute}, op: ${op}, value:${value}.`;
+      console.log(`${str}\n------------------------------------------------\n`);
+      return str;
+    }
 
     try {
-      console.log(`Haciendo update del rad ${username}`);
+      console.log(`Haciendo update del rad ${id}`);
 
+      //* Busqueda de la entada *//
       const rad = await this.radcheckRepository.findOneBy({
         id: id,
       });
-
       if (!rad) {
-        console.log(`No hay datos con el id: ${id}`);
-        console.log(`------------------------------------------------\n`);
-        return `No hay datos con el id: ${id}`;
+        const str = `No hay datos con el id: ${id}`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        return str;
       }
 
-      rad.username = username ? username : rad.username;
+      //* Actualizacion de valores *//
+      // rad.username = username ? username : rad.username; // -> Desechado: no se debiera modificar el username.
       rad.attribute = attribute ? attribute : rad.attribute;
       rad.op = op ? op : rad.op;
       rad.value = value ? value : rad.value;
 
       const updateRad = await this.radcheckRepository.save(rad);
 
+      //* Verificando update *//
       if (!updateRad) {
-        console.log(`No se puedo realizar el update del rad: ${username}`);
-        console.log(`------------------------------------------------\n`);
-        return `No se puedo realizar el update del rad: ${username}`;
+        const str = `No se puedo realizar el update del rad: ${updateRad.username}`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        return str;
       }
 
+      console.log(
+        `El user ${updateRad.username} fue actualizado exitosamente.\n------------------------------------------------\n`,
+      );
       return updateRad;
     } catch (error) {
       console.error(error);

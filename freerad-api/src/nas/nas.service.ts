@@ -28,9 +28,9 @@ export class NasService {
         nasname: ip_address,
       });
       if (isNas?.length > 0) {
-        const srt = `Ya existe un NAS con ese IP: ${ip_address}`;
+        const str = `Ya existe un NAS con ese IP: ${ip_address}`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
         return isNas;
       }
@@ -51,11 +51,11 @@ export class NasService {
 
       //* Se verifica que se guarde correctamente la entrada. *//
       if (!nas) {
-        const srt = `Hubo un error al guardar los datos`;
+        const str = `Hubo un error al guardar los datos`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
-        return srt;
+        return str;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -81,11 +81,11 @@ export class NasService {
 
       //* Verifica la existencia de entradas en la tabla. *//
       if (allNas?.length < 1) {
-        const srt = `No se encontraron Nas`;
+        const str = `No se encontraron Nas`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
-        return srt;
+        return str;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -112,11 +112,11 @@ export class NasService {
 
       //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        const srt = `No se encontro un nas con el id: ${id}`;
+        const str = `No se encontro un nas con el id: ${id}`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
-        return srt;
+        return str;
       }
 
       console.log(`------------------------------------------------\n`);
@@ -144,11 +144,11 @@ export class NasService {
 
       //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        const srt = `No se encontro un nas con el id: ${id}`;
+        const str = `No se encontro un nas con el id: ${id}`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
-        return srt;
+        return str;
       }
 
       nas.community = data?.community ? data.community : nas.community;
@@ -164,11 +164,11 @@ export class NasService {
 
       //* Verificacion de update del NAS. *//
       if (!updateNas) {
-        const srt = `No se puedo actualizar el NAS`;
+        const str = `No se puedo actualizar el NAS`;
         console.log(
-          `${srt}\n------------------------------------------------\n`,
+          `${str}\n------------------------------------------------\n`,
         );
-        return srt;
+        return str;
       }
 
       console.log(`------------------------------------------------\n`);

@@ -18,11 +18,11 @@ export class RadUserGroupDto {
 
 
 export class RadUserGroupUpdateDto {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   username: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   groupname: string;
 
