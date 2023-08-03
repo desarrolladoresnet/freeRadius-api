@@ -17,6 +17,7 @@ import { Radacct } from './database/radacct.entity';
 import { PlanModule } from './plan/plan.module';
 import { NodesModule } from './nodes/nodes.module';
 import { SystemsModule } from './systems/systems.module';
+import { Plan } from './database/plan.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { SystemsModule } from './systems/systems.module';
       password: '7448280',
       // database: 'radius',
       database: 'nest',
-      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct],
+      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct, Plan],
       synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),
     CoaModule,

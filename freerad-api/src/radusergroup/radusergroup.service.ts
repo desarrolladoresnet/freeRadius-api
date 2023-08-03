@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
@@ -20,7 +21,7 @@ export class RadusergroupService {
   /**
    * Para crear una entrada el "username" y el "groupname" son obligatorios.
    * El "priority" se setea en 10 por default pero puede ser colocado en cualquier otro valor.
-   * @param data { RadUserGroupDto } 
+   * @param data { RadUserGroupDto }
    * @returns { object }
    */
   async CreateRadUserGroup(data: RadUserGroupDto) {

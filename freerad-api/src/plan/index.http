@@ -1,0 +1,28 @@
+GET http://localhost:3000/plan/
+
+###
+POST http://localhost:3000/plan
+Content-Type: application/json
+
+{
+    "name":"ftth 700",
+    "listName":"ftth 700"
+}
+
+###
+PATCH  http://localhost:3000/plan/6
+Content-Type: application/json
+
+{
+    "name":"ftth 707",
+    "listName":"ftth 707"
+}
+
+###
+DELETE   http://localhost:3000/plan/5
+Content-Type: application/json
+
+{
+    "name":"ftth 700",
+    "listName":"ftth 700"
+}

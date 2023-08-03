@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreatePlanDto {
-  id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -11,3 +11,6 @@ export class CreatePlanDto {
   @IsNotEmpty()
   listName: string;
 }
+
+
+export class UpdatePlanDto extends PartialType(CreatePlanDto) {}

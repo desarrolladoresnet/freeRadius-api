@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateSystemDto } from '../dto/create-system.dto';
+// import { CreateSystemDto } from '../dto/create-system.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { System } from '../database/system.entity';
@@ -14,6 +14,8 @@ export class SystemsService {
   ) {}
 
   private readonly systems: System[] = [];
+
+  ///////////////////////////////////////////////////////////////////////////////////////
 
   async create(sys: System) {
     const { name, apiKey, endPoint } = sys;
@@ -30,6 +32,8 @@ export class SystemsService {
     return this.sysRepository.find();
   }
 
+  ///////////////////////////////////////////////////////////////////////////////////////
+
   async findOne(id: number): Promise<System | null> {
     try {
       return await this.sysRepository.findOneBy({ id });
@@ -37,10 +41,14 @@ export class SystemsService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
   async allOnSys(id: number): Promise<Array<any>> {
     const sys = await this.sysRepository.findOneBy({ id });
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const superagent = require('superagent');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ep = sys.endPoint;
     return await superagent
       .get(`${sys.endPoint}`)
@@ -48,6 +56,8 @@ export class SystemsService {
       .set('content-type', 'application/json')
       .then((res) => res.body['results']);
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
 
   public async sysNode(id: number, node: string) {
     const all = await this.allOnSys(id);
@@ -66,6 +76,10 @@ export class SystemsService {
     this.sysRepository.update(id, updateSysDto);
     return `Sistema ${id} actualizado`;
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+
   async remove(id: number): Promise<void> {
     await this.sysRepository.delete(id);
   }
