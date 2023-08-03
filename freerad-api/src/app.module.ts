@@ -14,6 +14,9 @@ import { RadCheck } from './database/radcheck.entity';
 import { RadUserGroup } from './database/radusergroup.entity';
 import { UserInfoModule } from './user-info/user-info.module';
 import { Radacct } from './database/radacct.entity';
+import { PlanModule } from './plan/plan.module';
+import { NodesModule } from './nodes/nodes.module';
+import { SystemsModule } from './systems/systems.module';
 
 @Module({
   imports: [
@@ -21,18 +24,24 @@ import { Radacct } from './database/radacct.entity';
       type: 'mariadb',
       host: 'localhost',
       port: 3306,
-      username: 'radius',
-      password: 'zh49cUPs8sQMvPgX',
-      database: 'radius',
+      // username: 'radius',
+      username: 'root',
+      // password: 'zh49cUPs8sQMvPgX',
+      password: '7448280',
+      // database: 'radius',
+      database: 'nest',
       entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct],
       synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),
     CoaModule,
+    NasModule,
+    NodesModule,
+    PlanModule,
     RadusergroupModule,
     RadcheckModule,
+    SystemsModule,
     UserInfoModule,
     ZoneModule,
-    NasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
