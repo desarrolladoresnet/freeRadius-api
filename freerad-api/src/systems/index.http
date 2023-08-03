@@ -1,0 +1,14 @@
+GET  http://localhost:3000/systems
+
+###
+GET  http://localhost:3000/systems/1/all
+
+###
+POST http://localhost:3000/systems
+Content-Type: application/json
+
+{
+    "name":"Prueba Fran",
+    "apiKey":"esunakey",
+    "endPoint":"www.google.com"
+}

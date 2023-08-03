@@ -60,7 +60,7 @@ export class UserInfo {
   @Column({ type: 'int', default: 0 })
   enableportallogin: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp'})
   creationdate: Date;
 
   @Column({ type: 'varchar', length: 128 })

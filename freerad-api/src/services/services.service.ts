@@ -4,7 +4,7 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Service } from '../database/service.entity';
-import { Node } from 'src/database/node.entity';
+import { ZonaCliente } from 'src/database/node.entity';
 import { System } from 'src/database/system.entity';
 import { SystemsService } from 'src/systems/systems.service';
 import { CoaService } from 'src/coa/coa.service';
@@ -22,8 +22,8 @@ export class ServicesService {
     private userinfoRepository: Repository<UserInfo>,
     @InjectRepository(RadUserGroup)
     private radUserGroupRepository: Repository<RadUserGroup>,
-    @InjectRepository(Node)
-    private nodesRepository: Repository<Node>,
+    @InjectRepository(ZonaCliente)
+    private nodesRepository: Repository<ZonaCliente>,
     @InjectRepository(System)
     private systemsRepository: Repository<System>,
     @InjectRepository(Plan)
@@ -94,7 +94,7 @@ export class ServicesService {
     const sys = nodeSys['systems'];
     sys.forEach(async (i) => {
       //Para cada sistema del nodo encuentra la lista de clientes en ese nodo
-      const sysOnNode = await this.sysServices.sysNode(i.id, node);
+      const sysOnNode = await this.sysServices.SysNode(i.id, node);
       //console.log(sysOnNode)
       //Encuentra los elementos de userinfo que tienen como address ese nodo
       const userinfoNodes = await this.userinfoRepository.find({

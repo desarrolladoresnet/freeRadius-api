@@ -8,7 +8,7 @@ import { Service } from '../database/service.entity';
 import { PlanModule } from 'src/plan/plan.module';
 import { PlanService } from 'src/plan/plan.service';
 import { PlanController } from 'src/plan/plan.controller';
-import { Node } from 'src/database/node.entity';
+import { ZonaCliente } from 'src/database/node.entity';
 import { SystemsModule } from 'src/systems/systems.module';
 import { CoaModule } from 'src/coa/coa.module';
 import { UserInfo } from 'src/database/user.entity';
@@ -22,7 +22,7 @@ import { RadUserGroup } from 'src/database/radusergroup.entity';
       Service,
       UserInfo,
       RadUserGroup,
-      Node,
+      ZonaCliente,
     ]),
     SystemsModule,
     CoaModule,

@@ -56,8 +56,6 @@ export class UserInfoService {
         username: username,
         updateby: updateby,
         creationby: creationby,
-        creationdate: new Date(),
-        updatedate: new Date(),
         /* CAMPOS OPCIONALES */
         email: data?.email ? data.email : '0',
         country: 'Venezuela',
@@ -233,7 +231,6 @@ export class UserInfoService {
         ? data.enableportallogin
         : User.enableportallogin;
       User.updateby = data.updateby;
-      User.updatedate = new Date();
 
       const updateUser = await this.usersRepository.save(User);
 

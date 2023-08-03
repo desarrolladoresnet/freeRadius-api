@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Entity,
   Column,
@@ -8,7 +9,7 @@ import {
 import { System } from 'src/database/system.entity'
 
 @Entity()
-export class Node {
+export class ZonaCliente {
   @PrimaryGeneratedColumn()
   id: number;
 

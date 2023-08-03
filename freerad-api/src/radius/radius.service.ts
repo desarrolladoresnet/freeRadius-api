@@ -29,8 +29,6 @@ export class RadiusService {
         username: username,
         updateby: updateby,
         creationby: creationby,
-        creationdate: new Date(),
-        updatedate: new Date(),
         /* CAMPOS OPCIONALES */
         email: data?.email ? data.email : '0',
         department: data?.department ? data.department : '0',

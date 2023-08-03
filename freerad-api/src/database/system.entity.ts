@@ -10,7 +10,7 @@ import {
   PrimaryColumn,
   JoinColumn,
 } from 'typeorm';
-import { Node } from 'src/database/node.entity';
+import { ZonaCliente } from 'src/database/node.entity';
 
 @Entity({ name: 'system' })
 export class System {
@@ -26,9 +26,9 @@ export class System {
   @Column({ type: 'varchar', length: 250, unique: true })
   endPoint: string;
 
-  @ManyToMany(() => Node, (node) => node.systems, {
+  @ManyToMany(() => ZonaCliente, (node) => node.systems, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  nodes?: Node[];
+  nodes?: ZonaCliente[];
 }

@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE   http://localhost:3000/plan/5
+DELETE   http://localhost:3000/plan/6
 Content-Type: application/json
 
 {

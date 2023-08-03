@@ -18,10 +18,13 @@ import { PlanModule } from './plan/plan.module';
 import { NodesModule } from './nodes/nodes.module';
 import { SystemsModule } from './systems/systems.module';
 import { Plan } from './database/plan.entity';
+import { System } from './database/system.entity';
+import { ZonaCliente } from './database/node.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
+      /*
       type: 'mariadb',
       host: 'localhost',
       port: 3306,
@@ -30,9 +33,26 @@ import { Plan } from './database/plan.entity';
       // password: 'zh49cUPs8sQMvPgX',
       password: '7448280',
       // database: 'radius',
-      database: 'nest',
-      entities: [Nas, RadCheck, RadUserGroup, UserInfo, Zone, Radacct, Plan],
-      synchronize: false, // Setear en 'false' cuando vaya a produccion
+      database: 'radius',
+      */
+      type: 'mysql',
+      host: 'netcomplus.com.ve',
+      port: 3306,
+      username: 'urxlgocl8gt5k',
+      password: '24Nr^1$d##dg',
+      database: 'db8tlaoegfxlwz',
+      entities: [
+        Nas,
+        RadCheck,
+        RadUserGroup,
+        UserInfo,
+        Zone,
+        Radacct,
+        Plan,
+        System,
+        ZonaCliente
+      ],
+      synchronize: true, // Setear en 'false' cuando vaya a produccion
     }),
     CoaModule,
     NasModule,
