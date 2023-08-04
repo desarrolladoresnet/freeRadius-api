@@ -209,7 +209,6 @@ export class CoaService {
       }
       const secret = nas[0].secret;
 
-      //TODO: crear Tablas para estos valores
       const url_suspension = 'http://10.10.20.7/avisodecorte';
       const acl_suspension = 'suspendido';
 
@@ -225,12 +224,12 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res);
-      // if (!statusCoa) {
-      //   const str = `No se pudo suspender al usuario ${username}`;
-      //   console.log(`${str}\n------------------------------------------------\n`);
-      //   return str;
-      // }
+      const statusCoa = this.CoA_Status(res);
+      if (!statusCoa) {
+        const str = `No se pudo suspender al usuario ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
+      }
 
       const data = { username, groupname: 'suspendido', priority: 1 };
 
@@ -425,12 +424,12 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res);
-      // if (!statusCoa) {
-      //   const str = `No se pudo suspender al usuario ${username}`;
-      //   console.log(`${str}\n------------------------------------------------\n`);
-      //   return str;
-      // }
+      const statusCoa = this.CoA_Status(res);
+      if (!statusCoa) {
+        const str = `No se pudo suspender al usuario ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        return str;
+      }
 
       return `El usuario ${username} fue modificado exitosamente`;
     } catch (error) {

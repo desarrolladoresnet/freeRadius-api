@@ -41,7 +41,7 @@ export class ServicesService {
    * @param service { Service }
    * @returns { object }
    */
-  async create(service: Service) {
+  async CreateService(service: Service) {
     const { sys, clientId, radiusId, plan } = service;
 
     try {
@@ -81,7 +81,11 @@ export class ServicesService {
 
   /////////////////////////////////////////////////////////////////////////////////////////
 
-  async findAll() {
+  /**
+   * Trae toda las entradas en la tabla services.
+   * @returns { Array }
+   */
+  async FindAllServices() {
     try {
       console.log(`Buscando entradas en 'services`);
       const services = await this.servicesRepository.find({
@@ -116,7 +120,7 @@ export class ServicesService {
    * @param id { number }
    * @returns { object }
    */
-  async findOne(id: number) {
+  async FindOnService(id: number) {
     //console.log((await this.servicesRepository.findOne({where:{ id }, relations:['sys','plan']})).plan['id'])
     try {
       console.log(`Buscando entradas en 'services con el id: ${id}`);
@@ -153,7 +157,7 @@ export class ServicesService {
    * @param id
    * @returns
    */
-  async findOneOnSys(id: number): Promise<any | null> {
+  async FindOneOnSys(id: number): Promise<any | null> {
     try {
       console.log(`Buscando informacion en service de la entrada ${id}`);
       const serv = await this.servicesRepository.findOne({
@@ -194,7 +198,7 @@ export class ServicesService {
    * @param node
    * @returns
    */
-  async sync(node: string) {
+  async SyncService(node: string) {
     try {
       const nodeSys = await this.nodesRepository.findOne({
         where: { name: node },
@@ -235,7 +239,7 @@ export class ServicesService {
                   })
                 ) {
                 } else {
-                  this.update(userService.id, { status: 2 });
+                  this.UpdateService(userService.id, { status: 2 });
                   this.coaServices.SuspendUser(o.username);
                 }
               } else if (compServ['estado'] == 'Cancelado') {
@@ -245,7 +249,7 @@ export class ServicesService {
                   })
                 ) {
                 } else {
-                  this.update(userService.id, { status: 3 });
+                  this.UpdateService(userService.id, { status: 3 });
                   this.coaServices.ChangePlan({
                     username: o.username,
                     newgroupname: 'cancelado',
@@ -261,7 +265,7 @@ export class ServicesService {
                   where: { name: compServ['plan_internet']['nombre'] },
                 });
                 if (userService.plan['id'] != plan.id) {
-                  this.update(userService.id, {
+                  this.UpdateService(userService.id, {
                     plan: [
                       { id: plan.id, listName: plan.listName, name: plan.name },
                     ],
@@ -294,7 +298,7 @@ export class ServicesService {
    * @param updateServDto 
    * @returns 
    */
-  async update(id: number, updateServDto: UpdateServiceDto) {
+  async UpdateService(id: number, updateServDto: UpdateServiceDto) {
     const { sys, clientId, radiusId, status, plan } = updateServDto;
 
     //* Verificacion de valores para modificar *//
@@ -336,7 +340,7 @@ export class ServicesService {
    * Elimina una entrada en service mendiante el id.
    * @param id
    */
-  async remove(id: number) {
+  async RemoveService(id: number) {
     try {
       console.log(`Eliminando entrada en service con el id. ${id}`);
 

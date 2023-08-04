@@ -12,42 +12,83 @@ import { CreateServiceDto } from '../dto/create-service.dto';
 import { UpdateServiceDto } from 'src/dto/update-service.dto';
 // import { UpdateServiceDto } from './dto/update-service.dto';
 
+/**
+ * Modulo que reune los principales datos de los servicios prestados a un cliente.
+ * Principalmente trata con el id de Wisphub y Radius.
+ */
 @Controller('services')
 export class ServicesController {
   constructor(private servService: ServicesService) {}
 
+  /**
+   * Permite crear una nueva entrada en la tabla services.
+   * Retorna la entrada creada.
+   * @param createServtDto 
+   * @returns { object }
+   */
   @Post()
-  create(@Body() createServtDto: CreateServiceDto) {
-    return this.servService.create(createServtDto);
+  create(@Body() data: CreateServiceDto) {
+    return this.servService.CreateService(data);
   }
 
+  /**
+   * Trae todas la entradas encontradas en la tabla services.
+   * @returns { Array }
+   */
   @Get()
   findAll() {
-    return this.servService.findAll();
+    return this.servService.FindAllServices();
   }
 
+  /**
+   * 
+   * @param node 
+   * @returns 
+   */
   @Get('sync/:node')
   async sync(@Param('node') node: string) {
-    return await this.servService.sync(node);
+    return await this.servService.SyncService(node);
   }
 
+  /**
+   * Trae una entrada mendiante el id
+   * @param id { number }
+   * @returns { object }
+   */
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.servService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.servService.FindOnService(id);
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   @Get(':id/sys')
-  findOneOnSys(@Param('id') id: string) {
-    return this.servService.findOneOnSys(+id);
+  findOneOnSys(@Param('id') id: number) {
+    return this.servService.FindOneOnSys(id);
   }
 
+  /**
+   * Modifica una entrada mediante el id.
+   * Si por alguna razón, como puede ser que el metodo sea llamado por otro metodo en otro modulo, los parametros de update llegan vacios, la peticion será rechazada.
+   * @param id { number }
+   * @param data { UpdateServDto } 
+   * @returns { object }
+   */
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServDto: UpdateServiceDto) {
-    return this.servService.update(+id, updateServDto);
+  update(@Param('id') id: number, @Body() data: UpdateServiceDto) {
+    return this.servService.UpdateService(id, data);
   }
 
+  /**
+   * Elimina una entyrada de la tabla service mediante el id.
+   * @param id { number }
+   * @returns { object }
+   */
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.servService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.servService.RemoveService(id);
   }
 }
