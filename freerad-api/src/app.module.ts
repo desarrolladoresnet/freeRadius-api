@@ -20,6 +20,8 @@ import { SystemsModule } from './systems/systems.module';
 import { Plan } from './database/plan.entity';
 import { System } from './database/system.entity';
 import { ZonaCliente } from './database/node.entity';
+import { ServicesModule } from './services/services.module';
+import { Service } from './database/service.entity';
 
 @Module({
   imports: [
@@ -50,7 +52,9 @@ import { ZonaCliente } from './database/node.entity';
         Radacct,
         Plan,
         System,
-        ZonaCliente
+        ZonaCliente,
+        Service,
+        UserInfo
       ],
       synchronize: true, // Setear en 'false' cuando vaya a produccion
     }),
@@ -63,6 +67,8 @@ import { ZonaCliente } from './database/node.entity';
     SystemsModule,
     UserInfoModule,
     ZoneModule,
+    ServicesModule,
+    NodesModule
   ],
   controllers: [AppController],
   providers: [AppService],

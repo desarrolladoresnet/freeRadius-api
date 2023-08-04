@@ -16,5 +16,6 @@ import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
   imports: [TypeOrmModule.forFeature([UserInfo, Radacct, Nas, RadUserGroup])],
   providers: [CoaService, RadusergroupService],
   controllers: [CoaController],
+  exports: [CoaService]
 })
 export class CoaModule {}

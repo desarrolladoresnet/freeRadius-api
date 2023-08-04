@@ -14,6 +14,10 @@ import { CoaModule } from 'src/coa/coa.module';
 import { UserInfo } from 'src/database/user.entity';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
 
+/**
+ * Modulo que reuno los principales datos de los servicios prestados a un cliente.
+ * Principalmente el id de Wisphub y Radius.
+ */
 @Module({
   imports: [
     TypeOrmModule.forFeature([
