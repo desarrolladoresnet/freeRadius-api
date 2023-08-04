@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
 import {
@@ -67,7 +67,7 @@ export class RadusergroupService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -98,7 +98,7 @@ export class RadusergroupService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -171,7 +171,7 @@ export class RadusergroupService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -228,7 +228,8 @@ export class RadusergroupService {
       return userGroupUpdated;
     } catch (error) {
       console.error(error);
-      return error;
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -270,7 +271,8 @@ export class RadusergroupService {
       return true;
     } catch (error) {
       console.error(error);
-      return error;
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

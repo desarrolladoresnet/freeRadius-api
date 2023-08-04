@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateNodeDto } from '../database/create-node.dto';
 // import { UpdateNodeDto } from './dto/update-node.dto';
 import { UpdateNodeDto } from 'src/database/update-node.dto';
@@ -55,7 +55,7 @@ export class NodesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -84,7 +84,7 @@ export class NodesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -120,7 +120,7 @@ export class NodesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -176,7 +176,7 @@ export class NodesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -209,7 +209,7 @@ export class NodesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

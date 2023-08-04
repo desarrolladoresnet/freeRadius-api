@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/database/nas.entity';
 import { NasDto } from 'src/dto/nas.dto';
@@ -63,7 +63,7 @@ export class NasService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -124,7 +124,7 @@ export class NasService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -176,7 +176,7 @@ export class NasService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

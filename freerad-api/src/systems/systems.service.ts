@@ -58,8 +58,9 @@ export class SystemsService {
       return saveSys;
     }
     catch (error) {
-      console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -85,7 +86,7 @@ export class SystemsService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -107,8 +108,10 @@ export class SystemsService {
 
       console.log(`Entrada encontrada.\n------------------------------------------------\n`);
       return sys;
-    } catch (err) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -147,7 +150,7 @@ export class SystemsService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -176,7 +179,7 @@ export class SystemsService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
   }
@@ -220,7 +223,7 @@ export class SystemsService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -248,7 +251,7 @@ export class SystemsService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

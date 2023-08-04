@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserDto } from 'src/dto/user.dto';
@@ -138,7 +138,7 @@ export class UserInfoService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -160,7 +160,7 @@ export class UserInfoService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -184,7 +184,7 @@ export class UserInfoService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -245,7 +245,7 @@ export class UserInfoService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

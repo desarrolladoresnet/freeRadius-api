@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/database/nas.entity';
 import { Radacct } from 'src/database/radacct.entity';
@@ -45,7 +45,7 @@ export class CoaService {
       console.log(
         '------------------------------------------------------------------------------',
       );
-      return error;
+      throw error;
     }
   }
 
@@ -149,7 +149,7 @@ export class CoaService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -243,10 +243,9 @@ export class CoaService {
       }
       return `El usuario ${username} fue suspendido exitosamente`;
     } catch (error) {
-      console.log(
-        `${error}\n------------------------------------------------\n`,
-      );
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -353,7 +352,7 @@ export class CoaService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -435,7 +434,7 @@ export class CoaService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

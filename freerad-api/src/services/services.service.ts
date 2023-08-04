@@ -71,10 +71,9 @@ export class ServicesService {
       );
       return serviceSave;
     } catch (error) {
-      console.log(error);
-      console.log(
-        '------------------------------------------------------------------------------',
-      );
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
       return error;
     }
   }
@@ -105,11 +104,9 @@ export class ServicesService {
       );
       return services;
     } catch (error) {
-      console.log(error);
-      console.log(
-        '------------------------------------------------------------------------------',
-      );
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -142,11 +139,9 @@ export class ServicesService {
       );
       return services;
     } catch (error) {
-      console.log(error);
-      console.log(
-        '------------------------------------------------------------------------------',
-      );
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -185,9 +180,10 @@ export class ServicesService {
         `Servicio encontrado.\n------------------------------------------------\n`,
       );
       return find;
-    } catch (err) {
-      console.log(err);
-      throw new HttpException('No se encontró', HttpStatus.NOT_FOUND);
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -285,7 +281,7 @@ export class ServicesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -330,7 +326,7 @@ export class ServicesService {
     catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -360,7 +356,7 @@ export class ServicesService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

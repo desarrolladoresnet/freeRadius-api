@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePlanDto } from '../dto/plan.dto';
 // import { UpdatePlanDto } from 'src/dto/update-plan.dto';
 import { UpdatePlanDto } from '../dto/plan.dto';
@@ -65,7 +65,9 @@ export class PlanService {
       return planSave;
     } catch (error) {
       console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -93,7 +95,9 @@ export class PlanService {
       return planes;
     } catch (error) {
       console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -122,8 +126,9 @@ export class PlanService {
       );
       return plan;
     } catch (error) {
-      console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -166,8 +171,9 @@ export class PlanService {
       console.log(`Update exitoso`);
       return update;
     } catch (error) {
-      console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -194,8 +200,9 @@ export class PlanService {
       console.log(`Plan eliminado exitosamente`);
       return del;
     } catch (error) {
-      console.log(error);
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

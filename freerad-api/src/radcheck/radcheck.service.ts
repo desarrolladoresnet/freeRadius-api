@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RadCheck } from 'src/database/radcheck.entity';
 import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
@@ -37,7 +37,9 @@ export class RadcheckService {
       console.log(`${str}\n------------------------------------------------\n`);
       return allRadChecks;
     } catch (error) {
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -68,7 +70,7 @@ export class RadcheckService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -118,7 +120,9 @@ export class RadcheckService {
       console.log(`radcheck creado exitosamente`);
       return saveRad;
     } catch (error) {
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -180,7 +184,7 @@ export class RadcheckService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
