@@ -1,17 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
-// import { CreateServiceDto } from '../dto/create-service.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateServiceDto } from 'src/dto/update-service.dto';
+import { CoaService } from 'src/coa/coa.service';
+import { SystemsService } from 'src/systems/systems.service';
+// import { CreateServiceDto } from '../dto/create-service.dto';
+//* EMTIDADES *//
 import { Service } from '../database/service.entity';
 import { ZonaCliente } from 'src/database/node.entity';
 import { System } from 'src/database/system.entity';
-import { SystemsService } from 'src/systems/systems.service';
-import { CoaService } from 'src/coa/coa.service';
-import { Plan } from 'src/database/plan.entity';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
 import { UserInfo } from 'src/database/user.entity';
-import { UpdateServiceDto } from 'src/dto/update-service.dto';
+import { Plan } from 'src/database/plan.entity';
 
 @Injectable()
 export class ServicesService {
@@ -32,7 +33,7 @@ export class ServicesService {
     private coaServices: CoaService,
   ) {}
 
-  private readonly services: Service[] = [];
+  //private readonly services: Service[] = [];
 
   /////////////////////////////////////////////////////////////////////////////////////////
 

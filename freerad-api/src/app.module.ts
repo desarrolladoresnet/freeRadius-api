@@ -1,29 +1,31 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserInfo } from './database/user.entity';
-import { Nas } from './database/nas.entity';
-import { Zone } from './database/zone.entity';
 import { CoaModule } from './coa/coa.module';
+//* MODULOS *//
+import { NasModule } from './nas/nas.module';
+import { NodesModule } from './nodes/nodes.module';
+import { PlanModule } from './plan/plan.module';
+import { ServicesModule } from './services/services.module';
+import { SystemsModule } from './systems/systems.module';
 import { RadusergroupModule } from './radusergroup/radusergroup.module';
 import { RadcheckModule } from './radcheck/radcheck.module';
-import { ZoneModule } from './zone/zone.module';
-import { NasModule } from './nas/nas.module';
-import { RadCheck } from './database/radcheck.entity';
-import { RadUserGroup } from './database/radusergroup.entity';
 import { UserInfoModule } from './user-info/user-info.module';
+import { ZoneModule } from './zone/zone.module';
+//* ENTIDADES *//
+import { Nas } from './database/nas.entity';
+import { RadCheck } from './database/radcheck.entity';
 import { Radacct } from './database/radacct.entity';
-import { PlanModule } from './plan/plan.module';
-import { NodesModule } from './nodes/nodes.module';
-import { SystemsModule } from './systems/systems.module';
 import { Plan } from './database/plan.entity';
-import { System } from './database/system.entity';
-import { ZonaCliente } from './database/node.entity';
-import { ServicesModule } from './services/services.module';
 import { Service } from './database/service.entity';
-import { ConfigModule } from '@nestjs/config';
+import { System } from './database/system.entity';
+import { RadUserGroup } from './database/radusergroup.entity';
+import { UserInfo } from './database/user.entity';
+import { ZonaCliente } from './database/node.entity';
+import { Zone } from './database/zone.entity';
 
 @Module({
   imports: [

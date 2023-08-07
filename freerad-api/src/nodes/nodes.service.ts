@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateNodeDto } from '../database/create-node.dto';
+// import { CreateNodeDto } from '../database/create-node.dto';
 // import { UpdateNodeDto } from './dto/update-node.dto';
 import { UpdateNodeDto } from 'src/database/update-node.dto';
 import { ZonaCliente } from '../database/node.entity';

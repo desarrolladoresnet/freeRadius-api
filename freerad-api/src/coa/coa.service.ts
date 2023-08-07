@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Nas } from 'src/database/nas.entity';
-import { Radacct } from 'src/database/radacct.entity';
-import { UserInfo } from 'src/database/user.entity';
-import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
+import { ConfigService } from '@nestjs/config'
+//* IMPORTACIONES VARIAS *//
 import { Repository } from 'typeorm';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
-import { ConfigService } from '@nestjs/config'
+//* ENTIDADES *//
+import { Nas } from 'src/database/nas.entity';
+import { Radacct } from 'src/database/radacct.entity';
+import { UserInfo } from 'src/database/user.entity';
 
 @Injectable()
 export class CoaService {
