@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RadCheck } from 'src/database/radcheck.entity';
@@ -31,7 +32,18 @@ export class RadcheckService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const str = `Entradas encontradas`;
       console.log(`${str}\n------------------------------------------------\n`);
@@ -60,7 +72,18 @@ export class RadcheckService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return `No hay datos con el id: ${id}`;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(
@@ -78,10 +101,10 @@ export class RadcheckService {
 
   /**
    * Permite crear una entrada en la tabla.
-   * En general este proceso es realizado cuando se crea un nuevo usuario en "userinfo", pero puede ser util en casos donde se cree la entrada de "userinfo" pero falle en "radcheck". 
+   * En general este proceso es realizado cuando se crea un nuevo usuario en "userinfo", pero puede ser util en casos donde se cree la entrada de "userinfo" pero falle en "radcheck".
    * Se requiere "username" de manera obligatoria, los otros parametros pueden ser enviados, sino se aplican el resto por defecto.
    * @param data { RadCheckDto }
-   * @returns 
+   * @returns { object }
    */
   async CreateRadCheck(data: RadCheckDto) {
     const { username, attribute, op, value } = data;
@@ -98,10 +121,21 @@ export class RadcheckService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          },
+        );
       }
 
-      const newRad = await this.radcheckRepository.create({
+      const newRad = this.radcheckRepository.create({
         username,
         attribute: attribute ? attribute : 'Cleartext-Password',
         op: op ? op : ':=',
@@ -109,12 +143,23 @@ export class RadcheckService {
       });
       const saveRad = await this.radcheckRepository.save(newRad);
 
-      if (!saveRad){
+      if (!saveRad) {
         const str = `Surgio un problema al guardar lo datos con el username: ${username}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`radcheck creado exitosamente`);
@@ -130,7 +175,7 @@ export class RadcheckService {
 
   /**
    * Metodo para update de la tabla "radcheck"
-   * Se necesita enviar el id y al menos un valor a modificar que no sea el "username", de lo contrario la operacion es abortada. 
+   * Se necesita enviar el id y al menos un valor a modificar que no sea el "username", de lo contrario la operacion es abortada.
    * @param id { number }
    * @param data { RadCheckUpdateDto }
    * @returns { object }
@@ -142,12 +187,21 @@ export class RadcheckService {
     if (!attribute && !op && !value) {
       const str = `No se enviaron atributos para modificar.\n attributre: ${attribute}, op: ${op}, value:${value}.`;
       console.log(`${str}\n------------------------------------------------\n`);
-      return str;
+      const err = new Error(str);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: err,
+        },
+      );
     }
 
     try {
       console.log(`Haciendo update del rad ${id}`);
-
       //* Busqueda de la entada *//
       const rad = await this.radcheckRepository.findOneBy({
         id: id,
@@ -157,7 +211,17 @@ export class RadcheckService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       //* Actualizacion de valores *//
@@ -174,7 +238,17 @@ export class RadcheckService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(

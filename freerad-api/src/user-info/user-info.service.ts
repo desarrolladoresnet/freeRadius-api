@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,10 +45,19 @@ export class UserInfoService {
       });
 
       if (ifUser) {
-        console.log(`La onu: ${username} ya esta registrada.`);
+        const str = `El username/onu: ${username} ya esta registrada.`;
         console.log(`------------------------------------------------\n`);
-
-        return `La onu: ${username} ya esta registrada.`;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          },
+        );
       }
 
       const newLocal = this.usersRepository.create({
@@ -80,10 +90,20 @@ export class UserInfoService {
       const user = await this.usersRepository.save(newUser);
 
       if (!user) {
-        console.log(`No se pudo crear el usuario/onu: ${username}`);
+        const str = `No se pudo crear el usuario/onu: ${username}`;
         console.log(`------------------------------------------------\n`);
 
-        return `No se pudo crear el usuario/onu: ${username}`;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       /*
@@ -101,12 +121,20 @@ export class UserInfoService {
       const saveRadCheck = await this.radCheckRepository.save(radcheckCreate);
 
       if (!saveRadCheck) {
-        console.log(
-          `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"`,
-        );
+        const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"`;
         console.log(`------------------------------------------------\n`);
 
-        return `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radcheck"`;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
       console.log(`\nExito al registrar el RADCHECK`);
 
@@ -124,11 +152,20 @@ export class UserInfoService {
       const saveUserGroup = await this.radUserGroupRepository.save(usergroup);
 
       if (!saveUserGroup) {
-        console.log(
-          `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`,
-        );
+        const str = `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`;
         console.log(`------------------------------------------------\n`);
-        return `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`Usuario/Onu ${username} registrado exitosamente`);
@@ -148,9 +185,20 @@ export class UserInfoService {
       const users = await this.usersRepository.find();
 
       if (users?.length < 1) {
-        console.log('No se encontraron usuarios/onu');
+        const str = 'No se encontraron usuarios/onu';
         console.log(`------------------------------------------------\n`);
-        return 'No se encontraron usuarios/onu';
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(
@@ -172,9 +220,20 @@ export class UserInfoService {
       const users = await this.usersRepository.findOneBy({ id: id });
 
       if (!users) {
-        console.log(`No se econtro usuario con id: ${id}`);
+        const str = `No se econtro usuario con id: ${id}`;
         console.log(`------------------------------------------------\n`);
-        return `No se econtro usuario con id: ${id}`;
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(
@@ -199,10 +258,20 @@ export class UserInfoService {
       });
 
       if (!User) {
-        console.log(`La onu: ${data.username} no está asignada o no existe.`);
+        const str = `La onu: ${data.username} no está asignada o no existe.`;
         console.log(`------------------------------------------------\n`);
 
-        return `La onu: ${data.username} no está asignada o no existe`;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       User.firstname = data?.firstname ? data.firstname : User.firstname;
@@ -235,10 +304,20 @@ export class UserInfoService {
       const updateUser = await this.usersRepository.save(User);
 
       if (!updateUser) {
-        console.log(`No se pudo actualizar la onu : ${data.username}`);
+        const str = `No se pudo actualizar la onu : ${data.username}`;
         console.log(`------------------------------------------------\n`);
 
-        return `No se pudo actualizar la onu : ${data.username}`;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       return updateUser;

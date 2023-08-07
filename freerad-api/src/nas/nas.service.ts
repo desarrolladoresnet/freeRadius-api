@@ -33,7 +33,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return isNas;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          },
+        );
       }
 
       //* Crea una nueva entrada, el metdodo posee valores por defecto para no dejar espacio nulos en la memoria *//
@@ -56,7 +66,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`------------------------------------------------\n`);
@@ -86,7 +106,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`------------------------------------------------\n`);
@@ -117,7 +147,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`------------------------------------------------\n`);
@@ -135,7 +175,7 @@ export class NasService {
    * PErmite hacer update a una entrada del NAS.
    * Puede que el metodo tenga que ser desechadoo al menos la ruta que lo llama.
    * @param id { number }
-   * @param data { NasDto }
+   * @param data { NasDto } 
    * @returns { object }
    */
   async UpdateNas(id: number, data: NasDto) {
@@ -149,7 +189,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       nas.community = data?.community ? data.community : nas.community;
@@ -169,7 +219,17 @@ export class NasService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`------------------------------------------------\n`);

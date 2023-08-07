@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/database/nas.entity';
@@ -29,7 +30,10 @@ export class ZoneService {
   async CreateZone(data: ZoneDto) {
     const { name, tlf, codigo_zona, Nas, coord } = data;
 
-    console.log(`Creando nueva zona`);
+    console.log(
+      `Creando nueva zona con los valores name: ${name}, tlg: ${tlf}, codigo_zona: ${codigo_zona}, Nas: ${Nas} y coord: ${coord}`,
+    );
+
     try {
       //* Verifica que el NAS sea valido *//
       const isNas = await this.nasRepository.findOneBy({ id: Nas });
@@ -38,7 +42,13 @@ export class ZoneService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       //* Verifica que no haya un nas con el mismo nombre *//
@@ -46,7 +56,13 @@ export class ZoneService {
       if (isZone?.length > 0) {
         const str = `Ya hay una zona con el nombre: ${name}`;
         console.log(`${str}------------------------------------------------\n`);
-        return str;
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+        );
       }
 
       //* Crea la nueva zona *//
@@ -58,7 +74,19 @@ export class ZoneService {
         coord,
       });
 
+      console.log(`Guardando datos de la nueva zona`);
       const saveZone = await this.zoneRepository.save(newZone);
+      if (!saveZone) {
+        const str = `Hubo un problema al guardar la zona`;
+        console.log(`${str}------------------------------------------------\n`);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
 
       console.log(`Zona creada exitosamente`);
       console.log(`------------------------------------------------\n`);
@@ -82,9 +110,15 @@ export class ZoneService {
       const zones = await this.zoneRepository.find();
       console.log(`Buscando zonas`);
       if (zones?.length < 1) {
-        console.log(`No hay zonas registradas`);
+        const str = `No hay zonas registradas`;
         console.log(`------------------------------------------------\n`);
-        return 'No hay zonas registradas';
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       console.log(`Se encontraron ${zones?.length} zonas.`);
@@ -114,7 +148,13 @@ export class ZoneService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       console.log(`Zona encontrada`);
@@ -142,7 +182,13 @@ export class ZoneService {
     if (!name && !tlf && !codigo_zona && !Nas && !coord) {
       const str = `No hay valores para realizar update`;
       console.log(`${str}\n------------------------------------------------\n`);
-      return str;
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
     try {
       //* Se busca la zona *//
@@ -153,15 +199,27 @@ export class ZoneService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       //* Verifica existencia del NAS *//
       const isNas = await this.nasRepository.findOneBy({ id: Nas });
       if (!isNas) {
-        console.log(`El id del NAS: ${Nas}, no existe en la Base de Datos`);
+        const str = `El id del NAS: ${Nas}, no existe en la Base de Datos`;
         console.log(`------------------------------------------------\n`);
-        return `El id del NAS: ${Nas}, no existe en la Base de Datos`;
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       //* Update de los valores *//
@@ -178,7 +236,13 @@ export class ZoneService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
 
       console.log(

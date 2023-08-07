@@ -36,7 +36,17 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
       }
 
       const systNew = await this.sysRepository.create({
@@ -51,7 +61,18 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Guardado exitoso de entrada en 'system' con los valores name: ${name} y endopoint: ${endPoint}`);
@@ -76,7 +97,18 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Se encontraron ${systems?.length} 
@@ -103,7 +135,18 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Entrada encontrada.\n------------------------------------------------\n`);
@@ -126,12 +169,24 @@ export class SystemsService {
     try {
       console.log(`Buscando los servicios en el sistema con el id: ${id}.`);
       const sys = await this.sysRepository.findOneBy({ id });
+
       if (!sys) {
         const str = `No se pudo encontrar una entrada en 'system' con el id: ${id}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       //const ep = sys.endPoint;
@@ -164,6 +219,7 @@ export class SystemsService {
    */
   public async SysNode(id: number, node: string) {
     try {
+      console.log(`Buscando informacion de los nodos.`);
       const all = await this.AllOnSys(id);
       console.log(node);
       const nodeList: any[] = [];
@@ -174,6 +230,25 @@ export class SystemsService {
       });
       console.log(nodeList);
       const nodos = await nodeList;
+
+      if (nodeList?.length < 1) {
+        const str = `No se encontro info de los nodos en el sistema`;
+        console.log(str);
+        console.log(`------------------------------------------------\n`);
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
+      }
+      console.log(`Informacion de los nodos encontrada`);
       return nodos
     }
     catch (error) {
@@ -214,7 +289,18 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Entrada actualizada exitosamente`);
@@ -242,7 +328,18 @@ export class SystemsService {
       if (!del) {
         const str = `Hubo un error al elminar la entrada`;
         console.log(`${str}\n------------------------------------------------\n`);
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Entrada eliminada exitosamente.`);

@@ -41,7 +41,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
       }
 
       //* Si el plan no existe se crea *//
@@ -60,7 +70,17 @@ export class PlanService {
         console.log(
           `Plan guardado exitopsamente.\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
       return planSave;
     } catch (error) {
@@ -87,7 +107,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
       }
       console.log(
         `${planes?.length} planes encontrados.\n------------------------------------------------\n`,
@@ -118,7 +148,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
@@ -154,7 +194,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
       }
 
       //* Update del plan *//
@@ -165,7 +215,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Update exitoso`);
@@ -194,7 +254,17 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(`Plan eliminado exitosamente`);

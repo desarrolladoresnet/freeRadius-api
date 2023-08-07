@@ -19,13 +19,15 @@ export class NodesService {
 
   /**
    * Vrea una nueva entrada en la tabla ZonaCliente
-   * @param node 
-   * @returns 
+   * @param node
+   * @returns
    */
   async CreateNodo(node: ZonaCliente) {
     const { name, systems } = node;
     try {
-      console.log(`Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}`);
+      console.log(
+        `Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}`,
+      );
 
       const isZona = await this.nodeRepository.findOneBy({ name });
 
@@ -34,25 +36,46 @@ export class NodesService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          },
+        );
       }
 
       const nodeNew = await this.nodeRepository.create({
         name,
         systems,
       });
-      const nodeSave =  await this.nodeRepository.save(nodeNew);
+      const nodeSave = await this.nodeRepository.save(nodeNew);
       if (!nodeSave) {
         const str = `Hubo un problema al crear la zona con el el name: ${name}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
-      console.log(`Zona/Nodo creada exitosamente.\n------------------------------------------------\n`);
+      console.log(
+        `Zona/Nodo creada exitosamente.\n------------------------------------------------\n`,
+      );
       return nodeSave;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,20 +91,33 @@ export class NodesService {
   async FindAllNodes() {
     try {
       console.log(`Buscando todas las ZonaClientes/Nodos.`);
-      const zonasNodos = await this.nodeRepository.find({ relations: ['systems'] });
-      
-      if(zonasNodos?.length < 1) {
+      const zonasNodos = await this.nodeRepository.find({
+        relations: ['systems'],
+      });
+
+      if (zonasNodos?.length < 1) {
         const str = `No se encontraron Zonas/Nodos en la tabla.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
-      console.log(`${zonasNodos?.length} Zonas/nodos encontradas.\n------------------------------------------------\n`);
-    return zonasNodos;
-    }
-    catch (error) {
+      console.log(
+        `${zonasNodos?.length} Zonas/nodos encontradas.\n------------------------------------------------\n`,
+      );
+      return zonasNodos;
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,20 +140,29 @@ export class NodesService {
         relations: ['systems'],
       });
 
-      if (!nodo ) {
+      if (!nodo) {
         const str = `No se encontraron Zonas/Nodos con el id: ${id}.`;
-          console.log(
-            `${str}\n------------------------------------------------\n`,
-          );
-          return str;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`ZonaCLiente/Nodo encontrado`);
       console.log(`------------------------------------------------\n`);
 
       return nodo;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -130,7 +175,7 @@ export class NodesService {
    * Metodo para hacer update a las entradas de la tabla.
    * Si name y system llegan vacios la solicitud se rechaza.
    * @param id { number }
-   * @param updateNodeDto { UpdateNodeDto } 
+   * @param updateNodeDto { UpdateNodeDto }
    * @returns { object }
    */
   async UpdateNode(id: number, updateNodeDto: UpdateNodeDto) {
@@ -138,10 +183,18 @@ export class NodesService {
 
     if (!name && !systems) {
       const str = `No hay valores para realizar updates.`;
-          console.log(
-            `${str}\n------------------------------------------------\n`,
-          );
-          return str;
+      console.log(`${str}\n------------------------------------------------\n`);
+      const err = new Error(str);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: err,
+        },
+      );
     }
 
     try {
@@ -149,10 +202,20 @@ export class NodesService {
       const zoneToUpdate = await this.nodeRepository.findOneBy({ id });
       if (!zoneToUpdate) {
         const str = `No se encontraron Zonas/Nodos con el id: ${id}.`;
-          console.log(
-            `${str}\n------------------------------------------------\n`,
-          );
-          return str;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       //* Actualizando *//
@@ -162,18 +225,26 @@ export class NodesService {
       const saveUpdate = await this.nodeRepository.save(zoneToUpdate);
       if (!saveUpdate) {
         const str = `Hubo un problema al salvar los cambios.`;
-          console.log(
-            `${str}\n------------------------------------------------\n`,
-          );
-          return str;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`Update realizado exitosamente.`);
       console.log(`------------------------------------------------\n`);
       return saveUpdate;
-
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -192,21 +263,30 @@ export class NodesService {
       console.log(`Eliminando ZonaCliente/Nodo con id: ${id}`);
 
       const del = await this.nodeRepository.delete(id);
-      
+
       if (!del) {
         const str = `No se pudo eliminar la ZonaCliente/Nodo.`;
-          console.log(
-            `${str}\n------------------------------------------------\n`,
-          );
-          return str;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       console.log(`Entrada eliminada exitosamente`);
       console.log(`------------------------------------------------\n`);
 
       return del;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

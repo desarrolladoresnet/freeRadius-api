@@ -41,7 +41,19 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
+
       }
 
       const newUserGroup = await this.radUserGroup.create({
@@ -57,7 +69,18 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
@@ -88,11 +111,22 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
-        `Entradas encontradas.\n------------------------------------------------\n`,
+        `${allUserGroups?.length} entradas encontradas.\n------------------------------------------------\n`,
       );
       return allUserGroups;
     } catch (error) {
@@ -116,9 +150,20 @@ export class RadusergroupService {
 
     //* Se verifica que haya parametros suficientes para realizar una busqueda *//
     if (username == 'vacio' && groupname == 'vacio') {
-      console.log('Busqueda invalida');
-      console.log(`------------------------------------------------\n`);
-      return 'Busqueda invalida';
+      const str = 'Busqueda invalida';
+      console.log(`${str}\n------------------------------------------------\n`);
+
+      const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
     }
 
     try {
@@ -161,7 +206,18 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
@@ -187,9 +243,20 @@ export class RadusergroupService {
 
     //* Se verifica que no haya campos vacios para realizar el update *//
     if (!username || !groupname || !priority) {
-      console.log(`Operacion invalida`);
-      console.log(`------------------------------------------------\n`);
-      return `Operacion invalida`;
+      const str = `Operacion invalida`;
+      console.log(`${str}\n------------------------------------------------\n`);
+      
+      const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
     }
 
     try {
@@ -219,7 +286,17 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return false;
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
@@ -245,8 +322,9 @@ export class RadusergroupService {
     const { username, groupname } = data;
 
     if (!username || !groupname) {
+      const str =  `Operacion inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
       console.log(
-        `Operacion invalida por falta de datos para "username":${username} y/o groupname":${groupname}`,
+        `${str}\n------------------------------------------------\n`,
       );
       return false;
     }
@@ -261,18 +339,19 @@ export class RadusergroupService {
       });
 
       if (!toDelete) {
+        const str = `Hubo un problema al eliminar la entrada o no se encontro un "username":${username} con groupname":${groupname}`;
         console.log(
-          `No se encontro un "username":${username} con groupname":${groupname}`,
+          `${str}\n------------------------------------------------\n`,
         );
         return false;
       }
 
-      console.log(toDelete);
+      console.log("Entrada eliminada exitosamente");
       return true;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+      return false;
     }
   }
 }
