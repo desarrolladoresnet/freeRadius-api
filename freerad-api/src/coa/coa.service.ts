@@ -210,10 +210,7 @@ export class CoaService {
    * @returns Queda pendiente la respuesta
    */
   async SuspendUser(username: string) {
-    const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
-      const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
-
-      console.log(`URL ${url_suspension}\nACL ${acl_suspension}`)
+    
       //* Preparacion de comandos para Radius. *//
     try {
       /*
