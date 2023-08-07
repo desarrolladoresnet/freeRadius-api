@@ -190,7 +190,7 @@ export class PlanService {
         where: [{ name }, { listName }],
       });
       if (isName?.length > 0) {
-        const str = `Ya existe un plan con el name:'${name}' o listName:'${listName}'`;
+        const str = `No se encontró un plan con el name:'${name}' y listName:'${listName}'`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

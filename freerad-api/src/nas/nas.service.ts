@@ -102,7 +102,7 @@ export class NasService {
 
       //* Verifica la existencia de entradas en la tabla. *//
       if (allNas?.length < 1) {
-        const str = `No se encontraron Nas`;
+        const str = `No se encontraron NAS`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -143,7 +143,7 @@ export class NasService {
 
       //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        const str = `No se encontro un nas con el id: ${id}`;
+        const str = `No se encontro un NAS con el id: ${id}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -185,7 +185,7 @@ export class NasService {
 
       //* Verificacion de que exista la entrada buscada. *//
       if (!nas) {
-        const str = `No se encontro un nas con el id: ${id}`;
+        const str = `No se encontro un NAS con el id: ${id}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

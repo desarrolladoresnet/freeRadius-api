@@ -60,11 +60,22 @@ export class ServicesService {
       //* Salvando tabla y verificación *//
       const serviceSave = await this.servicesRepository.save(serviceNew);
       if (!serviceSave) {
-        const str = `Hubo un problema para salvar el servicio`;
+        const str = `Hubo un problema para guardar el servicio`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
       }
 
       console.log(
@@ -121,14 +132,14 @@ export class ServicesService {
   async FindOnService(id: number) {
     //console.log((await this.servicesRepository.findOne({where:{ id }, relations:['sys','plan']})).plan['id'])
     try {
-      console.log(`Buscando entradas en 'services con el id: ${id}`);
+      console.log(`Buscando entradas en 'services' con el id: ${id}`);
       const services = await this.servicesRepository.findOne({
         where: { id },
         relations: ['sys', 'plan'],
       });
 
       if (!services) {
-        const str = `No se encontro un servicio con el id: ${id}.`;
+        const str = `No se encontró un servicio con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -171,7 +182,7 @@ export class ServicesService {
         .then((res) => res.body);
 
       if (!find) {
-        const str = `No se encontro informacion relativo al servicio con el id: ${id}.`;
+        const str = `No se encontro información relativa al servicio con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -300,7 +311,7 @@ export class ServicesService {
 
     //* Verificacion de valores para modificar *//
     if (!sys && !clientId && !radiusId && status && !plan ){
-      const str = `No se encontro informacion relativo al servicio con el id: ${id}.`;
+      const str = `Los campos para acutalizar el servicio están vacios.\n Se intentó actualizar el servicio con id: ${id}.`;
       console.log(
         `${str}\n------------------------------------------------\n`,
       );
@@ -344,7 +355,7 @@ export class ServicesService {
       const del = await this.servicesRepository.delete(id);
 
       if (!del) {
-        const str = `hubo un problema al eliminar la entrada`;
+        const str = `Hubo un problema al eliminar la entrada`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

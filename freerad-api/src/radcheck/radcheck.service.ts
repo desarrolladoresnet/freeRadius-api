@@ -144,7 +144,7 @@ export class RadcheckService {
       const saveRad = await this.radcheckRepository.save(newRad);
 
       if (!saveRad) {
-        const str = `Surgio un problema al guardar lo datos con el username: ${username}`;
+        const str = `Hubo un problema al guardar lo datos con el username: ${username}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

@@ -219,7 +219,7 @@ export class SystemsService {
    */
   public async SysNode(id: number, node: string) {
     try {
-      console.log(`Buscando informacion de los nodos.`);
+      console.log(`Buscando información de los nodos.`);
       const all = await this.AllOnSys(id);
       console.log(node);
       const nodeList: any[] = [];
@@ -232,7 +232,7 @@ export class SystemsService {
       const nodos = await nodeList;
 
       if (nodeList?.length < 1) {
-        const str = `No se encontro info de los nodos en el sistema`;
+        const str = `No se encontro información de los nodos en el sistema`;
         console.log(str);
         console.log(`------------------------------------------------\n`);
         
@@ -248,7 +248,7 @@ export class SystemsService {
           }
         );
       }
-      console.log(`Informacion de los nodos encontrada`);
+      console.log(`Información de los nodos encontrada`);
       return nodos
     }
     catch (error) {
@@ -272,7 +272,7 @@ export class SystemsService {
 
     //* Verifica que hayan valores para actualizar *//
     if (!name && !apiKey && !endPoint ) {
-      const str = `No hay valores para actualizar`;
+      const str = `No hay valores para actualizar. Tabla system.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -321,7 +321,7 @@ export class SystemsService {
    */
   async RemoveSys(id: number) {
     try {
-      console.log(`Eliminando entrada con el id: ${id}`);
+      console.log(`Eliminando entrada de system con el id: ${id}`);
 
       const del = await this.sysRepository.delete(id);
 

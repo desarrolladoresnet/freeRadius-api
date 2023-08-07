@@ -38,7 +38,7 @@ export class UserInfoService {
        ** USERIFNO
        */
 
-      console.log(`Creando el usuario: ${username}`);
+      console.log(`Creando el usuario/onu: ${username}`);
 
       const ifUser = await this.usersRepository.findOneBy({
         username: username,
@@ -168,7 +168,7 @@ export class UserInfoService {
         );
       }
 
-      console.log(`Usuario/Onu ${username} registrado exitosamente`);
+      console.log(`Usuario/onu ${username} registrado exitosamente`);
       console.log(`------------------------------------------------\n`);
 
       return user;
@@ -216,11 +216,11 @@ export class UserInfoService {
 
   async FindById(id: number) {
     try {
-      console.log(`Bucando usuario con id: ${id}`);
+      console.log(`Bucando usuario/onu con id: ${id}`);
       const users = await this.usersRepository.findOneBy({ id: id });
 
       if (!users) {
-        const str = `No se econtro usuario con id: ${id}`;
+        const str = `No se econtro usuario/onu con id: ${id}`;
         console.log(`------------------------------------------------\n`);
 
         const err = new Error(str);
@@ -237,7 +237,7 @@ export class UserInfoService {
       }
 
       console.log(
-        `Usuario encontrado!\n------------------------------------------------\n`,
+        `Usuario/onu encontrado!\n------------------------------------------------\n`,
       );
       return users;
     } catch (error) {
@@ -258,7 +258,7 @@ export class UserInfoService {
       });
 
       if (!User) {
-        const str = `La onu: ${data.username} no está asignada o no existe.`;
+        const str = `El username/onu: ${data.username} no está asignada o no existe.`;
         console.log(`------------------------------------------------\n`);
 
         const err = new Error(str);
@@ -304,7 +304,7 @@ export class UserInfoService {
       const updateUser = await this.usersRepository.save(User);
 
       if (!updateUser) {
-        const str = `No se pudo actualizar la onu : ${data.username}`;
+        const str = `No se pudo actualizar la username/onu : ${data.username}`;
         console.log(`------------------------------------------------\n`);
 
         const err = new Error(str);

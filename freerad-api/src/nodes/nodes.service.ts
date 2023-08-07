@@ -55,7 +55,7 @@ export class NodesService {
       });
       const nodeSave = await this.nodeRepository.save(nodeNew);
       if (!nodeSave) {
-        const str = `Hubo un problema al crear la zona con el el name: ${name}`;
+        const str = `Hubo un problema al crear la ZonaCliente/Nodo con el el name: ${name}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -72,7 +72,7 @@ export class NodesService {
         );
       }
       console.log(
-        `Zona/Nodo creada exitosamente.\n------------------------------------------------\n`,
+        `ZonaCliente/Nodo creada exitosamente.\n------------------------------------------------\n`,
       );
       return nodeSave;
     } catch (error) {
@@ -96,7 +96,7 @@ export class NodesService {
       });
 
       if (zonasNodos?.length < 1) {
-        const str = `No se encontraron Zonas/Nodos en la tabla.`;
+        const str = `No se encontraron ZonaCliente/Nodos en la tabla.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -114,7 +114,7 @@ export class NodesService {
       }
 
       console.log(
-        `${zonasNodos?.length} Zonas/nodos encontradas.\n------------------------------------------------\n`,
+        `${zonasNodos?.length} ZonaCliente/nodos encontradas.\n------------------------------------------------\n`,
       );
       return zonasNodos;
     } catch (error) {
@@ -141,7 +141,7 @@ export class NodesService {
       });
 
       if (!nodo) {
-        const str = `No se encontraron Zonas/Nodos con el id: ${id}.`;
+        const str = `No se encontraron ZonaCliente/Nodo con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -201,7 +201,7 @@ export class NodesService {
       console.log(`Haciendo update al ZonaCliente/Nodo con id: ${id}`);
       const zoneToUpdate = await this.nodeRepository.findOneBy({ id });
       if (!zoneToUpdate) {
-        const str = `No se encontraron Zonas/Nodos con el id: ${id}.`;
+        const str = `No se encontró ZonaCliente/Nodo con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

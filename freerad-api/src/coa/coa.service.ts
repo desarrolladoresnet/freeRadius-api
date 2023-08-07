@@ -130,7 +130,7 @@ export class CoaService {
         take: 1,
       });
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontro una dirección 'nas' asociada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -270,7 +270,7 @@ export class CoaService {
         take: 1,
       });
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -367,7 +367,7 @@ export class CoaService {
     // Verifica que no hayan campos vacios.
     try {
       if (!username || !newgroupname) {
-        const str = `Verificar username: ${username} y newgrpouname: ${newgroupname}.`;
+        const str = `Verificar username: ${username} y newgroupname: ${newgroupname}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -439,7 +439,7 @@ export class CoaService {
       });
       console.log(nas);
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontro una dirección nas asociada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -508,7 +508,7 @@ export class CoaService {
           },
         );
       }
-      return `Se realizo el cambio de plan al usuario ${username} exitosamente`;
+      return `Se realizó el cambio de plan al usuario ${username} exitosamente`;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
@@ -584,7 +584,7 @@ export class CoaService {
       });
       console.log(nas);
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

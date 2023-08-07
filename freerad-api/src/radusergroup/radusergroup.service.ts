@@ -243,7 +243,7 @@ export class RadusergroupService {
 
     //* Se verifica que no haya campos vacios para realizar el update *//
     if (!username || !groupname || !priority) {
-      const str = `Operacion invalida`;
+      const str = `Operación inválida`;
       console.log(`${str}\n------------------------------------------------\n`);
       
       const err = new Error(str)
@@ -269,7 +269,7 @@ export class RadusergroupService {
       });
 
       if (!toUpdate) {
-        const str = `No se encontro un username: ${username}, y  groupname:${groupname}`;
+        const str = `No se encontró un username: ${username}, y  groupname:${groupname}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -300,7 +300,7 @@ export class RadusergroupService {
       }
 
       console.log(
-        `Actualizacion exitosa\n------------------------------------------------\n`,
+        `Actualización exitosa\n------------------------------------------------\n`,
       );
       return userGroupUpdated;
     } catch (error) {
@@ -322,7 +322,7 @@ export class RadusergroupService {
     const { username, groupname } = data;
 
     if (!username || !groupname) {
-      const str =  `Operacion inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
+      const str =  `Operación inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
       console.log(
         `${str}\n------------------------------------------------\n`,
       );
