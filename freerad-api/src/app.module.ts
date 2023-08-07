@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -22,21 +23,26 @@ import { System } from './database/system.entity';
 import { ZonaCliente } from './database/node.entity';
 import { ServicesModule } from './services/services.module';
 import { Service } from './database/service.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env.development', '.env'],
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
-      /*
-      type: 'mariadb',
-      host: 'localhost',
-      port: 3306,
-      // username: 'radius',
-      username: 'root',
-      // password: 'zh49cUPs8sQMvPgX',
-      password: '7448280',
+      
+      // type: 'mariadb',
+      // host: 'localhost',
+      // port: 3306,
+      // // username: 'radius',
+      // username: 'root',
+      // // password: 'zh49cUPs8sQMvPgX',
+      // password: '7448280',
+      // // database: 'radius',
       // database: 'radius',
-      database: 'radius',
-      */
+      
       type: 'mysql',
       host: 'netcomplus.com.ve',
       port: 3306,
@@ -73,4 +79,5 @@ import { Service } from './database/service.entity';
   controllers: [AppController],
   providers: [AppService],
 })
+// eslint-disable-next-line prettier/prettier
 export class AppModule {}

@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class CoaService {
@@ -20,6 +21,7 @@ export class CoaService {
     @InjectRepository(Nas)
     private readonly nasRepository: Repository<Nas>,
     private readonly userGroupService: RadusergroupService,
+    private configService: ConfigService
   ) {}
 
   /**
@@ -166,6 +168,11 @@ export class CoaService {
    * @returns Queda pendiente la respuesta
    */
   async SuspendUser(username: string) {
+    const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
+      const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
+
+      console.log(`URL ${url_suspension}\nACL ${acl_suspension}`)
+      //* Preparacion de comandos para Radius. *//
     try {
       /*
        * Busqueda de usuario en BD.
@@ -209,9 +216,10 @@ export class CoaService {
       }
       const secret = nas[0].secret;
 
-      const url_suspension = 'http://10.10.20.7/avisodecorte';
-      const acl_suspension = 'suspendido';
+      const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
+      const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
 
+      console.log(`URL ${url_suspension}\nACL ${acl_suspension}`)
       //* Preparacion de comandos para Radius. *//
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;

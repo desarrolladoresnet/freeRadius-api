@@ -1,4 +1,4 @@
-POST http://10.10.20.7:3000/user-info
+POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
