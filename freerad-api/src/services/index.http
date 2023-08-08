@@ -1,1 +1,13 @@
-GET http://localhost:3000/services
+GET http://10.10.20.7:3000/services
+###
+
+POST http://10.10.20.7:3000/services
+Content-Type: application/json
+
+{
+    "sys":"2", 
+    "clientId":3, 
+    "plan":1, 
+    "radiusId":1, 
+    "status":1
+    }

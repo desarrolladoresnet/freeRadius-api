@@ -7,8 +7,4 @@ GET  http://1.10.20.7:3000/systems/1/all
 POST http://10.10.20.7:3000/systems
 Content-Type: application/json
 
-{
-    "name":"Prueba Fran",
-    "apiKey":"esunakey",
-    "endPoint":"www.google.com"
-}
+{"name":"Wisphub_Sandbox", "apiKey":"sA6HAGdv.OE1WQ8RibymED1xPFdb6Yvzx1XYrl69Q", "endPoint": "https://sandbox-api.wisphub.net/api/clientes/"}

@@ -1,0 +1,22 @@
+GET http://10.10.20.7:3000/nodes
+
+###
+
+POST  http://10.10.20.7:3000/nodes
+Content-Type: application/json
+
+{
+    "name":"DAYCO-RO-BORDE2",
+    "systems":[{"id":2}]
+    }
+
+###
+###
+
+PUT  http://10.10.20.7:3000/nodes/1
+Content-Type: application/json
+
+{
+    "name":"DAYCO-RO-BORDE",
+    "systems":[{"id":2}]
+}

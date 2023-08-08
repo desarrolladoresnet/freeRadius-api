@@ -5,8 +5,8 @@ POST http://10.10.20.7:3000/plan
 Content-Type: application/json
 
 {
-    "name":"ftth 700",
-    "listName":"ftth 700"
+    "name":"ftth 555",
+    "listName":"ftth 555"
 }
 
 ###
@@ -19,10 +19,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE   http://localhost:3000/plan/6
+DELETE   http://10.10.20.7:3000/plan/3
 Content-Type: application/json
-
-{
-    "name":"ftth 700",
-    "listName":"ftth 700"
-}

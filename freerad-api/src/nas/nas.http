@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/nas
+GET http://10.10.20.7:3000/nas
 Content-Type: application/json
 
 {
@@ -8,26 +8,30 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/nas/3
+GET http://localhost:3000/nas/1
 
 
 ###
 
-POST http://localhost:3000/nas
+POST http://10.10.20.7:3000/nas
 Content-Type: application/json
 
 {
     "name":"Hola Mundo!",
-    "ip_address": "5558",
-    "secret": "123"
+    "ip_address": "8.8.8.8",
+    "secret": "123",
+    "server": "http://10.10.20.7/avisodecorte",
+    "community": "suspendido"
 }
 
 ###
-PUT http://localhost:3000/nas/3
+PUT http://10.10.20.7:3000/nas/1
 Content-Type: application/json
 
 {
     "name":"Hello World!",
-    "ip_address": "172.16.10.2",
-    "secret": "Secreto"
+    "ip_address": "8.8.8.8",
+    "secret": "123",
+    "server": "http://10.10.20.7/avisodecorte",
+    "community": "suspendido"
 }

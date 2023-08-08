@@ -43,7 +43,7 @@ export class ServicesService {
    * @returns { object }
    */
   async CreateService(service: Service) {
-    const { sys, clientId, radiusId, plan } = service;
+    const { sys, clientId, radiusId, plan, status } = service;
 
     try {
       //* Crando tabla *//
@@ -55,6 +55,7 @@ export class ServicesService {
         clientId,
         radiusId,
         plan,
+        status: status ? status : 1,
       });
 
       //* Salvando tabla y verificación *//
