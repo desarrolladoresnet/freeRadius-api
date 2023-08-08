@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { NasService } from './nas.service';
-import { NasDto } from 'src/dto/nas.dto';
+import { NasDto, NasDtoUpdate } from 'src/dto/nas.dto';
 
 /**
  * La tabla NAS refiere a "Servidor de Acceso a la Red".
@@ -47,7 +47,7 @@ export class NasController {
    * @returns { object }
    */
   @Put(':id')
-  updateNas(@Param('id') id: number, @Body() data: NasDto) {
+  updateNas(@Param('id') id: number, @Body() data: NasDtoUpdate) {
     return this.nasService.UpdateNas(id, data);
   }
 }

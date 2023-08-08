@@ -13,7 +13,7 @@ Content-Type: application/json
 ###
 ###
 
-PUT  http://10.10.20.7:3000/nodes/1
+PUT  http://10.10.20.7:3000/nodes/2
 Content-Type: application/json
 
 {

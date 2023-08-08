@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from '../dto/create-service.dto';
@@ -77,7 +77,7 @@ export class ServicesController {
    * @param data { UpdateServDto } 
    * @returns { object }
    */
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: number, @Body() data: UpdateServiceDto) {
     return this.servService.UpdateService(id, data);
   }

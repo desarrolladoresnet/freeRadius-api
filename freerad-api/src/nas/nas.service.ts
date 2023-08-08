@@ -2,7 +2,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/database/nas.entity';
-import { NasDto } from 'src/dto/nas.dto';
+import { NasDto, NasDtoUpdate } from 'src/dto/nas.dto';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -178,7 +178,26 @@ export class NasService {
    * @param data { NasDto } 
    * @returns { object }
    */
-  async UpdateNas(id: number, data: NasDto) {
+  async UpdateNas(id: number, data: NasDtoUpdate) {
+    const { name , ip_address, secret, ports, server, type, community, description } = data;
+
+    if( !name && !ip_address && !secret && !ports && !server && !type && !community && !description){
+      const str = `No hay valores para realizar el update`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
+    }
     try {
       console.log(`Actualizando NAS con el id: ${id}`);
       const nas = await this.nasRepository.findOneBy({ id: id });

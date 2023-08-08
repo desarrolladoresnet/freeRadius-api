@@ -243,7 +243,7 @@ export class ServicesService {
             where: { radiusId: o.id },
           });
           if(!userService){
-            return "No se encontro 'User Service'"
+            throw new Error( "No se encontro 'User Service'");
           }
 
 

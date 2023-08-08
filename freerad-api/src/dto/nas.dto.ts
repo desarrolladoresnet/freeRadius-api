@@ -44,3 +44,38 @@ export class NasDto {
   @IsString()
   description: string;
 }
+
+
+export class NasDtoUpdate {
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsIP()
+  ip_address: string;
+
+  @IsOptional()
+  @IsString()
+  secret: string;
+
+  @IsOptional()
+  @IsNumber()
+  ports: number;
+
+  @IsOptional()
+  @IsString()
+  server: string;
+
+  @IsOptional()
+  @IsString()
+  type: string;
+
+  @IsOptional()
+  @IsString()
+  community: string;
+
+  @IsOptional()
+  @IsString()
+  description: string;
+}

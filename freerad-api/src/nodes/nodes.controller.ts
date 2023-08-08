@@ -59,7 +59,7 @@ export class NodesController {
    */
   @Put(':id')
   updateNode(@Param('id') id: number, @Body() data: UpdateNodeDto) {
-    this.nodesService.UpdateNode(id, data);
+    return this.nodesService.UpdateNode(id, data);
   }
 
   /**
