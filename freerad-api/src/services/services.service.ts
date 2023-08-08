@@ -223,6 +223,7 @@ export class ServicesService {
           where: { address: node },
         });
         console.log("USERINFONODES: ", userinfoNodes)
+        console.log(userinfoNodes?.length < 1)
         if (userinfoNodes?.length < 1) {
           return "No userinfo nodes"
         }
