@@ -223,7 +223,7 @@ export class ServicesService {
           where: { address: node },
         });
         console.log("USERINFONODES: ", userinfoNodes)
-        if (userinfoNodes?.length > 0) {
+        if (userinfoNodes?.length < 0) {
           return "No userinfo nodes"
         }
         //para cada uno de esos elementos...
@@ -250,11 +250,10 @@ export class ServicesService {
               const compServ = u;
               //encuentra el/los grupo/s:
               if (compServ['estado'] == 'Suspendido') {
-                if (
-                  await this.radUserGroupRepository.find({
-                    where: { username: o.username, priority: 0 },
-                  })
-                ) {
+                const grupos = await this.radUserGroupRepository.find({
+                  where: { username: o.username, priority: 0 },
+                })
+                if (grupos?.length > 0) {
                 } else {
                   await this.UpdateService(userService.id, { status: 2 });
                   await this.coaServices.SuspendUser(o.username);
