@@ -29,7 +29,7 @@ export class PlanService {
     const { name, listName } = plan;
     try {
       console.log(
-        `Creado nuevo plan con name:'${name}' y listName:'${listName}'`,
+        `Creando nuevo plan con name:'${name}' y listName:'${listName}'`,
       );
 
       //* Verificacion de existencia del plan *//
@@ -82,6 +82,10 @@ export class PlanService {
           }
         );
       }
+      
+      console.log(
+        `Plan guardado exitopsamente.\n------------------------------------------------\n`,
+      );
       return planSave;
     } catch (error) {
       console.log(error);

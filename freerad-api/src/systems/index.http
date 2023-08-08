@@ -1,10 +1,10 @@
-GET  http://localhost:3000/systems
+GET  http://10.10.20.7:3000/systems
 
 ###
-GET  http://localhost:3000/systems/1/all
+GET  http://1.10.20.7:3000/systems/1/all
 
 ###
-POST http://localhost:3000/systems
+POST http://10.10.20.7:3000/systems
 Content-Type: application/json
 
 {

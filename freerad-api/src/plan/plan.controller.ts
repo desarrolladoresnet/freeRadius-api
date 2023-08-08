@@ -58,7 +58,7 @@ export class PlanController {
    */
   @Put(':id')
   updatePlan(@Param('id') id: number, @Body() data: UpdatePlanDto) {
-    this.planService.UpdatePlan(id, data);
+    return this.planService.UpdatePlan(id, data);
   }
 
   /**

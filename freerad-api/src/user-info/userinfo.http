@@ -1,9 +1,9 @@
-POST http://localhost:3000/user-info
+POST http://10.10.20.7:3000/user-info
 Content-Type: application/json
 
 {
     "name": "Juancito",
-    "username": "B0055",
+    "username": "B00555",
     "firstname": "Cod-Netcom",
     "lastname": "456123",
     "groupname": "ftth residencial 30mg",
@@ -13,13 +13,13 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/user-info/49
+PUT http://10.10.20.7:3000/user-info/49
 Content-Type: application/json
 
 {
     "name": "Juancito-Netcom",
-    "username": "456",
-    "firstname": "Cod-Netcom",
+    "username": "B00555",
+    "firstname": "Cod-NC",
     "lastname": "7777",
     "groupname": "ftth residencial 30mg",
     "updateby": "tost",
