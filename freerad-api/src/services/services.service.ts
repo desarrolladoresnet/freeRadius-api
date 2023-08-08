@@ -222,11 +222,13 @@ export class ServicesService {
         const userinfoNodes = await this.userinfoRepository.find({
           where: { address: node },
         });
-        console.log("USERINFONODES: ", userinfoNodes)
+        console.log("USERINFONODES: ", userinfoNodes?.length)
         console.log(userinfoNodes?.length < 1)
         if (userinfoNodes?.length < 1) {
+          console.log("Cortando la ejecucion")
           return "No userinfo nodes"
         }
+        console.log("Continuando la ejecucion")
         //para cada uno de esos elementos...
         userinfoNodes.forEach(async (o) => {
           if (
