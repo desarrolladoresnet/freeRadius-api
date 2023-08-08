@@ -44,11 +44,11 @@ export class CoaService {
       console.log('Command output:', stdout);
       return stdout;
     } catch (error) {
-      console.log(error);
-      //console.error('Error executing the command:', error.message);
-      console.log(
-        '------------------------------------------------------------------------------',
-      );
+      // console.log(error);
+      // //console.error('Error executing the command:', error.message);
+      // console.log(
+      //   '------------------------------------------------------------------------------',
+      // );
       throw error;
     }
   }
@@ -320,8 +320,8 @@ export class CoaService {
 
       const data = { username, groupname: 'suspendido', priority: 1 };
 
-      const userGroup = this.userGroupService.CreateRadUserGroup(data);
-      console.log(userGroup)
+      const userGroup = await this.userGroupService.CreateRadUserGroup(data);
+      console.log("usergoup: ",userGroup);
       if (!userGroup) {
         const str = `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`;
         console.log(
