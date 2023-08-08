@@ -222,7 +222,7 @@ export class ServicesService {
         const userinfoNodes = await this.userinfoRepository.find({
           where: { address: node },
         });
-        console.log(userinfoNodes)
+        console.log("USERINFONODES: ", userinfoNodes)
         if (!userinfoNodes) {
           return "No userinfo nodes"
         }
