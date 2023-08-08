@@ -295,6 +295,7 @@ export class ServicesService {
           });
         });
       });
+      console.log(`------------------------------------------------\n`);
       return `Nodo ${node} sincronizado`;
     }
     catch (error) {
