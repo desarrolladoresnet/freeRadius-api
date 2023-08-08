@@ -222,6 +222,9 @@ export class ServicesService {
         const userinfoNodes = await this.userinfoRepository.find({
           where: { address: node },
         });
+        if (!userinfoNodes) {
+          return "No userinfo nodes"
+        }
         //para cada uno de esos elementos...
         userinfoNodes.forEach(async (o) => {
           if (
