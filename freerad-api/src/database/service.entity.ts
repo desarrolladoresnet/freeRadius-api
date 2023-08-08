@@ -3,18 +3,18 @@ import { System } from 'src/database/system.entity'
 import { Plan } from 'src/database/plan.entity'
 
 
-@Entity({name: 'service'})
+@Entity({ name: 'service' })
 export class Service {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => System, sys => sys.id)
+  @ManyToOne(() => System, (sys) => sys.id)
   sys: System[];
 
   @Column({ type: 'bigint', unique: true })
   clientId: number;
 
-  @ManyToOne(() => Plan, plan => plan.id)
+  @ManyToOne(() => Plan, (plan) => plan.id)
   plan: Plan[];
 
   @Column({ type: 'bigint', unique: true })

@@ -231,11 +231,15 @@ export class ServicesService {
           ) {
             console.log('entró aunque está vacío');
           }
-          //console.log(await this.radUserGroupRepository.find({where:{username:o.username,priority:0}}))
           //... encuentra el servicio que corresponda
           const userService = await this.servicesRepository.findOne({
             where: { radiusId: o.id },
           });
+          if(!userService){
+            return "No se encontro 'User Service'"
+          }
+
+
           sysOnNode.forEach(async (u) => {
             if (u['id_servicio'] == userService.clientId) {
               //Ubícalo en la lista de clientes del nodo
@@ -248,38 +252,40 @@ export class ServicesService {
                   })
                 ) {
                 } else {
-                  this.UpdateService(userService.id, { status: 2 });
-                  this.coaServices.SuspendUser(o.username);
+                  await this.UpdateService(userService.id, { status: 2 });
+                  await this.coaServices.SuspendUser(o.username);
                 }
-              } else if (compServ['estado'] == 'Cancelado') {
+              } 
+              else if (compServ['estado'] == 'Cancelado') {
                 if (
                   await this.radUserGroupRepository.find({
                     where: { username: o.username, groupname: 'cancelado' },
                   })
                 ) {
                 } else {
-                  this.UpdateService(userService.id, { status: 3 });
-                  this.coaServices.ChangePlan({
+                  await this.UpdateService(userService.id, { status: 3 });
+                  await this.coaServices.ChangePlan({
                     username: o.username,
                     newgroupname: 'cancelado',
                   });
                 }
-              } else {
+              } 
+              else {
                 //revisar si no estaba suspendido o cancelado en la tabla de servicios
                 if (userService.status != 1 && userService.status != 4) {
-                  this.coaServices.ActivateUser(o.username);
+                  await this.coaServices.ActivateUser(o.username);
                 }
                 //encontrar listname del plan del servicio
                 const plan = await this.plansRepository.findOne({
                   where: { name: compServ['plan_internet']['nombre'] },
                 });
                 if (userService.plan['id'] != plan.id) {
-                  this.UpdateService(userService.id, {
+                  await this.UpdateService(userService.id, {
                     plan: [
                       { id: plan.id, listName: plan.listName, name: plan.name },
                     ],
                   });
-                  this.coaServices.ChangePlan({
+                  await this.coaServices.ChangePlan({
                     username: o.username,
                     newgroupname: plan.listName,
                   });

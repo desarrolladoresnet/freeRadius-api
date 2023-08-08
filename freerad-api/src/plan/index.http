@@ -4,10 +4,7 @@ GET http://10.10.20.7:3000/plan/
 POST http://10.10.20.7:3000/plan
 Content-Type: application/json
 
-{
-    "name":"ftth 555",
-    "listName":"ftth 555"
-}
+{"name":"Residencial FTTH Esencial", "listName":"Residencial_FTTH_50M"}
 
 ###
 PUT  http://10.10.20.7:3000/plan/1
