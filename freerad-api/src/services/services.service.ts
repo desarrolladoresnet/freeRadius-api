@@ -214,11 +214,9 @@ export class ServicesService {
         relations: ['systems'],
       });
       const sys = nodeSys['systems'];
-      sys.forEach(async (i) => {
-        //Para cada sistema del nodo encuentra la lista de clientes en ese nodo
-        const sysOnNode = await this.sysServices.SysNode(i.id, node);
-        //console.log(sysOnNode)
-        //Encuentra los elementos de userinfo que tienen como address ese nodo
+
+
+       //Encuentra los elementos de userinfo que tienen como address ese nodo
         const userinfoNodes = await this.userinfoRepository.find({
           where: { address: node },
         });
@@ -227,7 +225,12 @@ export class ServicesService {
         if (userinfoNodes?.length < 1) {
           console.log("Cortando la ejecucion")
           return "No userinfo nodes"
-        }
+      }
+
+      sys.forEach(async (i) => { 
+        //Para cada sistema del nodo encuentra la lista de clientes en ese nodo
+        const sysOnNode = await this.sysServices.SysNode(i.id, node);
+        //console.log(sysOnNode)
         console.log("Continuando la ejecucion")
         //para cada uno de esos elementos...
         userinfoNodes.forEach(async (o) => {
