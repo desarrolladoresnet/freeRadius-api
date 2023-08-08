@@ -193,6 +193,7 @@ export class PlanService {
       const isName = await this.planRepository.find({
         where: [{ name }, { listName }],
       });
+      console.log(isName);
       if (isName?.length > 0) {
         const str = `No se encontró un plan con el name:'${name}' y listName:'${listName}'`;
         console.log(
