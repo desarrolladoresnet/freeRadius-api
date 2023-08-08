@@ -223,7 +223,7 @@ export class ServicesService {
           where: { address: node },
         });
         console.log("USERINFONODES: ", userinfoNodes)
-        if (userinfoNodes?.length < 0) {
+        if (userinfoNodes?.length < 1) {
           return "No userinfo nodes"
         }
         //para cada uno de esos elementos...
@@ -253,6 +253,7 @@ export class ServicesService {
                 const grupos = await this.radUserGroupRepository.find({
                   where: { username: o.username, priority: 0 },
                 })
+                console.log("Grupos: ", grupos);
                 if (grupos?.length > 0) {
                 } else {
                   await this.UpdateService(userService.id, { status: 2 });
