@@ -32,6 +32,7 @@ export class RadusergroupService {
         `Creando nuevo usergroup, con username ${username}, y groupname ${groupname}.`,
       );
 
+      //* VERIFICA LA EXISTENCIA DEL USUARIO *//
       const isUserGroup = await this.radUserGroup.findOneBy({
         username: username,
         groupname: groupname,
@@ -41,7 +42,6 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-
         const err = new Error(str)
         throw new HttpException(
           {
@@ -53,7 +53,6 @@ export class RadusergroupService {
             cause: err,
           }
         );
-
       }
 
       const newUserGroup = await this.radUserGroup.create({
@@ -82,6 +81,9 @@ export class RadusergroupService {
           }
         );
       }
+
+      console.log(saveUserGroup);
+      console.log("")
 
       console.log(
         `usergroup para el username ${username} creado exitosamente.\n------------------------------------------------\n`,

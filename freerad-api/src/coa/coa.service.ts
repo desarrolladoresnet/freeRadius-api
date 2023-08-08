@@ -321,6 +321,7 @@ export class CoaService {
       const data = { username, groupname: 'suspendido', priority: 1 };
 
       const userGroup = this.userGroupService.CreateRadUserGroup(data);
+      console.log(userGroup)
       if (!userGroup) {
         const str = `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`;
         console.log(
