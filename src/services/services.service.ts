@@ -11,6 +11,7 @@ import { System } from 'src/systems/entities/system.entity';
 import { SystemsService } from 'src/systems/systems.service'
 import { CoaService } from 'src/coa/coa.service';
 import { Plan } from 'src/plan/entities/plan.entity';
+import { error } from 'console';
 
 @Injectable()
 export class ServicesService {
@@ -34,9 +35,9 @@ export class ServicesService {
   private readonly services: Service[] = [];
 
   async create(service: Service) {
-    const { sys, clientId, radiusId, plan }  = service
+    const { sys, clientId, radiusId, plan, status }  = service
     const serviceNew = this.servicesRepository.create({
-      sys, clientId, radiusId, plan
+      sys, clientId, radiusId, plan, status
     })
     return await this.servicesRepository.save(serviceNew)
 
@@ -66,64 +67,85 @@ export class ServicesService {
   }
   }
 
-  async sync( node: string ) {
+  async sync(node: string){
     const nodeSys = await this.nodesRepository.findOne({where:{name:node}, relations:['systems']})
     const sys = nodeSys['systems']
-    sys.forEach(async i => {
-      //Para cada sistema del nodo encuentra la lista de clientes en ese nodo
-      const sysOnNode = await this.sysServices.sysNode(i.id,node)
-      //console.log(sysOnNode)
-      //Encuentra los elementos de userinfo que tienen como address ese nodo
-      const userinfoNodes = await this.userinfoRepository.find({where:{address:node}})
-      //para cada uno de esos elementos...
-      userinfoNodes.forEach(async o => {
-        if (await this.radUserGroupRepository.find({where:{username:o.username,priority:0}})){
-          console.log('entró aunque está vacío')
-        }
-        //console.log(await this.radUserGroupRepository.find({where:{username:o.username,priority:0}}))
-        //... encuentra el servicio que corresponda
-        const userService = await this.servicesRepository.findOne({where:{radiusId:o.id}})
-        sysOnNode.forEach(async u =>{
-          if (u['id_servicio'] == userService.clientId){
-            //Ubícalo en la lista de clientes del nodo
-            const compServ = u
-            //encuentra el/los grupo/s:
-            if (compServ['estado']=='Suspendido'){
-              if (await this.radUserGroupRepository.find({where:{username:o.username,priority:0}})){
-            } else{
-              this.update(userService.id,{status:2})
-              this.coaServices.SuspendUser(o.username)
-            }
-            } else if(compServ['estado']=='Cancelado'){
-              if (await this.radUserGroupRepository.find({where:{username:o.username,groupname:'cancelado'}})){}
-               else{
-                this.update(userService.id,{status:3})
-                this.coaServices.ChangePlan({username:o.username,newgroupname:'cancelado'})
-              }
-              }
-            else {
-              //revisar si no estaba suspendido o cancelado en la tabla de servicios
-              if (userService.status != 1 && userService.status != 4 ){
-                this.coaServices.ActivateUser(o.username)
-              }
-              //encontrar listname del plan del servicio
-              const plan = await this.plansRepository.findOne({where:{name:compServ['plan_internet']['nombre']}})
-              if (userService.plan['id'] != plan.id){
-                this.update(userService.id,{plan:[{id:plan.id,listName:plan.listName,name:plan.name}]})
-                this.coaServices.ChangePlan({username:o.username,newgroupname:plan.listName})
-              }
-            }
+    const userinfoNodes = await this.userinfoRepository.find({where:{address:node}})
+    //Si existen clientes en la tabla userinfo
+    if (userinfoNodes.length > 0){
+      // Por cada sistema que aloje el nodo ${node}
+      sys.forEach(async i => {
+        const sysOnNode = await this.sysServices.sysNode(i.id,node)
+        // Para cada uno de los clientes de userinfo
+        userinfoNodes.forEach(async o => {
+          if (await this.radUserGroupRepository.find({where:{username:o.username,priority:0}})){
+            console.log('entró aunque está vacío')
           }
+          // Siempre que hayan grupos asociados con cada cliente
+          if (await this.radUserGroupRepository.find({where:{username:o.username}})){
+            // Encontrar en la lista de servicios el correspondiente al radiusId == userinfo.id
+          const userService = await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})
+          var found = false
+          sysOnNode.forEach(async u =>{
+            console.log(u['id_servicio'])
+            if (u['id_servicio'] == userService.clientId){
+              //Ubícalo en la lista de clientes del nodo
+              const compServ = u
+              found = true
+              //encuentra el/los grupo/s:
+              console.log(compServ['estado'])
+              if (compServ['estado']=='Suspendido'){
+                if (await this.radUserGroupRepository.findOne({where:{username:o.username,priority:0}})){
+              } else{
+                await this.update(userService.id,{sys:userService.sys,status:2,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                this.coaServices.SuspendUser(o.username)
+              }
+              } else if(compServ['estado']=='Cancelado'){
+                if (await this.radUserGroupRepository.findOne({where:{username:o.username,groupname:'cancelado'}})){}
+                 else{
+                  await this.update(userService.id,{sys:userService.sys,status:3,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                  this.coaServices.ChangePlan({username:o.username,newgroupname:'cancelado'})
+                }
+                }
+              else {
+                //revisar si no estaba suspendido o cancelado en la tabla de servicios
+                if (userService.status != 1 && userService.status != 4 ){
+                  await this.update(userService.id,{sys:userService.sys,status:1,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                  this.coaServices.ActivateUser(o.username)
+                }
+                //encontrar listname del plan del servicio
+                const plan = await this.plansRepository.findOne({where:{name:compServ['plan_internet']['nombre']}})
+                if (plan){
+                console.log(plan.id)
+                console.log(userService['plan']['id'])
+                if (userService['plan']['id'] != plan.id){
+                  await this.update(userService.id,{sys:userService.sys,clientId:userService.id,radiusId:userService.radiusId,status:userService.status,plan:{id:plan.id,name:plan.name,listName:plan.listName}})
+                  console.log(`Hizo la actualización`)
+                  this.coaServices.ChangePlan({username:o.username,newgroupname:plan.listName})
+                }} else {console.log(`Plan ${compServ['plan_internet']['nombre']} no encontrado en la tabla de planes`)}
+              }
+            }
+          })
+          if (!found){
+            console.log(`ID ${userService.clientId} no encontrado en la lista de ${i.name}`)
+          }
+        } else {console.log(`No hay grupos asociados a username == ${o.username}`)}
         })
-
       })
-    })
-    return `Nodo ${node} sincronizado`;
+      return `Nodo ${node} sincronizado`;
+    } else {return `Tabla userinfo sin address == ${node}`}
   }
 
-  update(id: number, updateServDto: UpdateServiceDto) {
-    this.servicesRepository.update(id,updateServDto)
-    return `This action updates a #${id} service`;
+  async update(id: number, updateServDto: UpdateServiceDto) {
+    const { radiusId,clientId,status,plan,sys } = updateServDto
+    const serviceToUpdate = await this.servicesRepository.findOneBy({id})
+    serviceToUpdate.radiusId = radiusId
+    serviceToUpdate.clientId = clientId
+    serviceToUpdate.status = status
+    serviceToUpdate.plan = plan
+    serviceToUpdate.sys = sys
+    this.servicesRepository.save(serviceToUpdate)
+    return this.servicesRepository.save(serviceToUpdate,{reload:true});
   }
   async remove(id: number): Promise<void> {
     await this.servicesRepository.delete(id);

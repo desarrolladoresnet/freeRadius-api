@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, JoinTable } from 'typeorm';
 import { System } from 'src/systems/entities/system.entity'
 import { Plan } from 'src/plan/entities/plan.entity'
 
@@ -11,11 +11,13 @@ export class Service {
   @ManyToOne(() => System, sys => sys.id)
   sys: System[];
 
-  @Column({ type: 'bigint', unique: true })
+  @Column({ type: 'bigint' })
   clientId: number;
 
-  @ManyToOne(() => Plan, plan => plan.id)
-  plan: Plan[];
+  @ManyToOne(() => Plan, plan => plan.id,{ cascade:true,
+    onDelete: 'CASCADE',
+    onUpdate:'CASCADE'})
+  plan: Plan;
 
   @Column({ type: 'bigint', unique: true })
   radiusId: number;

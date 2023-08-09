@@ -14,7 +14,8 @@ export class System {
 
   @Column({ type: 'varchar', length: 250, unique: true })
   endPoint: string;
-
+  
+  @JoinColumn()
   @ManyToMany(
     () => Node,
     node => node.systems,

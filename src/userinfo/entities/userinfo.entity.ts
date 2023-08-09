@@ -59,13 +59,13 @@ export class UserInfo {
   @Column({ type: 'int', default: 0 })
   enableportallogin: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   creationdate: Date;
 
   @Column({ type: 'varchar', length: 128 })
   creationby: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   updatedate: Date;
 
   @Column({ type: 'varchar', length: 128 })

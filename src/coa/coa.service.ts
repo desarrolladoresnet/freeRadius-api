@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus, HttpException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nas } from 'src/nas/entities/nas.entity';
 import { Radacct } from 'src/radacct/entities/radacct.entity';
@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { ChangePlanDto, CoaDto } from './dto/coa.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CoaService {
@@ -19,13 +20,14 @@ export class CoaService {
     @InjectRepository(Nas)
     private readonly nasRepository: Repository<Nas>,
     private readonly userGroupService: RadusergroupService,
+    private configService: ConfigService
   ) {}
 
   /**
    * Inserta los comandos a la terminal unix.
-   * @param echoCommand
-   * @param radClientCommand
-   * @returns
+   * @param echoCommand {string}
+   * @param radClientCommand {string}
+   * @returns { string }
    */
   async CoA_cmd(
     echoCommand: string,
@@ -39,12 +41,12 @@ export class CoaService {
       console.log('Command output:', stdout);
       return stdout;
     } catch (error) {
-      console.log(error);
-      //console.error('Error executing the command:', error.message);
-      console.log(
-        '------------------------------------------------------------------------------',
-      );
-      return error;
+      // console.log(error);
+      // //console.error('Error executing the command:', error.message);
+      // console.log(
+      //   '------------------------------------------------------------------------------',
+      // );
+      throw error;
     }
   }
 
@@ -52,8 +54,8 @@ export class CoaService {
 
   /**
    * Verefica que el comando se haya ejecutado exitosamente.
-   * @param response
-   * @returns boolean
+   * @param response {string} Toma la Respuesta del CoA y evalua si fue exitosa.
+   * @returns { boolean }
    */
   CoA_Status(response: string) {
     if (!(typeof response === 'string')) return false; // Failsafe por si falla el coa
@@ -63,6 +65,16 @@ export class CoaService {
 
   ////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * para activar el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el "nasipaddress" y su "secret".
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
   async ActivateUser(username: string) {
     try {
       console.log(`Activando al usuario ${username}`);
@@ -72,7 +84,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       //* Busqueda de Ip en radacct
@@ -83,23 +105,43 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const ip_address = radacct.nasipaddress;
 
-      console.log(`Localizando Secret`);
       // Busqueda del secret
+      console.log(`Localizando Secret`);
       const nas = await this.nasRepository.find({
         where: [{ nasname: ip_address }],
         order: { id: 'desc' },
         take: 1,
       });
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontro una dirección 'nas' asociada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const secret = nas[0].secret;
 
@@ -118,9 +160,7 @@ export class CoaService {
         return `El usuario ${username} no pudo ser activado`;
       }
 
-      /**
-       * borrar entrada de la tabla radusergroup
-       */
+       //borrar entrada de la tabla radusergroup
       const data = { username, groupname: 'suspendido', priority: 1 };
       const eliminateSuspend = await this.userGroupService.DeleteUserGroup(
         data,
@@ -131,7 +171,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       const str = `El usuario "${username} fue activado con exito"`;
@@ -140,13 +190,25 @@ export class CoaService {
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Para Suspender el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el "nasipaddress" y su "secret".
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se agrega  al grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
   async SuspendUser(username: string) {
+    
+      //* Preparacion de comandos para Radius. *//
     try {
       /*
        * Busqueda de usuario en BD.
@@ -158,7 +220,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       /*
@@ -171,30 +243,50 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const ip_address = radacct.nasipaddress;
 
-      //* Busqueda del secret es tabla nas.
+      //* Busqueda del secret es tabla nas. *//
       const nas = await this.nasRepository.find({
         where: [{ nasname: ip_address }],
         order: { id: 'desc' },
         take: 1,
       });
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const secret = nas[0].secret;
 
-      //TODO: crear Tablas para estos valores
-      const url_suspension = 'http://10.10.20.7/avisodecorte';
-      const acl_suspension = 'suspendido';
+      const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
+      const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
 
-      //* Preparacion de comandos para Radius.
+      console.log(`URL ${url_suspension}\nACL ${acl_suspension}`)
+      //* Preparacion de comandos para Radius. *//
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
@@ -206,44 +298,85 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res, re);
-      // if (!statusCoa) {
-      //   console.log(`No se pudo suspender al usuario ${username}`);
-      //   console.log(`------------------------------------------------\n`);
-      //   return `No se pudo suspender al usuario ${username}`;
-      // }
+      const statusCoa = this.CoA_Status(res);
+      if (!statusCoa) {
+        const str = `No se pudo suspender al usuario ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
 
       const data = { username, groupname: 'suspendido', priority: 1 };
 
-      const userGroup = this.userGroupService.CreateRadUserGroup(data);
+      const userGroup = await this.userGroupService.CreateRadUserGroup(data);
+      console.log("usergoup: ",userGroup);
       if (!userGroup) {
         const str = `No se pudo suspender al usuario ${username} en la tabla "radusergroup"`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
       return `El usuario ${username} fue suspendido exitosamente`;
     } catch (error) {
-      console.log(
-        `${error}\n------------------------------------------------\n`,
-      );
-      return error;
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
 
+    /**
+   * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { ChangePlanDto } viene con dos string, username con nombre de la ONU y "groupname" con el nuevo plan.
+   * @returns Queda pendiente la respuesta
+   */
   async ChangePlan(data: ChangePlanDto) {
     const { username, newgroupname } = data;
 
+    // Verifica que no hayan campos vacios.
     try {
       if (!username || !newgroupname) {
-        const str = `Verificar username: ${username} y newgrpouname: ${newgroupname}.`;
+        const str = `Verificar username: ${username} y newgroupname: ${newgroupname}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          },
+        );
       }
 
       /*
@@ -256,7 +389,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       /*
@@ -269,7 +412,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const ip_address = radacct.nasipaddress;
 
@@ -281,18 +434,27 @@ export class CoaService {
       });
       console.log(nas);
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontro una dirección nas asociada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const secret = nas[0].secret;
 
       /**
        ** Envio de comando a terminal Linux y recibe respuesta.
        */
-
       const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=10"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
@@ -308,7 +470,17 @@ export class CoaService {
       if (!statusCoa) {
         const str = `No se pudo suspender al usuario ${username}`;
         console.log(`${str}\n------------------------------------------------\n`);
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
 
       const data = { username, groupname: newgroupname, priority: 10 };
@@ -319,18 +491,38 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
       }
-      return `Se realizo el cambio de plan al usuario ${username} exitosamente`;
+      return `Se realizó el cambio de plan al usuario ${username} exitosamente`;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  /** Metodo para uso interno de la API, y su objetivo  es permitir enviar un mensaje CoA a un NAS para modificar  parámetros de un servicio, en vivo.
+   * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de "radusergroup".
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { CoaDto } Ver CoaDto en la carpeta de Ddto. 
+   * @returns Queda pendiente la respuesta
+   */
   async Modify(data: CoaDto) {
     try {
       const { username, attribute, value } = data;
@@ -342,7 +534,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
 
       /*
@@ -355,7 +557,17 @@ export class CoaService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
       }
       const ip_address = radacct.nasipaddress;
 
@@ -367,11 +579,21 @@ export class CoaService {
       });
       console.log(nas);
       if (!nas) {
-        const str = `No se encontro una direccion nas aosciada al username:${username} y su ip.`;
+        const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        return str;
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );;
       }
       const secret = nas[0].secret;
 
@@ -386,18 +608,28 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res);
-      // if (!statusCoa) {
-      //   const str = `No se pudo suspender al usuario ${username}`;
-      //   console.log(`${str}\n------------------------------------------------\n`);
-      //   return str;
-      // }
+      const statusCoa = this.CoA_Status(res);
+      if (!statusCoa) {
+        const str = `No se pudo suspender al usuario ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
 
       return `El usuario ${username} fue modificado exitosamente`;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
-      return error;
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -7,10 +7,11 @@ import { Radacct } from 'src/radacct/entities/radacct.entity';
 import { Nas } from 'src/nas/entities/nas.entity';
 import { RadUserGroup } from 'src/radusergroup/entities/radusergroup.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
+import { ConfigService } from '@nestjs/config'
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserInfo, Radacct, Nas, RadUserGroup])],
-  providers: [CoaService, RadusergroupService],
+  providers: [CoaService, RadusergroupService, ConfigService],
   controllers: [CoaController],
   exports: [CoaService]
 })

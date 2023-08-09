@@ -26,10 +26,10 @@ export class Radacct {
     @Column({ type: 'varchar', length: 32, unique: false })
     nasporttype: string;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @Column({ type: 'datetime', nullable: true })
     acctstarttime: Date;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @Column({ type: 'datetime', nullable: true })
     acctstoptime: Date;
 
     @Column({type: 'int', unique:false})

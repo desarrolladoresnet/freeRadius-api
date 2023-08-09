@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Service } from 'src/services/entities/service.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable, JoinColumn } from 'typeorm';
+
 
 @Entity('plan')
 export class Plan {
@@ -10,4 +12,12 @@ export class Plan {
 
   @Column({ type: 'varchar', length: 200, unique: true })
   listName: string;
+  
+  @JoinColumn()
+  @OneToMany(() => Service,
+  service => service.plan,
+  {
+    onDelete: 'CASCADE',
+    onUpdate:'CASCADE'},)
+  services?: Service[]
 }
