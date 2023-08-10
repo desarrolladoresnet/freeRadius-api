@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { CoaService } from './coa.service';
 import { CoaController } from './coa.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,7 +15,7 @@ import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
  */
 @Module({
   imports: [TypeOrmModule.forFeature([UserInfo, Radacct, Nas, RadUserGroup])],
-  providers: [CoaService, RadusergroupService],
+  providers: [CoaService, RadusergroupService, ConfigService],
   controllers: [CoaController],
   exports: [CoaService]
 })

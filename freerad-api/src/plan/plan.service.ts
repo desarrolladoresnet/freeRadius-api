@@ -88,7 +88,6 @@ export class PlanService {
       );
       return planSave;
     } catch (error) {
-      console.log(error);
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

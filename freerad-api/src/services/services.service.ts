@@ -65,8 +65,8 @@ export class ServicesService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -75,7 +75,7 @@ export class ServicesService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -208,104 +208,151 @@ export class ServicesService {
    * @returns
    */
   async SyncService(node: string) {
+    console.log(`Buscando nodo ${node}`);
     try {
       const nodeSys = await this.nodesRepository.findOne({
         where: { name: node },
         relations: ['systems'],
       });
       const sys = nodeSys['systems'];
-      sys.forEach(async (i) => {
-        //Para cada sistema del nodo encuentra la lista de clientes en ese nodo
-        const sysOnNode = await this.sysServices.SysNode(i.id, node);
-        //console.log(sysOnNode)
-        //Encuentra los elementos de userinfo que tienen como address ese nodo
-        const userinfoNodes = await this.userinfoRepository.find({
-          where: { address: node },
-        });
-        console.log("USERINFONODES: ", userinfoNodes?.length)
-        console.log(userinfoNodes?.length < 1)
-        if (userinfoNodes?.length < 1) {
-          console.log("Cortando la ejecucion")
-          throw new Error("No userinfo nodes");
-        }
-        console.log("Continuando la ejecucion")
-        //para cada uno de esos elementos...
-        userinfoNodes.forEach(async (o) => {
-          if (
-            await this.radUserGroupRepository.find({
-              where: { username: o.username, priority: 0 },
-            })
-          ) {
-            console.log('entró aunque está vacío');
-          }
-          //... encuentra el servicio que corresponda
-          const userService = await this.servicesRepository.findOne({
-            where: { radiusId: o.id },
-          });
-          if(!userService){
-            throw new Error( "No se encontro 'User Service'");
-          }
-
-
-          sysOnNode.forEach(async (u) => {
-            if (u['id_servicio'] == userService.clientId) {
-              //Ubícalo en la lista de clientes del nodo
-              const compServ = u;
-              //encuentra el/los grupo/s:
-              if (compServ['estado'] == 'Suspendido') {
-                const grupos = await this.radUserGroupRepository.find({
-                  where: { username: o.username, priority: 0 },
-                })
-                console.log("Grupos: ", grupos);
-                if (grupos?.length > 0) {
-                } else {
-                  await this.UpdateService(userService.id, { status: 2 });
-                  await this.coaServices.SuspendUser(o.username);
+      const userinfoNodes = await this.userinfoRepository.find({
+        where: { address: node },
+      });
+      //Si existen clientes en la tabla userinfo
+      if (userinfoNodes.length > 0) {
+        // Por cada sistema que aloje el nodo ${node}
+        sys.forEach(async (i) => {
+          const sysOnNode = await this.sysServices.SysNode(i.id, node);
+          // Para cada uno de los clientes de userinfo
+          userinfoNodes.forEach(async (o) => {
+            if (
+              await this.radUserGroupRepository.find({
+                where: { username: o.username, priority: 0 },
+              })
+            ) {
+              console.log('entró aunque está vacío');
+            }
+            // Siempre que hayan grupos asociados con cada cliente
+            if (
+              await this.radUserGroupRepository.find({
+                where: { username: o.username },
+              })
+            ) {
+              // Encontrar en la lista de servicios el correspondiente al radiusId == userinfo.id
+              const userService = await this.servicesRepository.findOne({
+                where: { radiusId: o.id },
+                relations: ['sys', 'plan'],
+              });
+              let found = false;
+              sysOnNode.forEach(async (u) => {
+                console.log(u['id_servicio']);
+                if (u['id_servicio'] == userService.clientId) {
+                  //Ubícalo en la lista de clientes del nodo
+                  const compServ = u;
+                  found = true;
+                  //encuentra el/los grupo/s:
+                  console.log(compServ['estado']);
+                  if (compServ['estado'] == 'Suspendido') {
+                    if (
+                      await this.radUserGroupRepository.findOne({
+                        where: { username: o.username, priority: 0 },
+                      })
+                    ) {
+                    } else {
+                      await this.UpdateService(userService.id, {
+                        sys: userService.sys,
+                        status: 2,
+                        clientId: userService.clientId,
+                        plan: userService.plan,
+                        radiusId: userService.radiusId,
+                      });
+                      this.coaServices.SuspendUser(o.username);
+                    }
+                  } else if (compServ['estado'] == 'Cancelado') {
+                    if (
+                      await this.radUserGroupRepository.findOne({
+                        where: { username: o.username, groupname: 'cancelado' },
+                      })
+                    ) {
+                    } else {
+                      await this.UpdateService(userService.id, {
+                        sys: userService.sys,
+                        status: 3,
+                        clientId: userService.clientId,
+                        plan: userService.plan,
+                        radiusId: userService.radiusId,
+                      });
+                      this.coaServices.ChangePlan({
+                        username: o.username,
+                        newgroupname: 'cancelado',
+                      });
+                    }
+                  } else {
+                    //revisar si no estaba suspendido o cancelado en la tabla de servicios
+                    if (userService.status != 1 && userService.status != 4) {
+                      await this.UpdateService(userService.id, {
+                        sys: userService.sys,
+                        status: 1,
+                        clientId: userService.clientId,
+                        plan: userService.plan,
+                        radiusId: userService.radiusId,
+                      });
+                      this.coaServices.ActivateUser(o.username);
+                    }
+                    //encontrar listname del plan del servicio
+                    const plan = await this.plansRepository.findOne({
+                      where: { name: compServ['plan_internet']['nombre'] },
+                    });
+                    if (plan) {
+                      console.log(plan.id);
+                      console.log(userService['plan']['id']);
+                      if (userService['plan']['id'] != plan.id) {
+                        await this.UpdateService(userService.id, {
+                          sys: userService.sys,
+                          clientId: userService.id,
+                          radiusId: userService.radiusId,
+                          status: userService.status,
+                          plan: {
+                            id: plan.id,
+                            name: plan.name,
+                            listName: plan.listName,
+                          },
+                        });
+                        console.log(`Hizo la actualización`);
+                        this.coaServices.ChangePlan({
+                          username: o.username,
+                          newgroupname: plan.listName,
+                        });
+                      }
+                    } else {
+                      console.log(
+                        `Plan ${compServ['plan_internet']['nombre']} no encontrado en la tabla de planes`,
+                      );
+                    }
+                  }
                 }
-              } 
-              else if (compServ['estado'] == 'Cancelado') {
-                if (
-                  await this.radUserGroupRepository.find({
-                    where: { username: o.username, groupname: 'cancelado' },
-                  })
-                ) {
-                } else {
-                  await this.UpdateService(userService.id, { status: 3 });
-                  await this.coaServices.ChangePlan({
-                    username: o.username,
-                    newgroupname: 'cancelado',
-                  });
-                }
-              } 
-              else {
-                //revisar si no estaba suspendido o cancelado en la tabla de servicios
-                if (userService.status != 1 && userService.status != 4) {
-                  await this.coaServices.ActivateUser(o.username);
-                }
-                //encontrar listname del plan del servicio
-                const plan = await this.plansRepository.findOne({
-                  where: { name: compServ['plan_internet']['nombre'] },
-                });
-                if (userService.plan['id'] != plan.id) {
-                  await this.UpdateService(userService.id, {
-                    plan: [
-                      { id: plan.id, listName: plan.listName, name: plan.name },
-                    ],
-                  });
-                  await this.coaServices.ChangePlan({
-                    username: o.username,
-                    newgroupname: plan.listName,
-                  });
-                }
+              });
+              if (!found) {
+                console.log(
+                  `ID ${userService.clientId} no encontrado en la lista de ${i.name}`,
+                );
               }
+            } else {
+              console.log(
+                `No hay grupos asociados a username == ${o.username}`,
+              );
             }
           });
         });
-      });
-      console.log(`------------------------------------------------\n`);
-      return `Nodo ${node} sincronizado`;
-    }
-    catch (error) {
+        console.log(`Nodo ${node} sincronizado`);
+        console.log(`------------------------------------------------\n`);
+        return `Nodo ${node} sincronizado`;
+      } else {
+        console.log(`Tabla userinfo sin address == ${node}`)
+        console.log(`------------------------------------------------\n`);
+        return `Tabla userinfo sin address == ${node}`;
+      }
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -317,28 +364,32 @@ export class ServicesService {
   /**
    * Realiza update de una entrada mediante el id.
    * Si no hay valores para realizar el update se rechaza la peticion.
-   * @param id 
-   * @param updateServDto 
-   * @returns 
+   * @param id
+   * @param updateServDto
+   * @returns
    */
   async UpdateService(id: number, updateServDto: UpdateServiceDto) {
     const { sys, clientId, radiusId, status, plan } = updateServDto;
 
     //* Verificacion de valores para modificar *//
-    if (!sys && !clientId && !radiusId && status && !plan ){
+    if (!sys && !clientId && !radiusId && status && !plan) {
       const str = `Los campos para acutalizar el servicio están vacios.\n Se intentó actualizar el servicio con id: ${id}.`;
-      console.log(
-        `${str}\n------------------------------------------------\n`,
-      );
+      console.log(`${str}\n------------------------------------------------\n`);
     }
 
     //* Se incia la modificación *//
     try {
       console.log(`Realizando update del service ${id}`);
-      const update = await this.servicesRepository.update(id, updateServDto);
+      const serviceToUpdate = await this.servicesRepository.findOneBy({ id });
+
+      serviceToUpdate.radiusId = radiusId;
+      serviceToUpdate.clientId = clientId;
+      serviceToUpdate.status = status;
+      serviceToUpdate.plan = plan;
+      serviceToUpdate.sys = sys;
 
       //* Verificación de update *//
-      if (!update) {
+      if (!serviceToUpdate) {
         const str = `No se pudo realizar update al servicio con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
@@ -348,9 +399,8 @@ export class ServicesService {
 
       console.log(`Servicio actualizado exitosamente.
       \n------------------------------------------------\n`);
-      return update;
-    }
-    catch (error) {
+      return serviceToUpdate;
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

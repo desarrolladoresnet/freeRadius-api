@@ -13,7 +13,7 @@ export class CreateServiceDto {
   clientId: number;
 
   @IsNotEmpty()
-  plan: Plan[];
+  plan: Plan;
 
   @IsNumber()
   radiusId: number;

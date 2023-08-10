@@ -44,66 +44,59 @@ export class UserInfoService {
         username: username,
       });
 
+      let user;
       if (ifUser) {
         const str = `El username/onu: ${username} ya esta registrada.`;
-        console.log(`------------------------------------------------\n`);
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.CONFLICT,
-            error: str,
-          },
-          HttpStatus.CONFLICT,
-          {
-            cause: err,
-          },
-        );
+        console.log(`${str}`);
+        
       }
+      else {
+        const newLocal = this.usersRepository.create({
+          firstname: firstname,
+          lastname: lastname,
+          username: username,
+          updateby: updateby,
+          creationby: creationby,
+          /* CAMPOS OPCIONALES */
+          email: data?.email ? data.email : '0',
+          country: 'Venezuela',
+          department: data?.department ? data.department : '0',
+          company: data?.company ? data.company : '0',
+          workphone: data?.workphone ? data.workphone : '0',
+          homephone: data?.homephone ? data.homephone : '0',
+          mobilephone: data?.mobilephone ? data.mobilephone : '0',
+          address: data?.address ? data.address : '0',
+          city: data?.city ? data.city : '0',
+          state: data?.state ? data.state : '0',
+          zip: data?.zip ? data.zip : '0',
+          notes: data?.notes ? data.notes : 'Sin notas',
+          changeuserinfo: data?.changeuserinfo ? data.changeuserinfo : '0',
+          portalloginpassword: data?.portalloginpassword
+            ? data.portalloginpassword
+            : '0',
+          enableportallogin: data?.enableportallogin ? data.enableportallogin : 0,
+        });
+        const newUser = newLocal;
+        console.log(newUser);
+        user = await this.usersRepository.save(newUser);
 
-      const newLocal = this.usersRepository.create({
-        firstname: firstname,
-        lastname: lastname,
-        username: username,
-        updateby: updateby,
-        creationby: creationby,
-        /* CAMPOS OPCIONALES */
-        email: data?.email ? data.email : '0',
-        country: 'Venezuela',
-        department: data?.department ? data.department : '0',
-        company: data?.company ? data.company : '0',
-        workphone: data?.workphone ? data.workphone : '0',
-        homephone: data?.homephone ? data.homephone : '0',
-        mobilephone: data?.mobilephone ? data.mobilephone : '0',
-        address: data?.address ? data.address : '0',
-        city: data?.city ? data.city : '0',
-        state: data?.state ? data.state : '0',
-        zip: data?.zip ? data.zip : '0',
-        notes: data?.notes ? data.notes : 'Sin notas',
-        changeuserinfo: data?.changeuserinfo ? data.changeuserinfo : '0',
-        portalloginpassword: data?.portalloginpassword
-          ? data.portalloginpassword
-          : '0',
-        enableportallogin: data?.enableportallogin ? data.enableportallogin : 0,
-      });
-      const newUser = newLocal;
-      console.log(newUser);
-      const user = await this.usersRepository.save(newUser);
-
-      if (!user) {
-        const str = `No se pudo crear el usuario/onu: ${username}`;
-        console.log(`------------------------------------------------\n`);
-
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
+        //* Verifica existencia de usuario *//
+        if (!user) {
+          const str = `No se pudo crear el usuario/onu: ${username}`;
+          console.log(`------------------------------------------------\n`);
+  
+          const err = new Error(str);
+          throw new HttpException(
+            {
+              status: HttpStatus.INTERNAL_SERVER_ERROR,
+              error: str,
+            },
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            {
+              cause: err,
+            },
+          );
+        }
       }
 
       /*
@@ -111,6 +104,15 @@ export class UserInfoService {
        */
 
       console.log(`Registrando radcheck de ${username}`);
+
+      const isRadcheck = await this.radCheckRepository.findOneBy({username})
+
+      if (isRadcheck) {
+        const str = `Ya existe una entrada radcheck para el usuario: ${username}`;
+        console.log(`${str}`);
+      }
+      else {
+        
       const radcheckCreate = await this.radCheckRepository.create({
         username: username,
         attribute: 'Cleartext-Password',
@@ -122,27 +124,25 @@ export class UserInfoService {
 
       if (!saveRadCheck) {
         const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"`;
-        console.log(`------------------------------------------------\n`);
-
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
+        console.log(`${str}`);
       }
       console.log(`\nExito al registrar el RADCHECK`);
+      }
 
       /**
        ** RADUSERGROUP
        */
 
       console.log(`Registrando usergroup de ${username}`);
+
+      const isRadduser = await this.radUserGroupRepository.findBy({ username });
+
+      let alerta;
+      if( isRadduser?.length > 0 ){
+        console.warn(`ALERTA! Existen ${isRadduser} entradas en la tabla para el username: ${username}`);
+        alerta = `ALERTA! Existen ${isRadduser} entradas en la tabla para el username: ${username}`;
+      }
+
       const usergroup = await this.radUserGroupRepository.create({
         username: username,
         groupname: groupname,
