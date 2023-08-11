@@ -49,6 +49,9 @@ export class CoaService {
       // console.log(
       //   '------------------------------------------------------------------------------',
       // );
+      if (error.stdout.includes('Session-Context-Not-Found')){
+        return "CoA-ACK, El usuario no estaba activo"
+      }
       throw error;
     }
   }
@@ -63,8 +66,7 @@ export class CoaService {
   CoA_Status(response: string) {
     if (!(typeof response === 'string')) return false; // Failsafe por si falla el coa
     const str = response.toLowerCase();
-    const status = str.includes('coa-ack') || str.includes('session-context-not-found')
-    return status ;
+    return str.includes('coa-ack');
   }
 
   ////////////////////////////////////////////////////////////////////////////

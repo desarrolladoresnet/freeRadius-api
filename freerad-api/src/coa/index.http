@@ -1,5 +1,5 @@
-GET http://10.10.20.7:3000/coa/activate/0055
+GET http://10.10.20.7:3000/coa/activate/B00555
 
 ###
 
-GET http://10.10.20.7:3000/coa/suspend/0055
+GET http://10.10.20.7:3000/coa/suspend/B00555
