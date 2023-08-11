@@ -243,6 +243,7 @@ export class ServicesService {
                 where: { radiusId: o.id },
                 relations: ['sys', 'plan'],
               });
+              console.log("\nLinea 246 userService:  ", userService)
               let found = false;
               sysOnNode.forEach(async (u) => {
                 console.log(u['id_servicio']);
