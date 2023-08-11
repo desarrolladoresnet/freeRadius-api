@@ -465,6 +465,7 @@ export class CoaService {
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Cambiando Plan`);
+      console.log(`CoA:\n${echoCommand} | ${radClientCommand}`)
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
       console.log('COA Response', res);
 
