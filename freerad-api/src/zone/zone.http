@@ -1,20 +1,14 @@
 ###
 
-POST http://localhost:3000/zone
+POST http://10.10.20.7:3000/zone
 Content-Type: application/json
 
-{
-    "name":"Hello World!",
-    "tlf": "55-555-5555",
-    "codigo_zona": "The little waters",
-    "nas": "1",
-    "coord": "54321, 12345"
-}
+{"name":"DAYCO-RO-BORDE","systems":[{"id":2}]}
 
 
 ###
 
-GET http://localhost:3000/zone
+GET http://10.10.20.7:3000/zone
 Content-Type: application/json
 
 {

@@ -369,6 +369,7 @@ export class ServicesService {
    * @returns
    */
   async UpdateService(id: number, updateServDto: UpdateServiceDto) {
+    console.log("Linea 372",updateServDto)
     const { sys, clientId, radiusId, status, plan } = updateServDto;
 
     //* Verificacion de valores para modificar *//
