@@ -461,7 +461,7 @@ export class CoaService {
       /**
        ** Envio de comando a terminal Linux y recibe respuesta.
        */
-      const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=10"`;
+      const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=${newgroupname}"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Cambiando Plan`);
