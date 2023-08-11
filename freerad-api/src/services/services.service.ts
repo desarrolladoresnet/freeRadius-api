@@ -223,7 +223,7 @@ export class ServicesService {
       //Si existen clientes en la tabla userinfo
       if (userinfoNodes.length > 0) {
         // Por cada sistema que aloje el nodo ${node}
-        sys.forEach(async (i) => {
+        const sysfind = sys.forEach(async (i) => {
           const sysOnNode = await this.sysServices.SysNode(i.id, node);
           // Para cada uno de los clientes de userinfo
           userinfoNodes.forEach(async (o) => {
@@ -348,14 +348,15 @@ export class ServicesService {
             }
           });
         });
-        console.log(`Nodo ${node} sincronizado`);
+        console.log(`Nodo ${sysfind} sincronizado`);
         console.log(`------------------------------------------------\n`);
-        return `Nodo ${node} sincronizado`;
+        return `Nodo ${sysfind} sincronizado`;
       } else {
         console.log(`Tabla userinfo sin address == ${node}`)
         console.log(`------------------------------------------------\n`);
         return `Tabla userinfo sin address == ${node}`;
       }
+      return;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
