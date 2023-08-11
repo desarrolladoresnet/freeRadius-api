@@ -26,6 +26,7 @@ import { RadUserGroup } from './database/radusergroup.entity';
 import { UserInfo } from './database/user.entity';
 import { ZonaCliente } from './database/node.entity';
 import { Zone } from './database/zone.entity';
+import { RadGroupReply } from './database/radgroupreply.entity';
 
 @Module({
   imports: [
@@ -53,16 +54,16 @@ import { Zone } from './database/zone.entity';
       // database: 'db8tlaoegfxlwz',
       entities: [
         Nas,
-        RadCheck,
-        RadUserGroup,
-        UserInfo,
-        Zone,
-        Radacct,
         Plan,
-        System,
-        ZonaCliente,
+        Radacct,
+        RadCheck,
+        RadGroupReply,
+        RadUserGroup,
         Service,
-        UserInfo
+        System,
+        UserInfo,
+        ZonaCliente,
+        Zone,
       ],
       synchronize: true, // Setear en 'false' cuando vaya a produccion
     }),

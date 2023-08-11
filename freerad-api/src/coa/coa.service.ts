@@ -12,6 +12,7 @@ import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
 import { Nas } from 'src/database/nas.entity';
 import { Radacct } from 'src/database/radacct.entity';
 import { UserInfo } from 'src/database/user.entity';
+import { RadGroupReply } from 'src/database/radgroupreply.entity';
 
 @Injectable()
 export class CoaService {
@@ -22,6 +23,8 @@ export class CoaService {
     private readonly radacctRepository: Repository<Radacct>,
     @InjectRepository(Nas)
     private readonly nasRepository: Repository<Nas>,
+    @InjectRepository(RadGroupReply)
+    private readonly radGroupRepository: Repository<RadGroupReply>,
     private readonly userGroupService: RadusergroupService,
     private configService: ConfigService
   ) {}
@@ -386,6 +389,32 @@ export class CoaService {
       }
 
       /*
+       * Busqueda del value del plan en RadGroupRepository
+       */
+
+      const groupValue = await this.radGroupRepository.findOneBy({ groupname: newgroupname });
+      if(!groupValue) {
+        const str = `No se encontró un plan con el nombre: ${newgroupname}.`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      const coaValue = groupValue.value;
+      console.log(`Valor del plan ${newgroupname} encontrado: ${coaValue}`)
+
+      /*
        * Busqueda de usuario en BD
        */
       console.log(`Modificando el plan del usuario ${username}`);
@@ -461,7 +490,7 @@ export class CoaService {
       /**
        ** Envio de comando a terminal Linux y recibe respuesta.
        */
-      const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=${newgroupname}"`;
+      const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=${coaValue}"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Cambiando Plan`);

@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: 'radcheck' })
-export class RadCheck {
+@Entity({ name: 'radgroupreply' })
+export class RadGroupReply {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 64, nullable: false })
-  username: string;
+  groupname: string;
 
   @Column({ type: 'varchar', length: 64, nullable: false })
   attribute: string;
