@@ -63,7 +63,8 @@ export class CoaService {
   CoA_Status(response: string) {
     if (!(typeof response === 'string')) return false; // Failsafe por si falla el coa
     const str = response.toLowerCase();
-    return str.includes('coa-ack');
+    const status = str.includes('coa-ack') || str.includes('session-context-not-found')
+    return status ;
   }
 
   ////////////////////////////////////////////////////////////////////////////
