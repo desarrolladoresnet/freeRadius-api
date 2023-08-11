@@ -79,7 +79,6 @@ export class ServicesService {
         // Para cada uno de los clientes de userinfo
         userinfoNodes.forEach(async o => {
           if (await this.radUserGroupRepository.find({where:{username:o.username,priority:0}})){
-            console.log('entró aunque está vacío')
           }
           // Siempre que hayan grupos asociados con cada cliente
           if (await this.radUserGroupRepository.find({where:{username:o.username}})){
@@ -87,13 +86,11 @@ export class ServicesService {
           const userService = await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})
           var found = false
           sysOnNode.forEach(async u =>{
-            console.log(u['id_servicio'])
             if (u['id_servicio'] == userService.clientId){
               //Ubícalo en la lista de clientes del nodo
               const compServ = u
               found = true
               //encuentra el/los grupo/s:
-              console.log(compServ['estado'])
               if (compServ['estado']=='Suspendido'){
                 if (await this.radUserGroupRepository.findOne({where:{username:o.username,priority:0}})){
               } else{
@@ -116,11 +113,8 @@ export class ServicesService {
                 //encontrar listname del plan del servicio
                 const plan = await this.plansRepository.findOne({where:{name:compServ['plan_internet']['nombre']}})
                 if (plan){
-                console.log(plan.id)
-                console.log(userService['plan']['id'])
                 if (userService['plan']['id'] != plan.id){
                   await this.update(userService.id,{sys:userService.sys,clientId:userService.id,radiusId:userService.radiusId,status:userService.status,plan:{id:plan.id,name:plan.name,listName:plan.listName}})
-                  console.log(`Hizo la actualización`)
                   this.coaServices.ChangePlan({username:o.username,newgroupname:plan.listName})
                 }} else {console.log(`Plan ${compServ['plan_internet']['nombre']} no encontrado en la tabla de planes`)}
               }

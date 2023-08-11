@@ -49,14 +49,12 @@ export class SystemsService {
 
   public async sysNode(id:number, node: string) {
     const all = await this.allOnSys(id);
-    console.log(node)
     const nodeList: any [] = [];
     all.forEach(async i =>{
       if (i["router"]['nombre']==node){
         nodeList.push(i)
       }
     })
-    console.log(nodeList)
     return await nodeList
   }
 
