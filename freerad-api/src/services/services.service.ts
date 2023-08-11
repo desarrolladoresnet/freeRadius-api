@@ -210,155 +210,67 @@ export class ServicesService {
   async SyncService(node: string) {
     console.log(`Buscando nodo ${node}`);
     try {
-      const nodeSys = await this.nodesRepository.findOne({
-        where: { name: node },
-        relations: ['systems'],
-      });
-      console.log("Node sys",nodeSys)
-      const sys = nodeSys['systems'];
-      const userinfoNodes = await this.userinfoRepository.find({
-        where: { address: node },
-      });
-      console.log("userinfonode", userinfoNodes)
-      //Si existen clientes en la tabla userinfo
-      if (userinfoNodes.length > 0) {
-        // Por cada sistema que aloje el nodo ${node}
-        sys.forEach(async (i) => {
-          const sysOnNode = await this.sysServices.SysNode(i.id, node);
-          // Para cada uno de los clientes de userinfo
-          userinfoNodes.forEach(async (o) => {
-            if (
-              await this.radUserGroupRepository.find({
-                where: { username: o.username, priority: 0 },
-              })
-            ) {
-              console.log('entró aunque está vacío');
-            }
-            // Siempre que hayan grupos asociados con cada cliente
-            if (
-              await this.radUserGroupRepository.find({
-                where: { username: o.username },
-              })
-            ) {
-              // Encontrar en la lista de servicios el correspondiente al radiusId == userinfo.id
-              const userService = await this.servicesRepository.findOne({
-                where: { radiusId: o.id },
-                relations: ['sys', 'plan'],
-              });
-              if (!userService) {
-                return `No se encontro datos para el id ${o.id}` 
+      const nodeSys = await this.nodesRepository.findOne({where:{name:node}, relations:['systems']})
+    const sys = nodeSys['systems']
+    const userinfoNodes = await this.userinfoRepository.find({where:{address:node}})
+    //Si existen clientes en la tabla userinfo
+    if (userinfoNodes.length > 0){
+      // Por cada sistema que aloje el nodo ${node}
+      sys.forEach(async i => {
+        const sysOnNode = await this.sysServices.SysNode(i.id,node)
+        // Para cada uno de los clientes de userinfo
+        userinfoNodes.forEach(async o => {
+          if (await this.radUserGroupRepository.find({where:{username:o.username,priority:0}})){
+          }
+          // Siempre que hayan grupos asociados con cada cliente
+          if (await this.radUserGroupRepository.find({where:{username:o.username}})){
+            // Encontrar en la lista de servicios el correspondiente al radiusId == userinfo.id
+            if (await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})) {
+          const userService = await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})
+          let found = false
+          sysOnNode.forEach(async u =>{
+            if (u['id_servicio'] == userService.clientId){
+              //Ubícalo en la lista de clientes del nodo
+              const compServ = u
+              found = true
+              //encuentra el/los grupo/s:
+              if (compServ['estado']=='Suspendido'){
+                if (await this.radUserGroupRepository.findOne({where:{username:o.username,priority:0}})){
+              } else{
+                await this.UpdateService(userService.id,{sys:userService.sys,status:2,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                this.coaServices.SuspendUser(o.username)
               }
-              console.log("\nLinea 246 userService:  ", userService)
-              let found = false;
-              sysOnNode.forEach(async (u) => {
-                console.log(u['id_servicio']);
-                if (u['id_servicio'] == userService.clientId) {
-                  //Ubícalo en la lista de clientes del nodo
-                  const compServ = u;
-                  found = true;
-                  //encuentra el/los grupo/s:
-                  console.log(compServ['estado']);
-                  if (compServ['estado'] == 'Suspendido') {
-                    if (
-                      await this.radUserGroupRepository.findOne({
-                        where: { username: o.username, priority: 0 },
-                      })
-                    ) {
-                    } else {
-                      await this.UpdateService(userService.id, {
-                        sys: userService.sys,
-                        status: 2,
-                        clientId: userService.clientId,
-                        plan: userService.plan,
-                        radiusId: userService.radiusId,
-                      });
-                      this.coaServices.SuspendUser(o.username);
-                    }
-                  } else if (compServ['estado'] == 'Cancelado') {
-                    if (
-                      await this.radUserGroupRepository.findOne({
-                        where: { username: o.username, groupname: 'cancelado' },
-                      })
-                    ) {
-                    } else {
-                      await this.UpdateService(userService.id, {
-                        sys: userService.sys,
-                        status: 3,
-                        clientId: userService.clientId,
-                        plan: userService.plan,
-                        radiusId: userService.radiusId,
-                      });
-                      this.coaServices.ChangePlan({
-                        username: o.username,
-                        newgroupname: 'cancelado',
-                      });
-                    }
-                  } else {
-                    //revisar si no estaba suspendido o cancelado en la tabla de servicios
-                    if (userService.status != 1 && userService.status != 4) {
-                      await this.UpdateService(userService.id, {
-                        sys: userService.sys,
-                        status: 1,
-                        clientId: userService.clientId,
-                        plan: userService.plan,
-                        radiusId: userService.radiusId,
-                      });
-                      this.coaServices.ActivateUser(o.username);
-                    }
-                    //encontrar listname del plan del servicio
-                    const plan = await this.plansRepository.findOne({
-                      where: { name: compServ['plan_internet']['nombre'] },
-                    });
-                    if (plan) {
-                      console.log(plan.id);
-                      console.log(userService['plan']['id']);
-                      console.log("\nuserService:  ", userService)
-                      if (userService['plan']['id'] != plan.id) {
-                        await this.UpdateService(userService.id, {
-                          sys: userService.sys,
-                          clientId: userService.id,
-                          radiusId: userService.radiusId,
-                          status: userService.status,
-                          plan: {
-                            id: plan.id,
-                            name: plan.name,
-                            listName: plan.listName,
-                          },
-                        });
-                        console.log(`Hizo la actualización`);
-                        this.coaServices.ChangePlan({
-                          username: o.username,
-                          newgroupname: plan.listName,
-                        });
-                      }
-                    } else {
-                      console.log(
-                        `Plan ${compServ['plan_internet']['nombre']} no encontrado en la tabla de planes`,
-                      );
-                    }
-                  }
+              } else if(compServ['estado']=='Cancelado'){
+                if (await this.radUserGroupRepository.findOne({where:{username:o.username,groupname:'cancelado'}})){}
+                 else{
+                  await this.UpdateService(userService.id,{sys:userService.sys,status:3,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                  this.coaServices.ChangePlan({username:o.username,newgroupname:'cancelado'})
                 }
-              });
-              if (!found) {
-                console.log(
-                  `ID ${userService.clientId} no encontrado en la lista de ${i.name}`,
-                );
+                }
+              else {
+                //revisar si no estaba suspendido o cancelado en la tabla de servicios
+                if (userService.status != 1 && userService.status != 4 ){
+                  await this.UpdateService(userService.id,{sys:userService.sys,status:1,clientId:userService.clientId,plan:userService.plan,radiusId:userService.radiusId})
+                  this.coaServices.ActivateUser(o.username)
+                }
+                //encontrar listname del plan del servicio
+                const plan = await this.plansRepository.findOne({where:{name:compServ['plan_internet']['nombre']}})
+                if (plan){
+                if (userService['plan']['id'] != plan.id){
+                  await this.UpdateService(userService.id,{sys:userService.sys,clientId:userService.id,radiusId:userService.radiusId,status:userService.status,plan:{id:plan.id,name:plan.name,listName:plan.listName}})
+                  this.coaServices.ChangePlan({username:o.username,newgroupname:plan.listName})
+                }} else {console.log(`Plan ${compServ['plan_internet']['nombre']} no encontrado en la tabla de planes`)}
               }
-            } else {
-              console.log(
-                `No hay grupos asociados a username == ${o.username}`,
-              );
             }
-          });
-        });
-        console.log(`Nodo ${node} sincronizado`);
-        console.log(`------------------------------------------------\n`);
-        return `Nodo ${node} sincronizado`;
-      } else {
-        console.log(`Tabla userinfo sin address == ${node}`)
-        console.log(`------------------------------------------------\n`);
-        return `Tabla userinfo sin address == ${node}`;
-      }
+          })
+          if (!found){
+            console.log(`ID ${userService.clientId} no encontrado en la lista de ${i.name}`)
+          }
+        } else {console.log(`No encontrado servicio con radiusId == ${o.id}`)}} else {console.log(`No hay grupos asociados a username == ${o.username}`)}
+        })
+      })
+      return `Nodo ${node} sincronizado`;
+    } else {return `Tabla userinfo sin address == ${node}`}
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
