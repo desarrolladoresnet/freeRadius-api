@@ -83,6 +83,7 @@ export class ServicesService {
           // Siempre que hayan grupos asociados con cada cliente
           if (await this.radUserGroupRepository.find({where:{username:o.username}})){
             // Encontrar en la lista de servicios el correspondiente al radiusId == userinfo.id
+            if (await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})) {
           const userService = await this.servicesRepository.findOne({where:{radiusId:o.id},relations:['sys','plan']})
           var found = false
           sysOnNode.forEach(async u =>{
@@ -123,7 +124,7 @@ export class ServicesService {
           if (!found){
             console.log(`ID ${userService.clientId} no encontrado en la lista de ${i.name}`)
           }
-        } else {console.log(`No hay grupos asociados a username == ${o.username}`)}
+        } else {console.log(`No encontrado servicio con radiusId == ${o.id}`)}} else {console.log(`No hay grupos asociados a username == ${o.username}`)}
         })
       })
       return `Nodo ${node} sincronizado`;
