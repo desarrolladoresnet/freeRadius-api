@@ -223,7 +223,7 @@ export class ServicesService {
       //Si existen clientes en la tabla userinfo
       if (userinfoNodes.length > 0) {
         // Por cada sistema que aloje el nodo ${node}
-        const sysfind = sys.forEach(async (i) => {
+        sys.forEach(async (i) => {
           const sysOnNode = await this.sysServices.SysNode(i.id, node);
           // Para cada uno de los clientes de userinfo
           userinfoNodes.forEach(async (o) => {
@@ -348,15 +348,14 @@ export class ServicesService {
             }
           });
         });
-        console.log(`Nodo ${sysfind} sincronizado`);
+        console.log(`Nodo ${node} sincronizado`);
         console.log(`------------------------------------------------\n`);
-        return `Nodo ${sysfind} sincronizado`;
+        return `Nodo ${node} sincronizado`;
       } else {
         console.log(`Tabla userinfo sin address == ${node}`)
         console.log(`------------------------------------------------\n`);
         return `Tabla userinfo sin address == ${node}`;
       }
-      return;
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
@@ -375,10 +374,10 @@ export class ServicesService {
    */
   async UpdateService(id: number, updateServDto: UpdateServiceDto) {
     console.log("Linea 372",updateServDto)
-    const { sys, clientId, radiusId, status, plan } = updateServDto;
+    const { radiusId,clientId,status,plan,sys } = updateServDto
 
     //* Verificacion de valores para modificar *//
-    if (!sys && !clientId && !radiusId && status && !plan) {
+    if (!radiusId && !clientId && !status && !plan && !sys) {
       const str = `Los campos para acutalizar el servicio están vacios.\n Se intentó actualizar el servicio con id: ${id}.`;
       console.log(`${str}\n------------------------------------------------\n`);
     }
@@ -386,16 +385,17 @@ export class ServicesService {
     //* Se incia la modificación *//
     try {
       console.log(`Realizando update del service ${id}`);
-      const serviceToUpdate = await this.servicesRepository.findOneBy({ id });
+      const serviceToUpdate = await this.servicesRepository.findOneBy({ id })
 
-      serviceToUpdate.radiusId = radiusId;
-      serviceToUpdate.clientId = clientId;
-      serviceToUpdate.status = status;
-      serviceToUpdate.plan = plan;
-      serviceToUpdate.sys = sys;
+      serviceToUpdate.radiusId = radiusId
+      serviceToUpdate.clientId = clientId
+      serviceToUpdate.status = status
+      serviceToUpdate.plan = plan
+      serviceToUpdate.sys = sys
 
+      const serviceUpdated = await this.servicesRepository.save(serviceToUpdate)
       //* Verificación de update *//
-      if (!serviceToUpdate) {
+      if (!serviceUpdated) {
         const str = `No se pudo realizar update al servicio con el id: ${id}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
