@@ -245,6 +245,9 @@ export class ServicesService {
                 where: { radiusId: o.id },
                 relations: ['sys', 'plan'],
               });
+              if (!userService) {
+                return `No se encontro datos para el id ${o.id}` 
+              }
               console.log("\nLinea 246 userService:  ", userService)
               let found = false;
               sysOnNode.forEach(async (u) => {
