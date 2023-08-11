@@ -214,10 +214,12 @@ export class ServicesService {
         where: { name: node },
         relations: ['systems'],
       });
+      console.log("Node sys",nodeSys)
       const sys = nodeSys['systems'];
       const userinfoNodes = await this.userinfoRepository.find({
         where: { address: node },
       });
+      console.log("userinfonode", userinfoNodes)
       //Si existen clientes en la tabla userinfo
       if (userinfoNodes.length > 0) {
         // Por cada sistema que aloje el nodo ${node}
