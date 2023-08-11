@@ -306,6 +306,7 @@ export class ServicesService {
                     if (plan) {
                       console.log(plan.id);
                       console.log(userService['plan']['id']);
+                      console.log("\nuserService:  ", userService)
                       if (userService['plan']['id'] != plan.id) {
                         await this.UpdateService(userService.id, {
                           sys: userService.sys,
