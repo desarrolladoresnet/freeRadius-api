@@ -71,7 +71,17 @@ export class CoaService {
     const str = response.toLowerCase();
     return str.includes('coa-ack');
   }
+  ////////////////////////////////////////////////////////////////////////////
 
+  echoComand(data: Array<RadGroupReply>) {
+    let command = '';
+
+    for (const str of data ){
+      command +=`,${str.attribute}=${str.value}`
+    }
+
+    return command;
+  }
   ////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -392,9 +402,9 @@ export class CoaService {
        * Busqueda del value del plan en RadGroupRepository
        */
 
-      const groupValue = await this.radGroupRepository.findOneBy({ groupname: newgroupname });
-      if(!groupValue) {
-        const str = `No se encontró un plan con el nombre: ${newgroupname}.`;
+      const groupValue = await this.radGroupRepository.findBy({ groupname: newgroupname });
+      if(groupValue?.length < 1) {
+        const str = `No se encontraron planes con el groupname: ${newgroupname}.`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
@@ -411,8 +421,7 @@ export class CoaService {
         );
       }
 
-      const coaValue = groupValue.value;
-      console.log(`Valor del plan ${newgroupname} encontrado: ${coaValue}`)
+      console.log(`Se encontraron ${groupValue?.length} para ${newgroupname}.`)
 
       /*
        * Busqueda de usuario en BD
@@ -490,7 +499,12 @@ export class CoaService {
       /**
        ** Envio de comando a terminal Linux y recibe respuesta.
        */
-      const echoCommand = `echo "User-Name=${username},User-Name=${username},NetElastic-QoS-Profile-Name=${coaValue}"`;
+
+      
+      const strCommand = this.echoComand(groupValue);
+
+      // vamos a necesitar enviar todos los atributos y su valor
+      const echoCommand = `echo "User-Name=${username},User-Name=${username}${strCommand}"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
       console.log(`Cambiando Plan`);
@@ -502,43 +516,43 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      const statusCoa = this.CoA_Status(res);
-      if (!statusCoa) {
-        const str = `No se pudo suspender al usuario ${username}`;
-        console.log(`${str}\n------------------------------------------------\n`);
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
-      }
+      // const statusCoa = this.CoA_Status(res);
+      // if (!statusCoa) {
+      //   const str = `No se pudo suspender al usuario ${username}`;
+      //   console.log(`${str}\n------------------------------------------------\n`);
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
+      //       error: str,
+      //     },
+      //     HttpStatus.INTERNAL_SERVER_ERROR,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
 
-      const data = { username, groupname: newgroupname, priority: 10 };
+      // const data = { username, groupname: newgroupname, priority: 10 };
 
-      const userGroup = this.userGroupService.UpdateUserGroup(data);
-      if (!userGroup) {
-        const str = `No se pudo cambiar el plan al usuario ${username} en la tabla "radusergroup"`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
-      }
+      // const userGroup = this.userGroupService.UpdateUserGroup(data);
+      // if (!userGroup) {
+      //   const str = `No se pudo cambiar el plan al usuario ${username} en la tabla "radusergroup"`;
+      //   console.log(
+      //     `${str}\n------------------------------------------------\n`,
+      //   );
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
+      //       error: str,
+      //     },
+      //     HttpStatus.INTERNAL_SERVER_ERROR,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
       return `Se realizó el cambio de plan al usuario ${username} exitosamente`;
     } catch (error) {
       console.error(error);
