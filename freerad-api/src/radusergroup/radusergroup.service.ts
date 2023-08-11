@@ -6,7 +6,7 @@ import {
   RadUserGroupDto,
   RadUserGroupUpdateDto,
 } from 'src/dto/radUserGroup.dto';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 
 /**
  * Originalmente la tabla no posee id y este metodo se creo teniendo en cuenta ese hecho, posteriormente fue agregado  para poder hacer uso del ORM.
@@ -267,7 +267,8 @@ export class RadusergroupService {
       );
       const toUpdate = await this.radUserGroup.findOneBy({
         username,
-        groupname,
+        groupname: Not('suspendedido'),
+    
       });
 
       if (!toUpdate) {
