@@ -516,43 +516,43 @@ export class CoaService {
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      // const statusCoa = this.CoA_Status(res);
-      // if (!statusCoa) {
-      //   const str = `No se pudo suspender al usuario ${username}`;
-      //   console.log(`${str}\n------------------------------------------------\n`);
-      //   const err = new Error(str);
-      //   throw new HttpException(
-      //     {
-      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
-      //       error: str,
-      //     },
-      //     HttpStatus.INTERNAL_SERVER_ERROR,
-      //     {
-      //       cause: err,
-      //     },
-      //   );
-      // }
+      const statusCoa = this.CoA_Status(res);
+      if (!statusCoa) {
+        const str = `No se pudo suspender al usuario ${username}`;
+        console.log(`${str}\n------------------------------------------------\n`);
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
 
-      // const data = { username, groupname: newgroupname, priority: 10 };
+      const data = { username, groupname: newgroupname, priority: 10 };
 
-      // const userGroup = this.userGroupService.UpdateUserGroup(data);
-      // if (!userGroup) {
-      //   const str = `No se pudo cambiar el plan al usuario ${username} en la tabla "radusergroup"`;
-      //   console.log(
-      //     `${str}\n------------------------------------------------\n`,
-      //   );
-      //   const err = new Error(str);
-      //   throw new HttpException(
-      //     {
-      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
-      //       error: str,
-      //     },
-      //     HttpStatus.INTERNAL_SERVER_ERROR,
-      //     {
-      //       cause: err,
-      //     },
-      //   );
-      // }
+      const userGroup = this.userGroupService.UpdateUserGroup(data);
+      if (!userGroup) {
+        const str = `No se pudo cambiar el plan al usuario ${username} en la tabla "radusergroup"`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
       return `Se realizó el cambio de plan al usuario ${username} exitosamente`;
     } catch (error) {
       console.error(error);
