@@ -377,7 +377,7 @@ export class ServicesService {
     const { radiusId,clientId,status,plan,sys } = updateServDto
 
     //* Verificacion de valores para modificar *//
-    if (!radiusId && !clientId && !status && !plan && !sys) {
+    if (!radiusId || !clientId || !status || !plan || !sys) {
       const str = `Los campos para acutalizar el servicio están vacios.\n Se intentó actualizar el servicio con id: ${id}.`;
       console.log(`${str}\n------------------------------------------------\n`);
     }
