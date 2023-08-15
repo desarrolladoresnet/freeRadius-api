@@ -210,14 +210,40 @@ export class UserInfoService {
       console.log(`Registrando usergroup de ${username}`);
 
       //* Se realiza la busqueda de username con usergroup *//
-      //* Lo que se busque es
       const isRadduser = await this.radUserGroupRepository.findBy({ username, groupname: Not("suspendido") });
 
       if( isRadduser?.length > 0 ){
-        const alerta = `Ya Existe una entrada para el username: ${username}, con el groupname: ${groupname}.\nVerifique además que no esté suspendido.\n`;
-        console.log(alerta);
-        msj += alerta;
-      }else {
+        // Solo debe haber una entrada, si hay mas se envia un msj de alerta.
+        if (isRadduser?.length > 1) {
+          const alerta = `ALERTA: Existen múltiples entradas para el username: ${username}, sin estar suspendido\nPOR FAVOR ALERTAR A INGIENERIA.\n`;
+          console.log(alerta);
+          msj += alerta;
+        }// Se verifica que los planes coincidan.
+        else if (!(isRadduser[0].groupname === groupname)) {
+          const str = `Ya existe una entrada en 'radusergroup' pero los planes no coinciden, se procede a actualizar`;
+          console.log(str);
+          msj += str
+          isRadduser[0].groupname = groupname;
+          const userGrooupActulized = await this.radUserGroupRepository.save(isRadduser);
+          // Verifica la actualización.
+          if (!userGrooupActulized) {
+            const str = `Actualizacion de 'radusergroup' para username:${username} fallida.\n`;
+            msj += str
+            console.log(str);
+          }
+          else {
+            const str = `Actualizacion de 'radusergroup' para username:${username} exitosa.\n`;
+            msj += str
+            console.log(str);
+          }
+        }// Si lo planes coinciden no se realiza ninguna operación.
+        else {
+          const str = `Ya existía una entrada en 'radusergroup' para username:${username}. Los panes coinciden.\n`;
+          msj += str
+          console.log(str);
+        }
+      }//* Si no existe la entrada en la tabla. *//
+      else {
         const usergroup = await this.radUserGroupRepository.create({
           username: username,
           groupname: groupname,
@@ -258,7 +284,7 @@ export class UserInfoService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // OTROS ENDPOINTS!!!
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async FindAllUsers() {
@@ -296,7 +322,7 @@ export class UserInfoService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async FindById(id: number) {
@@ -335,12 +361,12 @@ export class UserInfoService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async UpdateUserInfo(id: number, data: UserUpdateDto) {
     const date = new Date();
-    console.log(`Se iniciaactualizacion de usuario de usuario.\nFecha: ${date}\n`)
+    console.log(`Se inicia actualización de usuario de usuario.\nFecha: ${date}\n`);
     try {
       console.log(`Actualizando al usuario: ${data.username}`);
 
@@ -411,6 +437,29 @@ export class UserInfoService {
 
       return updateUser;
     } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  async DeleteByUsername(username: string) {
+    const date = new Date();
+    console.log(`Se inicia eliminacion de usuario ${username} de la BD.\nFecha: ${date}\n`);
+    try{
+      //const user = await this.usersRepository.findBy({ username });
+      await this.usersRepository.delete({ username });
+      await this.radUserGroupRepository.delete({ username });
+      await this.radCheckRepository.delete({ username });
+
+      console.log('Borrado exitoso');
+      console.log(`------------------------------------------------\n`);
+    }
+    catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

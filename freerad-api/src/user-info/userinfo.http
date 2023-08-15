@@ -5,12 +5,14 @@ Content-Type: application/json
     "username": "18E8293B5C99",
     "firstname": "NPCA",
     "lastname": "2456",
-    "groupname": "Banda Ancha FTTH 100 Mbps",
+    "groupname": "Banda Ancha RF 10 Mbps/2 Mbps",
     "updateby": "Francisco",
     "creationby": "test",
-    "password":  "99",
+    "password":  "18E8293B5C99",
     "address": "DAYCO-RO-BORDE"
 }
+###
+DELETE  http://localhost:3000/user-info/18E8293B5C99
 
 ###
 PUT http://10.10.20.7:3000/user-info/23

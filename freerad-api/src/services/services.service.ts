@@ -46,11 +46,12 @@ export class ServicesService {
     const { sys, clientId, radiusId, plan, status } = service;
 
     try {
-      //* Crando tabla *//
+      //* Creando tabla *//
+      const date = new Date();
       console.log(
-        `Creado nueva entrada en la tabla 'service' con los valores: sys: ${sys}, clientId: ${clientId}, radiusId: ${radiusId} y plan: ${plan}.`,
+        `Creado nueva entrada en la tabla 'service' con los valores: sys: ${sys}, clientId: ${clientId}, radiusId: ${radiusId} y plan: ${plan}.\nFecha: ${date}\n`,
       );
-      const serviceNew = await this.servicesRepository.create({
+      const serviceNew = this.servicesRepository.create({
         sys,
         clientId,
         radiusId,
@@ -87,7 +88,6 @@ export class ServicesService {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
-      return error;
     }
   }
 
@@ -99,7 +99,8 @@ export class ServicesService {
    */
   async FindAllServices() {
     try {
-      console.log(`Buscando entradas en 'services`);
+      const date = new Date();
+      console.log(`Buscando entradas en 'services.\nFecha: ${date}\n`)
       const services = await this.servicesRepository.find({
         relations: ['sys', 'plan'],
       });

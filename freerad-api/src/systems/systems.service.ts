@@ -26,7 +26,8 @@ export class SystemsService {
     const { name, apiKey, endPoint } = sys;
     //this.systems.push(sys);
     try {
-      console.log(`Creando entrada en 'system'`);
+      const date = new Date();
+      console.log(`Creando entrada en 'system'.\nFecha: ${date}\n`);
       const isSys = await this.sysRepository.find({
         where: [{ name }, { apiKey }, { endPoint }]
       });
@@ -89,7 +90,8 @@ export class SystemsService {
 
   async FindAllSys() {
     try {
-      console.log(`Buscando entradas en la tabla 'system'`);
+      const date = new Date();
+      console.log(`Buscando entradas en la tabla 'system'.\nFecha: ${date}\n`)
       const systems = await this.sysRepository.find();
 
       if (systems?.length < 1) {
@@ -126,7 +128,8 @@ export class SystemsService {
 
   async FindOneSys(id: number) {
     try {
-      console.log(`Buscando una entrada en 'system' con el id: ${id}`);
+      const date = new Date();
+      console.log(`Buscando una entrada en 'system' con el id: ${id}.\nFecha: ${date}\n`)
 
       const sys = await this.sysRepository.findOneBy({ id });
 
@@ -167,7 +170,8 @@ export class SystemsService {
    */
   async AllOnSys(id: number) {
     try {
-      console.log(`Buscando los servicios en el sistema con el id: ${id}.`);
+      const date = new Date();
+      console.log(`Buscando los servicios en el sistema con el id: ${id}.\nFecha: ${date}\n`);
       const sys = await this.sysRepository.findOneBy({ id });
 
       if (!sys) {
@@ -219,7 +223,9 @@ export class SystemsService {
    */
   public async SysNode(id: number, node: string) {
     try {
-      console.log(`Buscando información de los nodos.`);
+      const date = new Date();
+      console.log(`Buscando información de los nodos.\nFecha: ${date}\n`);
+
       const all = await this.AllOnSys(id);
       console.log(node);
       const nodeList: any[] = [];
@@ -280,7 +286,8 @@ export class SystemsService {
       }
 
     try {
-      console.log(`Realizando update en 'system' con id: ${id}`);
+      const date = new Date();
+      console.log(`Realizando update en 'system' con id: ${id}\nFecha: ${date}\n`);
 
       const update = await this.sysRepository.update(id, updateSysDto);
 
@@ -321,7 +328,8 @@ export class SystemsService {
    */
   async RemoveSys(id: number) {
     try {
-      console.log(`Eliminando entrada de system con el id: ${id}`);
+      const date = new Date();
+      console.log(`Eliminando entrada de 'system' con el id: ${id}\nFecha: ${date}\n`);
 
       const del = await this.sysRepository.delete(id);
 
