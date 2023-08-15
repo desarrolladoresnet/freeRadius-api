@@ -35,7 +35,7 @@ import { RadGroupReply } from './database/radgroupreply.entity';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      
+
       type: 'mariadb',
       host: 'localhost',
       port: 3306,
@@ -43,9 +43,9 @@ import { RadGroupReply } from './database/radgroupreply.entity';
       username: 'root',
       // // password: 'zh49cUPs8sQMvPgX',
       password: '7448280',
-      // // database: 'radius',
       database: 'radius',
-      
+      // database: 'radius',
+
       // type: 'mysql',
       // host: 'netcomplus.com.ve',
       // port: 3306,
@@ -65,7 +65,7 @@ import { RadGroupReply } from './database/radgroupreply.entity';
         ZonaCliente,
         Zone,
       ],
-      synchronize: true, // Setear en 'false' cuando vaya a produccion
+      synchronize: false, // Setear en 'false' cuando vaya a produccion
     }),
     CoaModule,
     NasModule,

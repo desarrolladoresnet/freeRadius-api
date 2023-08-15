@@ -1,14 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+
+enum Empresas {
+  NPCA = "NPCA",
+  INYC = "INYC"
+}
 
 export class UserDto {
-    /**
-   * El cliente en Odoo.
-   */
-    @IsNotEmpty()
-    @IsString()
-    name: string;
-
   /**
    * Serial de la Onu.
    */
@@ -21,7 +19,8 @@ export class UserDto {
    */
   @IsNotEmpty()
   @IsString()
-  firstname: string;
+  @IsEnum(Empresas)
+  firstname: Empresas;
 
   /**
    * ID de Wisphub.
@@ -31,18 +30,18 @@ export class UserDto {
   lastname: string;
 
   /**
-   * Usuario que realiza el ultimo update
-   */
-  @IsNotEmpty()
-  @IsString()
-  updateby: string;
-
-  /**
    * Usuario que crea el registro
    */
   @IsNotEmpty()
   @IsString()
   creationby: string;
+
+  /**
+   * Nodo/zona
+   */
+  @IsNotEmpty()
+  @IsString()
+  address: string;
 
 
   /***********************************************************************
@@ -54,6 +53,14 @@ export class UserDto {
   @IsOptional()
   @IsString()
   email: string;
+
+    /**
+   * Usuario que realiza el ultimo update
+   */
+    @IsOptional()
+    @IsString()
+    updateby: string;
+  
 
   @IsOptional()
   @IsString()
@@ -75,9 +82,6 @@ export class UserDto {
   @IsString()
   mobilephone: string;
 
-  @IsOptional()
-  @IsString()
-  address: string;
 
   @IsOptional()
   @IsString()
@@ -108,9 +112,9 @@ export class UserDto {
   enableportallogin: number;
 
   // RADCHECK
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  value: string;
+  password: string;
 
   // RADUSERGROUP
     /**
@@ -128,6 +132,10 @@ export class UserDto {
     @Min(0)
     @Max(10)
     priority: number;
+
+
+  @IsOptional()
+  name: string;
 
 
 }

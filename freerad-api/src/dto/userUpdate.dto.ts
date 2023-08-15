@@ -2,12 +2,6 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UserUpdateDto {
-    /**
-   * El cliente en Odoo.
-   */
-    @IsOptional()
-    @IsString()
-    name: string;
 
   /**
    * Serial de la Onu.

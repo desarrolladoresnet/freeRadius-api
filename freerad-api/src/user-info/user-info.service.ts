@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { UserDto } from 'src/dto/user.dto';
 import { RadCheck } from 'src/database/radcheck.entity';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
 import { UserInfo } from 'src/database/user.entity';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
+import { RadGroupReply } from 'src/database/radgroupreply.entity';
 
 @Injectable()
 export class UserInfoService {
@@ -17,47 +18,85 @@ export class UserInfoService {
     private radCheckRepository: Repository<RadCheck>,
     @InjectRepository(RadUserGroup)
     private radUserGroupRepository: Repository<RadUserGroup>,
+    @InjectRepository(RadGroupReply)
+    private radGroupReply: Repository<RadGroupReply>,
   ) {}
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Enpoint principal de la app.
+   * La info puede ser enviada varias veces, en caso de que los datos ya se encuentren en la BD,
+   * se hara un salto a la siguiente parte de la lógica. 
+   * Esto con motivo de que si por alguna razón, fallara el proceso de guardado, se pueda reintentar inmediatamente.
+   * @param data { UserDto }
+   * @returns 
+   */
   async CreateUser(data: UserDto) {
+    const date = new Date();
+    console.log(`Se inicia creación de usuario.\nFecha: ${date}\n`)
     try {
       const {
         firstname,
         lastname,
         username,
-        updateby,
         creationby,
-        value,
         groupname,
         priority,
+        address,
+        password,
       } = data;
 
-      /**
-       ** USERIFNO
-       */
+      let msj = '';
+      /////////////////////////////////////////////////////////////////////////////
+      //      USERINFO                                                          //
+      /////////////////////////////////////////////////////////////////////////////
+
+      //* Si no existe el plan se aborta toda la operación *//
+      const isPlan = await this.radGroupReply.findOneBy({ groupname });
+      if(!isPlan) {
+        const err = new Error('El plan no existe en la base de datos.')
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: 'El plan no existe en la base de datos.',
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          },
+        );
+      };
 
       console.log(`Creando el usuario/onu: ${username}`);
 
+      //* Se verifica si ya hay un username en la BD *//
       const ifUser = await this.usersRepository.findOneBy({
         username: username,
       });
 
+
       let user;
       if (ifUser) {
-        const str = `El username/onu: ${username} ya esta registrada.`;
+        // Si exite se salta al siguiente paso.
+        const str = `El username/onu: ${username} ya esta registrada como usuario.\n`;
+        msj += str;
         console.log(`${str}`);
-        
+        user = ifUser;
       }
       else {
+        const nowDate = new Date();
+
         const newLocal = this.usersRepository.create({
           firstname: firstname,
           lastname: lastname,
           username: username,
-          updateby: updateby,
           creationby: creationby,
+          address: address,
           /* CAMPOS OPCIONALES */
+          // La idea es no dejar campos vacíos que pudioeran ser explotados por un Hacker.
+          // Por otro lado, siempre se hace una lectura de todos los campos en el 'dto' por si en algun momento futuro se llega a necesitar. 
+          updateby: creationby, // se deja igual que creation by, lo que indica que nunca se le ha hecho update.
           email: data?.email ? data.email : '0',
           country: 'Venezuela',
           department: data?.department ? data.department : '0',
@@ -65,7 +104,6 @@ export class UserInfoService {
           workphone: data?.workphone ? data.workphone : '0',
           homephone: data?.homephone ? data.homephone : '0',
           mobilephone: data?.mobilephone ? data.mobilephone : '0',
-          address: data?.address ? data.address : '0',
           city: data?.city ? data.city : '0',
           state: data?.state ? data.state : '0',
           zip: data?.zip ? data.zip : '0',
@@ -75,13 +113,17 @@ export class UserInfoService {
             ? data.portalloginpassword
             : '0',
           enableportallogin: data?.enableportallogin ? data.enableportallogin : 0,
+          creationdate: nowDate,
+          updatedate: nowDate,
+
         });
         const newUser = newLocal;
         console.log(newUser);
         user = await this.usersRepository.save(newUser);
 
-        //* Verifica existencia de usuario *//
+        //* Verifica que el usuario haya sido creado exitosamente *//
         if (!user) {
+          // Si falla en este punto se corta la ejecución y se envia msj de error.
           const str = `No se pudo crear el usuario/onu: ${username}`;
           console.log(`------------------------------------------------\n`);
   
@@ -99,78 +141,114 @@ export class UserInfoService {
         }
       }
 
-      /*
-       * RADCHECK
-       */
+      /////////////////////////////////////////////////////////////////////////////
+      //       RADCHECK                                                          //
+      /////////////////////////////////////////////////////////////////////////////
 
       console.log(`Registrando radcheck de ${username}`);
 
       const isRadcheck = await this.radCheckRepository.findOneBy({username})
-
+      //* Se verifica si existe la entrada en la tabla para ese username *//
       if (isRadcheck) {
-        const str = `Ya existe una entrada radcheck para el usuario: ${username}`;
-        console.log(`${str}`);
+        // Evalua si el password es igual.
+        if(!(isRadcheck.value === password)) {
+          const str = `El password difiere, se procede a actualizar.\n`;
+          isRadcheck.value = password;
+          console.log(`${str}`);
+          msj += str;
+          const actualizedRadcheck = await this.radCheckRepository.save(isRadcheck);
+          // Verifica si hubo error en la actualizacion del password
+          if(!actualizedRadcheck) {
+            const str = `Hubo un problema al actualizar el password de: ${username}.\n`;
+            console.log(`${str}`);
+            msj += str;
+          }
+        }
+          // Si no hay necesidad de actualizar el password se añade este msj.
+        else {
+          const str = `Ya existe una entrada radcheck para el usuario: ${username}, y con el mismo password.\n`;
+          console.log(`${str}`);
+          msj += str;
+        }
       }
+      //* Si el usuario no existe en la tabla, se procede a ser creado *//
       else {
         
-      const radcheckCreate = await this.radCheckRepository.create({
+      const radcheckCreate = this.radCheckRepository.create({
         username: username,
         attribute: 'Cleartext-Password',
         op: ':=',
-        value: value ? value : '10',
+        value: password,
       });
 
       const saveRadCheck = await this.radCheckRepository.save(radcheckCreate);
-
+      // Se verifica que la entrada haya sido creada exitosamente.
       if (!saveRadCheck) {
-        const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"`;
+        const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"\n.`;
         console.log(`${str}`);
+        msj += str
+
+        const err = new Error(str);
+          throw new HttpException(
+            {
+              status: HttpStatus.INTERNAL_SERVER_ERROR,
+              error: str,
+            },
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            {
+              cause: err,
+            },
+          );
       }
       console.log(`\nExito al registrar el RADCHECK`);
       }
 
-      /**
-       ** RADUSERGROUP
-       */
+      /////////////////////////////////////////////////////////////////////////////
+      //       RADUSERGROUP                                                      //
+      /////////////////////////////////////////////////////////////////////////////
 
       console.log(`Registrando usergroup de ${username}`);
 
-      const isRadduser = await this.radUserGroupRepository.findBy({ username });
+      //* Se realiza la busqueda de username con usergroup *//
+      //* Lo que se busque es
+      const isRadduser = await this.radUserGroupRepository.findBy({ username, groupname: Not("suspendido") });
 
-      let alerta;
       if( isRadduser?.length > 0 ){
-        console.warn(`ALERTA! Existen ${isRadduser} entradas en la tabla para el username: ${username}`);
-        alerta = `ALERTA! Existen ${isRadduser} entradas en la tabla para el username: ${username}`;
-      }
-
-      const usergroup = await this.radUserGroupRepository.create({
-        username: username,
-        groupname: groupname,
-        priority: priority ? priority : 10,
-      });
-
-      const saveUserGroup = await this.radUserGroupRepository.save(usergroup);
-
-      if (!saveUserGroup) {
-        const str = `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup"`;
-        console.log(`------------------------------------------------\n`);
-
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
+        const alerta = `Ya Existe una entrada para el username: ${username}, con el groupname: ${groupname}.\nVerifique además que no esté suspendido.\n`;
+        console.log(alerta);
+        msj += alerta;
+      }else {
+        const usergroup = await this.radUserGroupRepository.create({
+          username: username,
+          groupname: groupname,
+          priority: priority ? priority : 10,
+        });
+  
+        const saveUserGroup = await this.radUserGroupRepository.save(usergroup);
+  
+        //* Verifica que la entrada se haya guardado exitosamente *//
+        if (!saveUserGroup) {
+          const str = `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup".`;
+          console.log(`------------------------------------------------\n`);
+  
+          const err = new Error(str);
+          throw new HttpException(
+            {
+              status: HttpStatus.INTERNAL_SERVER_ERROR,
+              error: str,
+            },
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            {
+              cause: err,
+            },
+          );
+        }
       }
 
       console.log(`Usuario/onu ${username} registrado exitosamente`);
       console.log(`------------------------------------------------\n`);
 
+      user.message = msj;
       return user;
     } catch (error) {
       console.error(error);
@@ -179,9 +257,14 @@ export class UserInfoService {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // OTROS ENDPOINTS!!!
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   async FindAllUsers() {
+    const date = new Date();
+    console.log(`Se inicia busqueda de usuarios.\nFecha: ${date}\n`)
     try {
-      console.log(`Bucando usuarios/onu`);
       const users = await this.usersRepository.find();
 
       if (users?.length < 1) {
@@ -214,8 +297,12 @@ export class UserInfoService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   async FindById(id: number) {
     try {
+      const date = new Date();
+      console.log(`\nFecha: ${date}\n`)
       console.log(`Bucando usuario/onu con id: ${id}`);
       const users = await this.usersRepository.findOneBy({ id: id });
 
@@ -248,14 +335,16 @@ export class UserInfoService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async UpdateUserInfo(id: number, data: UserUpdateDto) {
+    const date = new Date();
+    console.log(`Se iniciaactualizacion de usuario de usuario.\nFecha: ${date}\n`)
     try {
       console.log(`Actualizando al usuario: ${data.username}`);
 
-      const User = await this.usersRepository.findOneBy({
-        username: data.username,
-      });
+      const User = await this.usersRepository.findOneBy({ id });
 
       if (!User) {
         const str = `El username/onu: ${data.username} no está asignada o no existe.`;

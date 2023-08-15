@@ -1,15 +1,15 @@
-POST http://10.10.20.7:3000/user-info
+POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
-    "name": "Juancito",
-    "username": "B00555",
-    "firstname": "Cod-Netcom",
-    "lastname": "456123",
-    "groupname": "ftth residencial 30mg",
-    "updateby": "test",
+    "username": "18E8293B5C99",
+    "firstname": "NPCA",
+    "lastname": "2456",
+    "groupname": "Banda Ancha FTTH 100 Mbps",
+    "updateby": "Francisco",
     "creationby": "test",
-    "priority":  10
+    "password":  "99",
+    "address": "DAYCO-RO-BORDE"
 }
 
 ###
@@ -29,18 +29,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://10.10.20.7:3000/user-info
+POST  http://10.10.20.7:3000/user-info
 Content-Type: application/json
 
 {
-    "name": "Juancito Netcom",
-    "username": "131313",
-    "firstname": "Cod-Netcom",
-    "lastname": "131313",
-    "groupname": "ftth residencial 30mg",
-    "updateby": "test",
+    "username": "18E8293B5C99",
+    "firstname": "NPCA",
+    "lastname": "2456",
+    "groupname": "Community Plus - Prebo 25 Mbps",
+    "updateby": "Francisco",
     "creationby": "test",
-    "priority":  10
+    "password":  "18E8293B5C99"
 }
 
 ###

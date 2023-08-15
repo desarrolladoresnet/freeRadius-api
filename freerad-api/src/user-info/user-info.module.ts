@@ -5,9 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RadCheck } from 'src/database/radcheck.entity';
 import { RadUserGroup } from 'src/database/radusergroup.entity';
 import { UserInfo } from 'src/database/user.entity';
+import { RadGroupReply } from 'src/database/radgroupreply.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserInfo, RadCheck, RadUserGroup])],
+  imports: [
+    TypeOrmModule.forFeature([UserInfo, RadCheck, RadUserGroup, RadGroupReply]),
+  ],
   providers: [UserInfoService],
   controllers: [UserInfoController],
 })
