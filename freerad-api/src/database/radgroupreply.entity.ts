@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany } from 'typeorm';
+import { Service } from './service.entity';
 
 @Entity({ name: 'radgroupreply' })
 export class RadGroupReply {
@@ -17,4 +18,12 @@ export class RadGroupReply {
 
   @Column({ type: 'varchar', length: 253, nullable: false })
   value: string;
+
+  @JoinColumn()
+  @OneToMany(() => Service,
+  service => service.radGroup,
+  {
+    //onDelete: 'CASCADE',
+    onUpdate:'CASCADE'},)
+  services?: Service[]
 }

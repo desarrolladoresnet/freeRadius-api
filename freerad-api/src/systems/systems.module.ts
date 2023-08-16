@@ -6,7 +6,7 @@ import { ZonaCliente } from 'src/database/node.entity';
 import { System } from '../database/system.entity';
 
 /**
- * Es la informacion relativa a los sistema de gestion de clientes.
+ * Es la información relativa a los sistema de gestión de clientes.
  */
 @Module({
   imports: [TypeOrmModule.forFeature([ZonaCliente, System])],

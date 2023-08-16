@@ -27,10 +27,11 @@ export class UserInfoService {
   /**
    * Enpoint principal de la app.
    * La info puede ser enviada varias veces, en caso de que los datos ya se encuentren en la BD,
-   * se hara un salto a la siguiente parte de la lógica. 
+   * se hará un salto a la siguiente parte del proceso. 
    * Esto con motivo de que si por alguna razón, fallara el proceso de guardado, se pueda reintentar inmediatamente.
+   * Retorna el objeto creado más un campo 'msj' con todos los mensajes del proceso.
    * @param data { UserDto }
-   * @returns 
+   * @returns { object }
    */
   async CreateUser(data: UserDto) {
     const date = new Date();
@@ -287,7 +288,11 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  async FindAllUsers() {
+  /**
+   * Devuelve un array/lista con todas las entradas encontradas.
+   * @returns { Array }
+   */
+  async FindAllUsers(): Promise<UserInfo[]> {
     const date = new Date();
     console.log(`Se inicia busqueda de usuarios.\nFecha: ${date}\n`)
     try {
@@ -325,6 +330,11 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Buscan una entrada en la tbla 'userinfo' a traves del id.
+   * @param id { number }
+   * @returns { UserInfo }
+   */
   async FindById(id: number) {
     try {
       const date = new Date();
@@ -364,9 +374,32 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Permite modificar una entrada de la tabla 'userinfo'.
+   * Si la entrada no existe la operación es rechazada.
+   * @param id { number }
+   * @param data { UserUpdateDto }
+   * @returns { UserInfo }
+   */
   async UpdateUserInfo(id: number, data: UserUpdateDto) {
     const date = new Date();
     console.log(`Se inicia actualización de usuario de usuario.\nFecha: ${date}\n`);
+
+    let flag = false;
+    for (const obj in data) {
+      if (obj) {
+        console.log(obj)
+        flag = true;
+        break;
+      }
+    }
+
+    if(!flag){
+      const str = `No hay datos a modificar.`;
+      console.log(`${str}\n------------------------------------------------\n`);
+      return str;
+    }
+
     try {
       console.log(`Actualizando al usuario: ${data.username}`);
 
@@ -389,6 +422,7 @@ export class UserInfoService {
         );
       }
 
+      // Se evalúa si uno o más campos serán modificados.
       User.firstname = data?.firstname ? data.firstname : User.firstname;
       User.lastname = data?.lastname ? data.lastname : User.lastname;
       User.username = data?.username ? data.username : User.lastname;
@@ -447,6 +481,12 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Permite eliminar a un usuario de la tres tablas usadas para ser creado.
+   * En sintesis es el opuesto de CreateUser.
+   * Usa el username para eliminar al usuario, si por alguna razón la entrada no existe en alguna de las tablas no genera error y se pasa a la operación siguiente.
+   * @param username { string }
+   */
   async DeleteByUsername(username: string) {
     const date = new Date();
     console.log(`Se inicia eliminacion de usuario ${username} de la BD.\nFecha: ${date}\n`);

@@ -1,0 +1,960 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>freerad-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">freerad-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PlanService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/plan/plan.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Metodos para la manipulacion de los planes.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#plans" >plans</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#CreatePlan" >CreatePlan</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindAllPlans" >FindAllPlans</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindOnePlan" >FindOnePlan</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#RemovePlan" >RemovePlan</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#UpdatePlan" >UpdatePlan</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(planRepository: <a href="../entitys/Plan.html" target="_self">Repository&lt;Plan&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/plan/plan.service.ts:14</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>planRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Plan.html" target="_self" >Repository&lt;Plan&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CreatePlan"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>CreatePlan</b></span>
+                        <a href="#CreatePlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>CreatePlan(plan: <a href="../classes/CreatePlanDto.html" target="_self">CreatePlanDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/plan/plan.service.ts:30</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Recibe dos parametros en forma de String, name: Que sería el nomabre comercial y listname: El nombre en lista.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>plan</td>
+                                    <td>
+                                                <code><a href="../classes/CreatePlanDto.html" target="_self" >CreatePlanDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindAllPlans"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindAllPlans</b></span>
+                        <a href="#FindAllPlans"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindAllPlans()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/plan/plan.service.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Trae todo los planes</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindOnePlan"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindOnePlan</b></span>
+                        <a href="#FindOnePlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindOnePlan(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">src/plan/plan.service.ts:150</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Trae una entrada en base al id del plan buscado.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RemovePlan"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>RemovePlan</b></span>
+                        <a href="#RemovePlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>RemovePlan(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="263"
+                            class="link-to-prism">src/plan/plan.service.ts:263</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite eliminar una entrada en base al id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdatePlan"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>UpdatePlan</b></span>
+                        <a href="#UpdatePlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>UpdatePlan(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, updatePlanDto: <a href="../classes/UpdatePlanDto.html" target="_self">UpdatePlanDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">src/plan/plan.service.ts:194</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite actualizar una entrada en base al id y los parametros enviados.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>updatePlanDto</td>
+                                    <td>
+                                                <code><a href="../classes/UpdatePlanDto.html" target="_self" >UpdatePlanDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="plans"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>plans</b></span>
+                        <a href="#plans"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../entitys/Plan.html" target="_self" >Plan[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/plan/plan.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException, HttpStatus, Injectable } from &#x27;@nestjs/common&#x27;;
+import { CreatePlanDto } from &#x27;../dto/plan.dto&#x27;;
+// import { UpdatePlanDto } from &#x27;src/dto/update-plan.dto&#x27;;
+import { UpdatePlanDto } from &#x27;../dto/plan.dto&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { Plan } from &#x27;../database/plan.entity&#x27;;
+
+/**
+ * Metodos para la manipulacion de los planes.
+ */
+@Injectable()
+export class PlanService {
+  constructor(
+    @InjectRepository(Plan)
+    private planRepository: Repository&lt;Plan&gt;,
+  ) {}
+  private readonly plans: Plan[] &#x3D; [];
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Recibe dos parametros en forma de String, name: Que sería el nomabre comercial y listname: El nombre en lista.
+   * @param data { createPlanDto }
+   * @returns { object }
+   */
+  async CreatePlan(plan: CreatePlanDto) {
+    const { name, listName } &#x3D; plan;
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Creando nuevo plan con name:&#x27;${name}&#x27; y listName:&#x27;${listName}&#x27;.\nFecha: ${date}\n&#x60;);
+
+      //* Verificacion de existencia del plan *//
+      const isName &#x3D; await this.planRepository.find({
+        where: [{ name }, { listName }],
+      });
+      if (isName?.length &gt; 0) {
+        const str &#x3D; &#x60;Ya existe un plan con el name:&#x27;${name}&#x27; o listName:&#x27;${listName}&#x27;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
+      }
+
+      //* Si el plan no existe se crea *//
+      const planNew &#x3D; await this.planRepository.create({
+        name,
+        listName,
+      });
+      const planSave &#x3D; await this.planRepository.save(planNew);
+
+      //* Se verifica que el plan se haya guardado correctamente *//
+      if (!planSave) {
+        const str &#x3D; &#x60;Hubo un error al guardar el plan con el name:&#x27;${name}&#x27; o listName:&#x27;${listName}&#x27;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        console.log(
+          &#x60;Plan guardado exitopsamente.\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
+      }
+      
+      console.log(
+        &#x60;Plan guardado exitopsamente.\n------------------------------------------------\n&#x60;,
+      );
+      return planSave;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Trae todo los planes
+   * @todo Paginar
+   * @returns { Array }
+   */
+  async FindAllPlans() {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Buscando los planes.\nFecha: ${date}\n&#x60;);
+      const planes &#x3D; await this.planRepository.find();
+      if (planes?.length &lt; 1) {
+        const str &#x3D; &#x60;No se encontraron planes&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          }
+        );
+      }
+      console.log(
+        &#x60;${planes?.length} planes encontrados.\n------------------------------------------------\n&#x60;,
+      );
+      return planes;
+    } catch (error) {
+      console.log(error);
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Trae una entrada en base al id del plan buscado.
+   * @param id { number }
+   * @returns { object }
+   */
+  async FindOnePlan(id: number) {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Buscando plan con el id: ${id}.\nFecha: ${date}\n&#x60;);
+      const plan &#x3D; await this.planRepository.findOneBy({ id });
+
+      if (!plan) {
+        const str &#x3D; &#x60;No se encontró un plan con el id: ${id}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
+      }
+
+      console.log(
+        &#x60;Plan econtrado\n------------------------------------------------\n&#x60;,
+      );
+      return plan;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Permite actualizar una entrada en base al id y los parametros enviados.
+   * @param id { number }
+   * @param data { UpdatePlanDto }
+   */
+  async UpdatePlan(id: number, updatePlanDto: UpdatePlanDto) {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Haciendo update al plan con el id: ${id}.\nFecha: ${date}\n&#x60;);
+
+      const { name, listName } &#x3D; updatePlanDto;
+
+      //* Verificacion de existencia del plan *//
+      const isName &#x3D; await this.planRepository.find({
+        where: [{ name }, { listName }],
+      });
+      console.log(isName);
+      if (isName?.length &gt; 0) {
+        const str &#x3D; &#x60;No se encontró un plan con el name:&#x27;${name}&#x27; y listName:&#x27;${listName}&#x27;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          }
+        );
+      }
+
+      //* Update del plan *//
+      const update &#x3D; await this.planRepository.update(id, updatePlanDto);
+
+      if (!update) {
+        const str &#x3D; &#x60;Hubo un problema al realizar el update&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
+      }
+
+      console.log(&#x60;Update exitoso&#x60;);
+      return update;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Permite eliminar una entrada en base al id.
+   * @param id { number }
+   * @returns { object }
+   */
+  async RemovePlan(id: number) {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Borrando plan con el id: ${id}.\nFecha: ${date}\n&#x60;);
+      const del &#x3D; await this.planRepository.delete(id);
+
+      if (!del) {
+        const str &#x3D; &#x60;No se puedo eliminar el plan&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          }
+        );
+      }
+
+      console.log(&#x60;Plan eliminado exitosamente&#x60;);
+      return del;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PlanService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

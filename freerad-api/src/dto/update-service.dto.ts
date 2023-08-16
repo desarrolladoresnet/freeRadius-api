@@ -2,7 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateServiceDto } from './create-service.dto';
 import { IsNumber, IsOptional } from 'class-validator';
 import { System } from 'src/database/system.entity';
-import { Plan } from 'src/database/plan.entity';
+import { RadGroupReply } from 'src/database/radgroupreply.entity';
 
 export class UpdateServiceDto extends PartialType(CreateServiceDto) {
   @IsOptional()
@@ -13,7 +13,7 @@ export class UpdateServiceDto extends PartialType(CreateServiceDto) {
   clientId: number;
 
   @IsOptional()
-  plan: Plan;
+  radGroup: RadGroupReply;
 
   @IsOptional()
   @IsNumber()

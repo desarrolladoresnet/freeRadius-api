@@ -1,0 +1,805 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>freerad-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">freerad-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ZoneService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/zone/zone.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Metodos para manipular la tabla zone.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#CreateZone" >CreateZone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindAllZones" >FindAllZones</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindById" >FindById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#UpdateZone" >UpdateZone</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(zoneRepository: <a href="../entitys/Zone.html" target="_self">Repository&lt;Zone&gt;</a>, nasRepository: <a href="../entitys/Nas.html" target="_self">Repository&lt;Nas&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/zone/zone.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>zoneRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Zone.html" target="_self" >Repository&lt;Zone&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>nasRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Nas.html" target="_self" >Repository&lt;Nas&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CreateZone"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>CreateZone</b></span>
+                        <a href="#CreateZone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>CreateZone(data: <a href="../classes/ZoneDto.html" target="_self">ZoneDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/zone/zone.service.ts:30</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Crea una nueva entrada en la tabla.
+Todos los parametros de la desestructuracion son necesarios para crear una zona,
+{ name, tlf, codigo_zona, Nas, coord }, si falta alguno el dto rechazara la peticion.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/ZoneDto.html" target="_self" >ZoneDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindAllZones"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindAllZones</b></span>
+                        <a href="#FindAllZones"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindAllZones()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/zone/zone.service.ts:108</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite traer todas las entradas que posee la tabla.</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindById</b></span>
+                        <a href="#FindById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/zone/zone.service.ts:141</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Encuentra una entrada haciendo uso del id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateZone"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>UpdateZone</b></span>
+                        <a href="#UpdateZone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>UpdateZone(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, data: <a href="../classes/ZoneDto.html" target="_self">ZoneDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="178"
+                            class="link-to-prism">src/zone/zone.service.ts:178</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Permite realizar un update de una entrada usando el id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/ZoneDto.html" target="_self" >ZoneDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException, HttpStatus, Injectable } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Nas } from &#x27;src/database/nas.entity&#x27;;
+import { Zone } from &#x27;src/database/zone.entity&#x27;;
+import { ZoneDto } from &#x27;src/dto/zone.dto&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+
+/**
+ * Metodos para manipular la tabla zone.
+ */
+@Injectable()
+export class ZoneService {
+  constructor(
+    @InjectRepository(Zone)
+    private zoneRepository: Repository&lt;Zone&gt;,
+    @InjectRepository(Nas)
+    private nasRepository: Repository&lt;Nas&gt;,
+  ) {}
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Crea una nueva entrada en la tabla.
+   * Todos los parametros de la desestructuracion son necesarios para crear una zona,
+   * { name, tlf, codigo_zona, Nas, coord }, si falta alguno el dto rechazara la peticion.
+   * @param data { ZoneDto }
+   * @returns { object }
+   */
+  async CreateZone(data: ZoneDto) {
+    const { name, tlf, codigo_zona, Nas, coord } &#x3D; data;
+
+    console.log(
+      &#x60;Creando nueva zona con los valores name: ${name}, tlg: ${tlf}, codigo_zona: ${codigo_zona}, Nas: ${Nas} y coord: ${coord}&#x60;,
+    );
+
+    try {
+      //* Verifica que el NAS sea valido *//
+      const isNas &#x3D; await this.nasRepository.findOneBy({ id: Nas });
+      if (!isNas) {
+        const str &#x3D; &#x60;El id del NAS: ${Nas}, no existe en la Base de Datos&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      //* Verifica que no haya un nas con el mismo nombre *//
+      const isZone &#x3D; await this.zoneRepository.findBy({ name: name });
+      if (isZone?.length &gt; 0) {
+        const str &#x3D; &#x60;Ya hay una zona con el nombre: ${name}&#x60;;
+        console.log(&#x60;${str}------------------------------------------------\n&#x60;);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+        );
+      }
+
+      //* Crea la nueva zona *//
+      const newZone &#x3D; await this.zoneRepository.create({
+        name,
+        tlf,
+        codigo_zona,
+        Nas,
+        coord,
+      });
+
+      console.log(&#x60;Guardando datos de la nueva zona&#x60;);
+      const saveZone &#x3D; await this.zoneRepository.save(newZone);
+      if (!saveZone) {
+        const str &#x3D; &#x60;Hubo un problema al guardar la zona&#x60;;
+        console.log(&#x60;${str}------------------------------------------------\n&#x60;);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+
+      console.log(&#x60;Zona creada exitosamente&#x60;);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return saveZone;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Permite traer todas las entradas que posee la tabla.
+   * @todo paginar
+   * @returns { Array }
+   */
+  async FindAllZones() {
+    try {
+      const zones &#x3D; await this.zoneRepository.find();
+      console.log(&#x60;Buscando zonas&#x60;);
+      if (zones?.length &lt; 1) {
+        const str &#x3D; &#x60;No hay zonas registradas&#x60;;
+        console.log(&#x60;------------------------------------------------\n&#x60;);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      console.log(&#x60;Se encontraron ${zones?.length} zonas.&#x60;);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return zones;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Encuentra una entrada haciendo uso del id.
+   * @param id { number }
+   * @returns { object }
+   */
+  async FindById(id: number) {
+    try {
+      console.log(&#x60;Buscando zona con id: ${id}&#x60;);
+
+      const zone &#x3D; await this.zoneRepository.findOneBy({ id: id });
+      if (!zone) {
+        const str &#x3D; &#x60;No se encontro una zona con el id: ${id}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      console.log(&#x60;Zona encontrada&#x60;);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return zone;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Permite realizar un update de una entrada usando el id.
+   * @param id { number }
+   * @param data { ZoneDto }
+   * @returns { object }
+   */
+  async UpdateZone(id: number, data: ZoneDto) {
+    const { name, tlf, codigo_zona, Nas, coord } &#x3D; data;
+
+    //* Verifica que existan valores para realizar update *//
+    if (!name &amp;&amp; !tlf &amp;&amp; !codigo_zona &amp;&amp; !Nas &amp;&amp; !coord) {
+      const str &#x3D; &#x60;No hay valores para realizar update&#x60;;
+      console.log(&#x60;${str}\n------------------------------------------------\n&#x60;);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    try {
+      //* Se busca la zona *//
+      console.log(&#x60;Haciendo update de zona: ${name}&#x60;);
+      const zone &#x3D; await this.zoneRepository.findOneBy({ id: id });
+      if (!zone) {
+        const str &#x3D; &#x60;No hay zone con el id: ${id}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      //* Verifica existencia del NAS *//
+      const isNas &#x3D; await this.nasRepository.findOneBy({ id: Nas });
+      if (!isNas) {
+        const str &#x3D; &#x60;El id del NAS: ${Nas}, no existe en la Base de Datos&#x60;;
+        console.log(&#x60;------------------------------------------------\n&#x60;);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      //* Update de los valores *//
+      zone.name &#x3D; name;
+      zone.tlf &#x3D; tlf;
+      zone.codigo_zona &#x3D; codigo_zona;
+      zone.Nas &#x3D; Nas;
+      zone.coord &#x3D; coord;
+
+      const updateZone &#x3D; await this.zoneRepository.save(zone);
+
+      if (!updateZone) {
+        const str &#x3D; &#x60;&#x27;Hubo un problema al hacer el update&#x27;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+
+      console.log(
+        &#x60;Update exitoso.\n------------------------------------------------\n&#x60;,
+      );
+      return updateZone;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ZoneService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

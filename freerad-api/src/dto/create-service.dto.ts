@@ -1,6 +1,13 @@
-import { IsIP, IsNotEmpty, IsNumber, Max, Min } from 'class-validator';
+import {
+  IsIP,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  Max,
+  Min,
+} from 'class-validator';
 import { System } from 'src/database/system.entity';
-import { Plan } from 'src/database/plan.entity';
+import { RadGroupReply } from 'src/database/radgroupreply.entity';
 
 export class CreateServiceDto {
   id: number;
@@ -13,14 +20,13 @@ export class CreateServiceDto {
   clientId: number;
 
   @IsNotEmpty()
-  plan: Plan;
+  radGroup: RadGroupReply;
 
+  @IsOptional()
   @IsNumber()
   radiusId: number;
 
   @IsNumber()
   @IsNotEmpty()
-  @Min(0)
-  @Max(4)
   status: number;
 }

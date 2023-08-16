@@ -2,7 +2,7 @@ POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
-    "username": "18E8293B5C99",
+    "username": "18E8293B5C98",
     "firstname": "NPCA",
     "lastname": "2456",
     "groupname": "Banda Ancha RF 10 Mbps/2 Mbps",
@@ -14,7 +14,7 @@ Content-Type: application/json
 DELETE  http://localhost:3000/user-info/18E8293B5C99
 
 ###
-PUT http://10.10.20.7:3000/user-info/23
+PUT http://localhost:3000/user-info/17
 Content-Type: application/json
 
 {

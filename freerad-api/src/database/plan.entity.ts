@@ -12,10 +12,10 @@ export class Plan {
 
   @Column({ type: 'varchar', length: 200, unique: true })
   listName: string;
-
+  
   @JoinColumn()
   @OneToMany(() => Service,
-  service => service.plan,
+  service => service.radGroup,
   {
     onDelete: 'CASCADE',
     onUpdate:'CASCADE'},)

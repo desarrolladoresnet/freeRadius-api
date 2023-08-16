@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserInfoController } from './user-info.controller';
 
+/**
+ * @ignore
+ */
 describe('UserInfoController', () => {
   let controller: UserInfoController;
 

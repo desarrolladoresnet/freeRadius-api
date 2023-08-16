@@ -73,7 +73,7 @@ export class SystemsController {
   }
 
   /**
-   * 
+   * Busca información de los nodos con un id.
    * @param id { number }
    * @returns { object }
    */

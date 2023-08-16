@@ -1,0 +1,809 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>freerad-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">freerad-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >NasService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/nas/nas.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#CreateNas" >CreateNas</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindAllNas" >FindAllNas</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#FindById" >FindById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#UpdateNas" >UpdateNas</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(nasRepository: <a href="../entitys/Nas.html" target="_self">Repository&lt;Nas&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/nas/nas.service.ts:9</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>nasRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Nas.html" target="_self" >Repository&lt;Nas&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CreateNas"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>CreateNas</b></span>
+                        <a href="#CreateNas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>CreateNas(data: <a href="../classes/NasDto.html" target="_self">NasDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/nas/nas.service.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Crea una entrada en la tabla NAS.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/NasDto.html" target="_self" >NasDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>, ver el nas.dto en la carpeta dto.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindAllNas"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindAllNas</b></span>
+                        <a href="#FindAllNas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindAllNas()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/nas/nas.service.ts:104</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Busca todas las entradas en la tabla NAS.</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>FindById</b></span>
+                        <a href="#FindById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>FindById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="147"
+                            class="link-to-prism">src/nas/nas.service.ts:147</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Busqueda de una entrada por su id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UpdateNas"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>UpdateNas</b></span>
+                        <a href="#UpdateNas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>UpdateNas(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, data: <a href="../classes/NasDtoUpdate.html" target="_self">NasDtoUpdate</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="193"
+                            class="link-to-prism">src/nas/nas.service.ts:193</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>PErmite hacer update a una entrada del NAS.
+Puede que el metodo tenga que ser desechadoo al menos la ruta que lo llama.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/NasDtoUpdate.html" target="_self" >NasDtoUpdate</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException, HttpStatus, Injectable } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Nas } from &#x27;src/database/nas.entity&#x27;;
+import { NasDto, NasDtoUpdate } from &#x27;src/dto/nas.dto&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+
+@Injectable()
+export class NasService {
+  constructor(
+    @InjectRepository(Nas)
+    private nasRepository: Repository&lt;Nas&gt;,
+  ) {}
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Crea una entrada en la tabla NAS.
+   * @param data { NasDto }, ver el nas.dto en la carpeta dto.
+   * @returns { object }
+   */
+  async CreateNas(data: NasDto) {
+    try {
+      const { name, ip_address, secret } &#x3D; data;
+
+      //* Verifica si el username ya existe. *//
+      const date &#x3D; new Date();
+      console.log(&#x60;Creando NAS con el name: ${name}.\nFecha: ${date}\n&#x60;);
+
+      const isNas &#x3D; await this.nasRepository.findBy({
+        nasname: ip_address,
+      });
+      if (isNas?.length &gt; 0) {
+        const str &#x3D; &#x60;Ya existe un NAS con ese IP: ${ip_address}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: str,
+          },
+          HttpStatus.CONFLICT,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      //* Crea una nueva entrada, el metdodo posee valores por defecto para no dejar espacio nulos en la memoria *//
+      const newNas &#x3D; this.nasRepository.create({
+        shortname: name,
+        nasname: ip_address,
+        secret: secret,
+        /* OPCIONALES */
+        type: data?.type ? data.type : &#x27;0&#x27;,
+        ports: data?.type ? data.ports : 0,
+        server: data?.server ? data.server : &#x27;0&#x27;,
+        community: data?.community ? data.community : &#x27;0&#x27;,
+        description: data?.description ? data.description : &#x27;0&#x27;,
+      });
+      const nas &#x3D; await this.nasRepository.save(newNas);
+
+      //* Se verifica que se guarde correctamente la entrada. *//
+      if (!nas) {
+        const str &#x3D; &#x60;Hubo un error al guardar los datos&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return nas;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Busca todas las entradas en la tabla NAS.
+   * @TODO paginar!
+   * @returns { array }
+   */
+  async FindAllNas() {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Buscando los NAS.\nFecha: ${date}\n&#x60;);
+      const allNas &#x3D; await this.nasRepository.find();
+
+      //* Verifica la existencia de entradas en la tabla. *//
+      if (allNas?.length &lt; 1) {
+        const str &#x3D; &#x60;No se encontraron NAS&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return allNas;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return error;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Busqueda de una entrada por su id.
+   * @param id { number }
+   * @returns { object }
+   */
+  async FindById(id: number) {
+    try {
+      //* Busqueda de la entrada *//
+      const date &#x3D; new Date();
+      console.log(&#x60;Buscandos NAS con el id: ${id}.\nFecha: ${date}\n&#x60;);
+      const nas &#x3D; await this.nasRepository.findOneBy({ id: id });
+
+      //* Verificacion de que exista la entrada buscada. *//
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontro un NAS con el id: ${id}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return nas;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * PErmite hacer update a una entrada del NAS.
+   * Puede que el metodo tenga que ser desechadoo al menos la ruta que lo llama.
+   * @param id { number }
+   * @param data { NasDto } 
+   * @returns { object }
+   */
+  async UpdateNas(id: number, data: NasDtoUpdate) {
+    const { name , ip_address, secret, ports, server, type, community, description } &#x3D; data;
+
+    const date &#x3D; new Date();
+    console.log(&#x60;Actualizando NAS con el id: ${id}.\nFecha: ${date}\n&#x60;);
+
+    if( !name &amp;&amp; !ip_address &amp;&amp; !secret &amp;&amp; !ports &amp;&amp; !server &amp;&amp; !type &amp;&amp; !community &amp;&amp; !description){
+      const str &#x3D; &#x60;No hay valores para realizar el update&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str)
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          }
+        );
+    }
+    try {
+
+      const nas &#x3D; await this.nasRepository.findOneBy({ id: id });
+
+      //* Verificacion de que exista la entrada buscada. *//
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontro un NAS con el id: ${id}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      nas.community &#x3D; data?.community ? data.community : nas.community;
+      nas.description &#x3D; data?.description ? data.description : nas.description;
+      nas.nasname &#x3D; data?.ip_address ? data.ip_address : nas.nasname; // en el nasname va la direccion ip
+      nas.ports &#x3D; data?.ports ? data.ports : nas.ports;
+      nas.server &#x3D; data?.server ? data.server : nas.server;
+      nas.secret &#x3D; data?.secret ? data.secret : nas.secret;
+      nas.shortname &#x3D; data?.name ? data.name : nas.shortname; //el shortname viene del campo name
+      nas.type &#x3D; data?.type ? data.type : nas.type;
+
+      const updateNas &#x3D; await this.nasRepository.save(nas);
+
+      //* Verificacion de update del NAS. *//
+      if (!updateNas) {
+        const str &#x3D; &#x60;No se puedo actualizar el NAS&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      return updateNas;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'NasService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

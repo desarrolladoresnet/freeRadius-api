@@ -27,6 +27,7 @@ import { UserInfo } from './database/user.entity';
 import { ZonaCliente } from './database/node.entity';
 import { Zone } from './database/zone.entity';
 import { RadGroupReply } from './database/radgroupreply.entity';
+import { RadGroupReplyModule } from './radgroupreply/radgroupreply.module';
 
 @Module({
   imports: [
@@ -77,7 +78,8 @@ import { RadGroupReply } from './database/radgroupreply.entity';
     UserInfoModule,
     ZoneModule,
     ServicesModule,
-    NodesModule
+    NodesModule,
+    RadGroupReplyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

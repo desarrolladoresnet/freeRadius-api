@@ -1,0 +1,1573 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>freerad-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">freerad-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >CoaService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/coa/coa.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ActivateUser" >ActivateUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ChangePlan" >ChangePlan</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#CoA_cmd" >CoA_cmd</a>
+                            </li>
+                            <li>
+                                <a href="#CoA_Status" >CoA_Status</a>
+                            </li>
+                            <li>
+                                <a href="#echoComand" >echoComand</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#Modify" >Modify</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#SuspendUser" >SuspendUser</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userInfo: <a href="../entitys/UserInfo.html" target="_self">Repository&lt;UserInfo&gt;</a>, radacctRepository: <a href="../entitys/Radacct.html" target="_self">Repository&lt;Radacct&gt;</a>, nasRepository: <a href="../entitys/Nas.html" target="_self">Repository&lt;Nas&gt;</a>, radGroupRepository: <a href="../entitys/RadGroupReply.html" target="_self">Repository&lt;RadGroupReply&gt;</a>, userGroupService: <a href="../injectables/RadusergroupService.html" target="_self">RadusergroupService</a>, configService: <a href="../entitys/Service.html" target="_self">ConfigService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/coa/coa.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userInfo</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/UserInfo.html" target="_self" >Repository&lt;UserInfo&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>radacctRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Radacct.html" target="_self" >Repository&lt;Radacct&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>nasRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Nas.html" target="_self" >Repository&lt;Nas&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>radGroupRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/RadGroupReply.html" target="_self" >Repository&lt;RadGroupReply&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userGroupService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RadusergroupService.html" target="_self" >RadusergroupService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Service.html" target="_self" >ConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ActivateUser"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>ActivateUser</b></span>
+                        <a href="#ActivateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ActivateUser(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/coa/coa.service.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>para activar el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el &quot;nasipaddress&quot; y su &quot;secret&quot;.
+Si todos los aprametros son encontrados se ejecuta el CoA.
+Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+Si en algun momento algo falla se retorna un msj de error.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>username</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Queda pendiente la respuesta</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ChangePlan"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>ChangePlan</b></span>
+                        <a href="#ChangePlan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ChangePlan(data: <a href="../classes/ChangePlanDto.html" target="_self">ChangePlanDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="394"
+                            class="link-to-prism">src/coa/coa.service.ts:394</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Se verifica la existencia del usuario, se busca su &quot;nasipaddress&quot; y &quot;secret&quot;.
+Si todos los parametros son encontrados se ejecuta el CoA.
+Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+Si en algun momento algo falla se retorna un msj de error.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/ChangePlanDto.html" target="_self" >ChangePlanDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>viene con dos string, username con nombre de la ONU y &quot;groupname&quot; con el nuevo plan.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Queda pendiente la respuesta</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CoA_cmd"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>CoA_cmd</b></span>
+                        <a href="#CoA_cmd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>CoA_cmd(echoCommand: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, radClientCommand: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/coa/coa.service.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Inserta los comandos a la terminal unix.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>echoCommand</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>radClientCommand</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CoA_Status"></a>
+                    <span class="name">
+                        <span ><b>CoA_Status</b></span>
+                        <a href="#CoA_Status"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>CoA_Status(response: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/coa/coa.service.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Verefica que el comando se haya ejecutado exitosamente.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Toma la Respuesta del CoA y evalua si fue exitosa.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="echoComand"></a>
+                    <span class="name">
+                        <span ><b>echoComand</b></span>
+                        <a href="#echoComand"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>echoComand(data: <a href="../entitys/RadGroupReply.html" target="_self">Array&lt;RadGroupReply&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/coa/coa.service.ts:84</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../entitys/RadGroupReply.html" target="_self" >Array&lt;RadGroupReply&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Modify"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>Modify</b></span>
+                        <a href="#Modify"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>Modify(data: <a href="../classes/CoaDto.html" target="_self">CoaDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="595"
+                            class="link-to-prism">src/coa/coa.service.ts:595</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Metodo para uso interno de la API, y su objetivo  es permitir enviar un mensaje CoA a un NAS para modificar  parámetros de un servicio, en vivo.
+Se verifica la existencia del usuario, se busca su &quot;nasipaddress&quot; y &quot;secret&quot;.
+Si todos los parametros son encontrados se ejecuta el CoA.
+Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+Si en algun momento algo falla se retorna un msj de error.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../classes/CoaDto.html" target="_self" >CoaDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Ver CoaDto en la carpeta de Ddto.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Queda pendiente la respuesta</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SuspendUser"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>SuspendUser</b></span>
+                        <a href="#SuspendUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>SuspendUser(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="241"
+                            class="link-to-prism">src/coa/coa.service.ts:241</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Para Suspender el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el &quot;nasipaddress&quot; y su &quot;secret&quot;.
+Si todos los aprametros son encontrados se ejecuta el CoA.
+Si el CoA es exitoso se agrega  al grupo de suspendidos de &quot;radusergroup&quot;.
+Si en algun momento algo falla se retorna un msj de error.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>username</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Queda pendiente la respuesta</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException, HttpStatus, Injectable } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { ConfigService } from &#x27;@nestjs/config&#x27;
+//* IMPORTACIONES VARIAS *//
+import { Repository } from &#x27;typeorm&#x27;;
+import { exec } from &#x27;child_process&#x27;;
+import { promisify } from &#x27;util&#x27;;
+import { RadusergroupService } from &#x27;src/radusergroup/radusergroup.service&#x27;;
+import { ChangePlanDto, CoaDto } from &#x27;src/dto/coa.dto&#x27;;
+//* ENTIDADES *//
+import { Nas } from &#x27;src/database/nas.entity&#x27;;
+import { Radacct } from &#x27;src/database/radacct.entity&#x27;;
+import { UserInfo } from &#x27;src/database/user.entity&#x27;;
+import { RadGroupReply } from &#x27;src/database/radgroupreply.entity&#x27;;
+
+@Injectable()
+export class CoaService {
+  constructor(
+    @InjectRepository(UserInfo)
+    private readonly userInfo: Repository&lt;UserInfo&gt;,
+    @InjectRepository(Radacct)
+    private readonly radacctRepository: Repository&lt;Radacct&gt;,
+    @InjectRepository(Nas)
+    private readonly nasRepository: Repository&lt;Nas&gt;,
+    @InjectRepository(RadGroupReply)
+    private readonly radGroupRepository: Repository&lt;RadGroupReply&gt;,
+    private readonly userGroupService: RadusergroupService,
+    private configService: ConfigService
+    ) {}
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Inserta los comandos a la terminal unix.
+   * @param echoCommand {string}
+   * @param radClientCommand {string}
+   * @returns { string }
+   */
+  async CoA_cmd(
+    echoCommand: string,
+    radClientCommand: string,
+  ): Promise&lt;string&gt; {
+    const execAsync &#x3D; promisify(exec);
+    try {
+      const { stdout } &#x3D; await execAsync(
+        &#x60;${echoCommand} | ${radClientCommand}&#x60;,
+      );
+      console.log(&#x27;Command output:&#x27;, stdout);
+      return stdout;
+    } catch (error) {
+      // console.log(error);
+      // //console.error(&#x27;Error executing the command:&#x27;, error.message);
+      // console.log(
+      //   &#x27;------------------------------------------------------------------------------&#x27;,
+      // );
+      if (error.stdout.includes(&#x27;Session-Context-Not-Found&#x27;)){
+        return &quot;CoA-ACK, El usuario no estaba activo&quot;
+      }
+      throw error;
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Verefica que el comando se haya ejecutado exitosamente.
+   * @param response {string} Toma la Respuesta del CoA y evalua si fue exitosa.
+   * @returns { boolean }
+   */
+  CoA_Status(response: string) {
+    if (!(typeof response &#x3D;&#x3D;&#x3D; &#x27;string&#x27;)) return false; // Failsafe por si falla el coa
+    const str &#x3D; response.toLowerCase();
+    return str.includes(&#x27;coa-ack&#x27;);
+  }
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  echoComand(data: Array&lt;RadGroupReply&gt;) {
+    let command &#x3D; &#x27;&#x27;;
+
+    for (const str of data ){
+      command +&#x3D;&#x60;,${str.attribute}&#x3D;${str.value}&#x60;
+    }
+
+    return command;
+  }
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * para activar el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el &quot;nasipaddress&quot; y su &quot;secret&quot;.
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
+  async ActivateUser(username: string) {
+    try {
+      const date &#x3D; new Date();
+      console.log(&#x60;Activando al usuario ${username}.\nFecha: ${date}\n&#x60;);
+      const isUser &#x3D; await this.userInfo.findOneBy({ username });
+      if (!isUser) {
+        const str &#x3D; &#x60;No existe el username: ${username}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      //* Busqueda de Ip en radacct
+      console.log(&#x60;Buscando IP&#x60;);
+      const radacct &#x3D; await this.radacctRepository.findOneBy({ username });
+      if (!radacct) {
+        const str &#x3D; &#x60;El username:${username}, no pudo ser encontrado.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const ip_address &#x3D; radacct.nasipaddress;
+
+      // Busqueda del secret
+      console.log(&#x60;Localizando Secret&#x60;);
+      const nas &#x3D; await this.nasRepository.find({
+        where: [{ nasname: ip_address }],
+        order: { id: &#x27;desc&#x27; },
+        take: 1,
+      });
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontro una dirección &#x27;nas&#x27; asociada al username:${username} y su ip.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const secret &#x3D; nas[0].secret;
+
+      //* Preparacion de los comandos para Radius.
+      const echoCommand &#x3D; &#x60;echo &quot;User-Name&#x3D;&#x27;${username}&#x27;,User-Name&#x3D;&#x27;${username}&#x27;,NetElastic-Portal-Mode&#x3D;0&quot;&#x60;;
+      const radClientCommand &#x3D; &#x60;radclient -c &#x27;1&#x27; -n &#x27;3&#x27; -r &#x27;3&#x27; -t &#x27;3&#x27; -x &#x27;${ip_address}:3799&#x27; &#x27;coa&#x27; &#x27;${secret}&#x27; 2&gt;&amp;1&#x60;;
+
+      console.log(&#x60;Activando&#x60;);
+      const res &#x3D; await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log(&#x27;COA Response&#x27;, res);
+
+      console.log(&#x60;Confirmando&#x60;);
+      const statusCoa &#x3D; this.CoA_Status(res);
+
+      if (!statusCoa) {
+        return &#x60;El usuario ${username} no pudo ser activado&#x60;;
+      }
+
+       //borrar entrada de la tabla radusergroup
+      const data &#x3D; { username, groupname: &#x27;suspendido&#x27;, priority: 1 };
+      const eliminateSuspend &#x3D; await this.userGroupService.DeleteUserGroup(
+        data,
+      );
+
+      if (!eliminateSuspend) {
+        const str &#x3D; &#x60;El usuario no pudo ser eliminado de la tabla radusergroup&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      const str &#x3D; &#x60;El usuario &quot;${username} fue activado con exito&quot;&#x60;;
+      console.log(&#x60;${str}\n------------------------------------------------\n&#x60;);
+      return str;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Para Suspender el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el &quot;nasipaddress&quot; y su &quot;secret&quot;.
+   * Si todos los aprametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se agrega  al grupo de suspendidos de &quot;radusergroup&quot;.
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param username { string }
+   * @returns Queda pendiente la respuesta
+   */
+  async SuspendUser(username: string) {
+    
+      //* Preparacion de comandos para Radius. *//
+    try {
+      /*
+       * Busqueda de usuario en BD.
+       */
+      const date &#x3D; new Date();
+      console.log(&#x60;Suspendiendo al usuario ${username}.\nFecha: ${date}\n&#x60;);
+      const isUser &#x3D; await this.userInfo.findOneBy({ username });
+      if (!isUser) {
+        const str &#x3D; &#x60;No existe el username: ${username}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      /*
+       * Busqueda de Ip en radacct.
+       */
+      console.log(&#x60;Bucando IP&#x60;);
+      const radacct &#x3D; await this.radacctRepository.findOneBy({ username });
+      if (!radacct) {
+        const str &#x3D; &#x60;El username:${username}, no pudo ser encontrado en la tabla radacct.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const ip_address &#x3D; radacct.nasipaddress;
+
+      //* Busqueda del secret es tabla nas. *//
+      const nas &#x3D; await this.nasRepository.find({
+        where: [{ nasname: ip_address }],
+        order: { id: &#x27;desc&#x27; },
+        take: 1,
+      });
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontró una direccion nas aosciada al username:${username} y su ip.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const secret &#x3D; nas[0].secret;
+
+      const url_suspension &#x3D; this.configService.get&lt;string&gt;(&#x27;URL_SUSPENSION&#x27;) || &#x27;http://10.10.20.7/avisodecorte&#x27;;
+      const acl_suspension &#x3D; this.configService.get&lt;string&gt;(&#x27;ACL_SUSPENSION&#x27;) || &#x27;suspendido&#x27;;
+
+      console.log(&#x60;URL ${url_suspension}\nACL ${acl_suspension}&#x60;)
+      //* Preparacion de comandos para Radius. *//
+      const echoCommand &#x3D; &#x60;echo &quot;User-Name&#x3D;&#x27;${username}&#x27;,User-Name&#x3D;&#x27;${username}&#x27;,NetElastic-Portal-Mode&#x3D;1,NetElastic-HTTP-Redirect-URL&#x3D;&#x27;${url_suspension}&#x27;,Filter-Id&#x3D;&#x27;${acl_suspension}&#x27;&quot;&#x60;;
+      const radClientCommand &#x3D; &#x60;radclient -c &#x27;1&#x27; -n &#x27;3&#x27; -r &#x27;3&#x27; -t &#x27;3&#x27; -x &#x27;${ip_address}:3799&#x27; &#x27;coa&#x27; &#x27;${secret}&#x27; 2&gt;&amp;1&#x60;;
+
+      console.log(&#x60;Suspendiendo&#x60;);
+      const res &#x3D; await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log(&#x27;COA Response&#x27;, res);
+
+      /**
+       * Compara string recibido de la terminal Linux con string esperado.
+       * Retornal bool.
+       */
+      const statusCoa &#x3D; this.CoA_Status(res);
+      if (!statusCoa) {
+        const str &#x3D; &#x60;No se pudo suspender al usuario ${username}&#x60;;
+        console.log(&#x60;${str}\n------------------------------------------------\n&#x60;);
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      const data &#x3D; { username, groupname: &#x27;suspendido&#x27;, priority: 1 };
+
+      const userGroup &#x3D; await this.userGroupService.CreateRadUserGroup(data);
+      console.log(&quot;usergoup: &quot;,userGroup);
+      if (!userGroup) {
+        const str &#x3D; &#x60;No se pudo suspender al usuario ${username} en la tabla &quot;radusergroup&quot;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+      return &#x60;El usuario ${username} fue suspendido exitosamente&#x60;;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
+    /**
+   * Se verifica la existencia del usuario, se busca su &quot;nasipaddress&quot; y &quot;secret&quot;.
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { ChangePlanDto } viene con dos string, username con nombre de la ONU y &quot;groupname&quot; con el nuevo plan.
+   * @returns Queda pendiente la respuesta
+   */
+  async ChangePlan(data: ChangePlanDto) {
+    const { username, newgroupname } &#x3D; data;
+    const date &#x3D; new Date();
+    console.log(&#x60;Cambiando el plan al usuario: ${username}.\nFecha: ${date}\n&#x60;);
+    // Verifica que no hayan campos vacios.
+    try {
+      if (!username || !newgroupname) {
+        const str &#x3D; &#x60;Verificar username: ${username} y newgroupname: ${newgroupname}.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      /*
+       * Busqueda del value del plan en RadGroupRepository
+       */
+
+      const groupValue &#x3D; await this.radGroupRepository.findBy({ groupname: newgroupname });
+      if(groupValue?.length &lt; 1) {
+        const str &#x3D; &#x60;No se encontraron planes con el groupname: ${newgroupname}.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: str,
+          },
+          HttpStatus.BAD_REQUEST,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(&#x60;Se encontraron ${groupValue?.length} para ${newgroupname}.&#x60;)
+
+      /*
+       * Busqueda de usuario en BD
+       */
+      console.log(&#x60;Modificando el plan del usuario ${username}&#x60;);
+      const isUser &#x3D; await this.userInfo.findOneBy({ username });
+      if (!isUser) {
+        const str &#x3D; &#x60;No existe el username: ${username}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      /*
+       * Busqueda de Ip en radacct
+       */
+      console.log(&#x60;Bucando IP&#x60;);
+      const radacct &#x3D; await this.radacctRepository.findOneBy({ username });
+      if (!radacct) {
+        const str &#x3D; &#x60;El username:${username}, no pudo ser encontrado en la tabla radacct.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const ip_address &#x3D; radacct.nasipaddress;
+
+      //* Busqueda del secret
+      const nas &#x3D; await this.nasRepository.find({
+        where: [{ nasname: ip_address }],
+        order: { id: &#x27;desc&#x27; },
+        take: 1,
+      });
+      console.log(nas);
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontro una dirección nas asociada al username:${username} y su ip.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const secret &#x3D; nas[0].secret;
+
+      /**
+       ** Envio de comando a terminal Linux y recibe respuesta.
+       */
+
+      
+      const strCommand &#x3D; this.echoComand(groupValue);
+
+      // vamos a necesitar enviar todos los atributos y su valor
+      const echoCommand &#x3D; &#x60;echo &quot;User-Name&#x3D;${username},User-Name&#x3D;${username}${strCommand}&quot;&#x60;;
+      const radClientCommand &#x3D; &#x60;radclient -c &#x27;1&#x27; -n &#x27;3&#x27; -r &#x27;3&#x27; -t &#x27;3&#x27; -x &#x27;${ip_address}:3799&#x27; &#x27;coa&#x27; &#x27;${secret}&#x27; 2&gt;&amp;1&#x60;;
+
+      console.log(&#x60;Cambiando Plan&#x60;);
+      console.log(&#x60;CoA:\n${echoCommand} | ${radClientCommand}&#x60;)
+      const res &#x3D; await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log(&#x27;COA Response&#x27;, res);
+
+      /**
+       * Compara string recibido de la terminal Linux con string esperado.
+       * Retornal bool.
+       */
+      const statusCoa &#x3D; this.CoA_Status(res);
+      if (!statusCoa) {
+        const str &#x3D; &#x60;No se pudo suspender al usuario ${username}&#x60;;
+        console.log(&#x60;${str}\n------------------------------------------------\n&#x60;);
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      const data &#x3D; { username, groupname: newgroupname, priority: 10 };
+
+      const userGroup &#x3D; this.userGroupService.UpdateUserGroup(data);
+      if (!userGroup) {
+        const str &#x3D; &#x60;No se pudo cambiar el plan al usuario ${username} en la tabla &quot;radusergroup&quot;&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+      return &#x60;Se realizó el cambio de plan al usuario ${username} exitosamente&#x60;;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
+  /** Metodo para uso interno de la API, y su objetivo  es permitir enviar un mensaje CoA a un NAS para modificar  parámetros de un servicio, en vivo.
+   * Se verifica la existencia del usuario, se busca su &quot;nasipaddress&quot; y &quot;secret&quot;.
+   * Si todos los parametros son encontrados se ejecuta el CoA.
+   * Si el CoA es exitoso se elmina del grupo de suspendidos de &quot;radusergroup&quot;.
+   * Si en algun momento algo falla se retorna un msj de error.
+   * 
+   * @todo msj de error
+   * @param data { CoaDto } Ver CoaDto en la carpeta de Ddto. 
+   * @returns Queda pendiente la respuesta
+   */
+  async Modify(data: CoaDto) {
+    try {
+      const { username, attribute, value } &#x3D; data;
+      const date &#x3D; new Date();
+      console.log(&#x60;Modificando al usuario ${username}.\nFecha: ${date}\n&#x60;);
+      const isUser &#x3D; await this.userInfo.findOneBy({ username });
+      if (!isUser) {
+        const str &#x3D; &#x60;No existe el username: ${username}&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      /*
+       * Busqueda de Ip en radacct
+       */
+      console.log(&#x60;Bucando IP&#x60;);
+      const radacct &#x3D; await this.radacctRepository.findOneBy({ username });
+      if (!radacct) {
+        const str &#x3D; &#x60;El username:${username}, no pudo ser encontrado en la tabla radacct.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+      const ip_address &#x3D; radacct.nasipaddress;
+
+      //* Busqueda del secret
+      const nas &#x3D; await this.nasRepository.find({
+        where: [{ nasname: ip_address }],
+        order: { id: &#x27;desc&#x27; },
+        take: 1,
+      });
+      console.log(nas);
+      if (!nas) {
+        const str &#x3D; &#x60;No se encontró una direccion nas aosciada al username:${username} y su ip.&#x60;;
+        console.log(
+          &#x60;${str}\n------------------------------------------------\n&#x60;,
+        );
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );;
+      }
+      const secret &#x3D; nas[0].secret;
+
+      const echoCommand &#x3D; &#x60;echo &quot;User-Name&#x3D;${username},User-Name&#x3D;${username},${attribute}&#x3D;${value}&quot;&#x60;;
+      const radClientCommand &#x3D; &#x60;radclient -c &#x27;1&#x27; -n &#x27;3&#x27; -r &#x27;3&#x27; -t &#x27;3&#x27; -x &#x27;${ip_address}:3799&#x27; &#x27;coa&#x27; &#x27;${secret}&#x27; 2&gt;&amp;1&#x60;;
+
+      console.log(&#x60;Modificando&#x60;);
+      const res &#x3D; await this.CoA_cmd(echoCommand, radClientCommand);
+      console.log(&#x27;COA Response&#x27;, res);
+
+      /**
+       * Compara string recibido de la terminal Linux con string esperado.
+       * Retornal bool.
+       */
+      const statusCoa &#x3D; this.CoA_Status(res);
+      if (!statusCoa) {
+        const str &#x3D; &#x60;No se pudo suspender al usuario ${username}&#x60;;
+        console.log(&#x60;${str}\n------------------------------------------------\n&#x60;);
+        const err &#x3D; new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: str,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      return &#x60;El usuario ${username} fue modificado exitosamente&#x60;;
+    } catch (error) {
+      console.error(error);
+      console.log(&#x60;------------------------------------------------\n&#x60;);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'CoaService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

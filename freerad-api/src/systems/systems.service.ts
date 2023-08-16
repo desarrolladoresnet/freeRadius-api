@@ -19,12 +19,12 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////
 
-  /**
+  /** 
    * Permite crear una nueva entada en la tabla System.
    * @param sys { system }
    * @returns { object } 
    */
-  async CreateSys(sys: System) {
+  async CreateSys(sys: System): Promise<System> {
     const { name, apiKey, endPoint } = sys;
     //this.systems.push(sys);
     try {
@@ -92,7 +92,11 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////
 
-  async FindAllSys() {
+  /**
+   * Devuelve un Array con todos las entradas encontradas.
+   * @returns { Array }
+   */
+  async FindAllSys(): Promise<System[]> {
     try {
       const date = new Date();
       console.log(`Buscando entradas en la tabla 'system'.\nFecha: ${date}\n`)
@@ -132,7 +136,7 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////
 
-  async FindOneSys(id: number) {
+  async FindOneSys(id: number): Promise<System> {
     try {
       const date = new Date();
       console.log(`Buscando una entrada en 'system' con el id: ${id}.\nFecha: ${date}\n`)
@@ -172,11 +176,11 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Buscas todos los servicios en el sistema.
+   * Busca todos los servicios en el sistema.
    * @param id { number }
    * @returns { Array }
    */
-  async AllOnSys(id: number) {
+  async AllOnSys(id: number):  Promise<object[]> {
     try {
       const date = new Date();
       console.log(`Buscando los servicios en el sistema con el id: ${id}.\nFecha: ${date}\n`);
@@ -226,7 +230,7 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * 
+   * Busca información de los nodos con un id.
    * @param id { number }
    * @param node { string }
    * @returns 
@@ -340,7 +344,7 @@ export class SystemsService {
    * Elimina una entrada de ls tabla 'system'.
    * @param id { number }
    */
-  async RemoveSys(id: number) {
+  async RemoveSys(id: number): Promise<object> {
     try {
       const date = new Date();
       console.log(`Eliminando entrada de 'system' con el id: ${id}\nFecha: ${date}\n`);
