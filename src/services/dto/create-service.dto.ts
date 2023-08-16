@@ -1,6 +1,6 @@
 import { IsIP, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 import { System } from "src/systems/entities/system.entity";
-import { Plan } from "src/plan/entities/plan.entity";
+import { RadGroupReply } from 'src/radgroupreply/entities/radgroupreply.entity';
 
 export class CreateServiceDto {
     id: number;
@@ -13,7 +13,7 @@ export class CreateServiceDto {
     clientId: number;
 
     @IsNotEmpty()
-    plan: Plan;
+    radGroup: RadGroupReply;
 
     @IsOptional()
     @IsNumber()

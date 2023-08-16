@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, JoinTable } from 'typeorm';
 import { System } from 'src/systems/entities/system.entity'
-import { Plan } from 'src/plan/entities/plan.entity'
+import { RadGroupReply } from 'src/radgroupreply/entities/radgroupreply.entity';
 
 
 @Entity({name: 'service'})
@@ -14,10 +14,10 @@ export class Service {
   @Column({ type: 'bigint' })
   clientId: number;
 
-  @ManyToOne(() => Plan, plan => plan.id,{ cascade:true,
-    onDelete: 'CASCADE',
+  @ManyToOne(() => RadGroupReply, radgroupreply => radgroupreply.id,{ cascade:true,
+    //onDelete: 'CASCADE',
     onUpdate:'CASCADE'})
-  plan: Plan;
+  radGroup: RadGroupReply;
 
   @Column({ type: 'bigint', unique: true })
   radiusId: number;

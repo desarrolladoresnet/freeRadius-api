@@ -15,7 +15,7 @@ export class Plan {
   
   @JoinColumn()
   @OneToMany(() => Service,
-  service => service.plan,
+  service => service.radGroup,
   {
     onDelete: 'CASCADE',
     onUpdate:'CASCADE'},)
