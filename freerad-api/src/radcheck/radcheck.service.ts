@@ -16,6 +16,8 @@ export class RadcheckService {
   ) {}
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Retorna toda las entradas de la tabla radcheck.
@@ -24,6 +26,8 @@ export class RadcheckService {
    */
   async GetAllRadCheck() {
     try {
+      const date = new Date();
+      console.log(`Buscando entradas en la tabla "radcheck"'.\nFecha: ${date}\n`);
       const allRadChecks = await this.radcheckRepository.find();
 
       console.log(allRadChecks);
@@ -56,6 +60,8 @@ export class RadcheckService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Busca una entrada por medio del id.
@@ -64,7 +70,8 @@ export class RadcheckService {
    */
   async GetById(id: number) {
     try {
-      console.log(`Buscando entrada con el id: ${id}.`);
+      const date = new Date();
+      console.log(`Buscando entrada con el id: ${id}.\nFecha: ${date}\n`);
       const rad = await this.radcheckRepository.findOneBy({ id: id });
 
       if (!rad) {
@@ -98,6 +105,8 @@ export class RadcheckService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Permite crear una entrada en la tabla.
@@ -110,7 +119,8 @@ export class RadcheckService {
     const { username, attribute, op, value } = data;
 
     try {
-      console.log(`Creando rad para username: ${username}`);
+      const date = new Date();
+      console.log(`Creando rad para username: ${username}.\nFecha: ${date}\n`);
 
       const isRad = await this.radcheckRepository.findOneBy({
         username: username,
@@ -172,6 +182,8 @@ export class RadcheckService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Metodo para update de la tabla "radcheck"
@@ -185,8 +197,9 @@ export class RadcheckService {
 
     //* Verifica que haya valores para modificar *//
     if (!attribute && !op && !value) {
+      const date = new Date();
       const str = `No se enviaron atributos para modificar.\n attributre: ${attribute}, op: ${op}, value:${value}.`;
-      console.log(`${str}\n------------------------------------------------\n`);
+      console.log(`${str}\n------------------------------------------------\n\nFecha: ${date}\n`);
       const err = new Error(str);
       throw new HttpException(
         {

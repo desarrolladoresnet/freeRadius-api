@@ -35,7 +35,9 @@ export class ServicesService {
 
   //private readonly services: Service[] = [];
 
-  /////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Crea una nueva entrada en la tabla, el id de Radius es opcional dado que es probable que exista en Wisphub pero no en Radius en un primer momento.
@@ -92,6 +94,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Trae toda las entradas en la tabla services.
@@ -125,6 +129,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Encuentra una entrada en services mediante el id
@@ -134,7 +140,8 @@ export class ServicesService {
   async FindOnService(id: number) {
     //console.log((await this.servicesRepository.findOne({where:{ id }, relations:['sys','plan']})).plan['id'])
     try {
-      console.log(`Buscando entradas en 'services' con el id: ${id}`);
+      const date = new Date();
+      console.log(`Buscando entradas en 'services' con el id: ${id}.\nFecha: ${date}\n`)
       const services = await this.servicesRepository.findOne({
         where: { id },
         relations: ['sys', 'plan'],
@@ -160,6 +167,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Buca el cliente  por id y se trae informacion del cliente en Wisphub.
@@ -168,7 +177,8 @@ export class ServicesService {
    */
   async FindOneOnSys(id: number): Promise<any | null> {
     try {
-      console.log(`Buscando informacion en service de la entrada ${id}`);
+      const date = new Date();
+      console.log(`Buscando información en service de la entrada ${id}.\nFecha: ${date}\n`);
       const serv = await this.servicesRepository.findOne({
         where: { id },
         relations: ['sys', 'plan'],
@@ -202,6 +212,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Revisa la tabla de nodos para ver en que sistema se encuentra un nodo.
@@ -209,7 +221,8 @@ export class ServicesService {
    * @returns
    */
   async SyncService(node: string) {
-    console.log(`Buscando nodo ${node}`);
+    const date = new Date();
+    console.log(`Buscando nodo ${node}}.\nFecha: ${date}\n`);
     try {
       const nodeSys = await this.nodesRepository.findOne({where:{name:node}, relations:['systems']})
     const sys = nodeSys['systems']
@@ -280,6 +293,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Realiza update de una entrada mediante el id.
@@ -289,7 +304,8 @@ export class ServicesService {
    * @returns
    */
   async UpdateService(id: number, updateServDto: UpdateServiceDto) {
-    console.log("Linea 372",updateServDto)
+    const date = new Date();
+    console.log(`Actualizando el servicio con el id: ${id}.\nFecha: ${date}\n`);
     const { radiusId,clientId,status,plan,sys } = updateServDto
 
     //* Verificacion de valores para modificar *//
@@ -330,6 +346,8 @@ export class ServicesService {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Elimina una entrada en service mendiante el id.
@@ -337,8 +355,8 @@ export class ServicesService {
    */
   async RemoveService(id: number) {
     try {
-      console.log(`Eliminando entrada en service con el id. ${id}`);
-
+      const date = new Date();
+      console.log(`Eliminando entrada en service con el id: ${id}.\nFecha: ${date}\n`);
       const del = await this.servicesRepository.delete(id);
 
       if (!del) {

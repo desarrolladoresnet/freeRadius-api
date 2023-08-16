@@ -27,7 +27,11 @@ export class CoaService {
     private readonly radGroupRepository: Repository<RadGroupReply>,
     private readonly userGroupService: RadusergroupService,
     private configService: ConfigService
-  ) {}
+    ) {}
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Inserta los comandos a la terminal unix.
@@ -60,6 +64,8 @@ export class CoaService {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Verefica que el comando se haya ejecutado exitosamente.
@@ -72,6 +78,8 @@ export class CoaService {
     return str.includes('coa-ack');
   }
   ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
 
   echoComand(data: Array<RadGroupReply>) {
     let command = '';
@@ -82,6 +90,8 @@ export class CoaService {
 
     return command;
   }
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -96,7 +106,8 @@ export class CoaService {
    */
   async ActivateUser(username: string) {
     try {
-      console.log(`Activando al usuario ${username}`);
+      const date = new Date();
+      console.log(`Activando al usuario ${username}.\nFecha: ${date}\n`);
       const isUser = await this.userInfo.findOneBy({ username });
       if (!isUser) {
         const str = `No existe el username: ${username}`;
@@ -214,6 +225,8 @@ export class CoaService {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Para Suspender el usuario en radius, se toma el username de la ONU asignada y se busca en la BD, tambien el "nasipaddress" y su "secret".
@@ -232,7 +245,8 @@ export class CoaService {
       /*
        * Busqueda de usuario en BD.
        */
-      console.log(`Supendiendo al usuario ${username}`);
+      const date = new Date();
+      console.log(`Suspendiendo al usuario ${username}.\nFecha: ${date}\n`);
       const isUser = await this.userInfo.findOneBy({ username });
       if (!isUser) {
         const str = `No existe el username: ${username}`;
@@ -364,6 +378,8 @@ export class CoaService {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
     /**
    * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
@@ -377,7 +393,8 @@ export class CoaService {
    */
   async ChangePlan(data: ChangePlanDto) {
     const { username, newgroupname } = data;
-
+    const date = new Date();
+    console.log(`Cambiando el plan al usuario: ${username}.\nFecha: ${date}\n`);
     // Verifica que no hayan campos vacios.
     try {
       if (!username || !newgroupname) {
@@ -562,6 +579,8 @@ export class CoaService {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   /** Metodo para uso interno de la API, y su objetivo  es permitir enviar un mensaje CoA a un NAS para modificar  parámetros de un servicio, en vivo.
    * Se verifica la existencia del usuario, se busca su "nasipaddress" y "secret".
@@ -576,8 +595,8 @@ export class CoaService {
   async Modify(data: CoaDto) {
     try {
       const { username, attribute, value } = data;
-
-      console.log(`Modificando al usuario ${username}`);
+      const date = new Date();
+      console.log(`Modificando al usuario ${username}.\nFecha: ${date}\n`);
       const isUser = await this.userInfo.findOneBy({ username });
       if (!isUser) {
         const str = `No existe el username: ${username}`;

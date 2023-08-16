@@ -16,8 +16,12 @@ export class RadusergroupService {
   constructor(
     @InjectRepository(RadUserGroup)
     private readonly radUserGroup: Repository<RadUserGroup>,
-  ) {}
-
+    ) {}
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   /**
    * Para crear una entrada el "username" y el "groupname" son obligatorios.
    * El "priority" se setea en 10 por default pero puede ser colocado en cualquier otro valor.
@@ -28,9 +32,8 @@ export class RadusergroupService {
     try {
       const { username, groupname, priority } = data;
 
-      console.log(
-        `Creando nuevo usergroup, con username ${username}, y groupname ${groupname}.`,
-      );
+      const date = new Date();
+      console.log(`Creando nuevo usergroup, con username ${username}, y groupname ${groupname}\nFecha: ${date}\n`);
 
       //* VERIFICA LA EXISTENCIA DEL USUARIO *//
       const isUserGroup = await this.radUserGroup.findOneBy({
@@ -97,6 +100,8 @@ export class RadusergroupService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Trae todas las entradas que hay en la tabla.
@@ -105,7 +110,8 @@ export class RadusergroupService {
    */
   async GetAllUserGroups() {
     try {
-      console.log(`Buscando las entradas de radusergroup`);
+      const date = new Date();
+      console.log(`Buscando las entradas de radusergroup.\nFecha: ${date}\n`);
       const allUserGroups = await this.radUserGroup.find();
 
       if (allUserGroups?.length < 1) {
@@ -139,6 +145,8 @@ export class RadusergroupService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Permite buscar una entrada en particular dentro de la tabla.
@@ -149,6 +157,9 @@ export class RadusergroupService {
   async GetUserGroupById(data: RadUserGroupUpdateDto) {
     let username = data.username || '"vacio"';
     let groupname = data.groupname || '"vacio"';
+
+    const date = new Date();
+    console.log(`Buscando groupname con valores, username: ${username} y groupname: ${groupname}.\nFecha: ${date}\n`);
 
     //* Se verifica que haya parametros suficientes para realizar una busqueda *//
     if (username == 'vacio' && groupname == 'vacio') {
@@ -169,11 +180,7 @@ export class RadusergroupService {
     }
 
     try {
-      console.log(
-        `Buscando groupname con valores, username: ${username} y groupname: ${groupname}.`,
-      );
-
-      //* Variable que contendra los resultados.
+      //* Variable que contendrá los resultados.
       let userGroup;
 
       // * Busqueda para cuando los parametros no lleguen vacios *//
@@ -234,6 +241,8 @@ export class RadusergroupService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Para hacer un update de una entrada se va a requerir todos los campos.
@@ -242,6 +251,9 @@ export class RadusergroupService {
    */
   async UpdateUserGroup(data: RadUserGroupUpdateDto) {
     const { username, groupname, priority } = data;
+
+    const date = new Date();
+    console.log(`Haciendo update a username: ${username}, con groupname: ${groupname} .\nFecha: ${date}\n`);
 
     //* Se verifica que no haya campos vacios para realizar el update *//
     if (!username || !groupname || !priority) {
@@ -262,9 +274,6 @@ export class RadusergroupService {
     }
 
     try {
-      console.log(
-        `Haciendo update a username:${username}, con groupname:${groupname} `,
-      );
       const toUpdate = await this.radUserGroup.findOneBy({
         username,
         groupname: Not('suspendedido'),
@@ -314,15 +323,19 @@ export class RadusergroupService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Metodo de uso interno, no debe cortar la ejecucion en ningun momento.
+   * Metodo de uso interno, no debe cortar la ejecución en ningún momento.
    * Por eso retorna boolean.
    * @param data { RadUserGroupUpdateDto } ver detelles en el radUserGroup.dto en carpeta dto.
    * @returns { bolean }
    */
   async DeleteUserGroup(data: RadUserGroupUpdateDto) {
     const { username, groupname } = data;
+
+    console.log(`Elminando entrada con username: ${username}  y groupname: ${groupname}.`);
 
     if (!username || !groupname) {
       const str =  `Operación inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
@@ -333,18 +346,15 @@ export class RadusergroupService {
     }
 
     try {
-      console.log(
-        `Borrando entrada de "username":${username} y/o groupname":${groupname}`,
-      );
       const toDelete = await this.radUserGroup.delete({
         username,
         groupname,
       });
 
       if (!toDelete) {
-        const str = `Hubo un problema al eliminar la entrada o no se encontro un "username":${username} con groupname":${groupname}`;
+        const str = `Hubo un problema al eliminar la entrada o no se encontró un "username":${username} con groupname":${groupname}`;
         console.log(
-          `${str}\n------------------------------------------------\n`,
+          `${str}\n`,
         );
         return false;
       }
@@ -353,7 +363,6 @@ export class RadusergroupService {
       return true;
     } catch (error) {
       console.error(error);
-      console.log(`------------------------------------------------\n`);
       return false;
     }
   }

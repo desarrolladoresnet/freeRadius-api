@@ -13,6 +13,8 @@ export class NasService {
   ) {}
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Crea una entrada en la tabla NAS.
@@ -24,7 +26,9 @@ export class NasService {
       const { name, ip_address, secret } = data;
 
       //* Verifica si el username ya existe. *//
-      console.log(`Creando NAS`);
+      const date = new Date();
+      console.log(`Creando NAS con el name: ${name}.\nFecha: ${date}\n`);
+
       const isNas = await this.nasRepository.findBy({
         nasname: ip_address,
       });
@@ -89,6 +93,8 @@ export class NasService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Busca todas las entradas en la tabla NAS.
@@ -97,7 +103,8 @@ export class NasService {
    */
   async FindAllNas() {
     try {
-      console.log(`Buscandos NAS`);
+      const date = new Date();
+      console.log(`Buscando los NAS.\nFecha: ${date}\n`);
       const allNas = await this.nasRepository.find();
 
       //* Verifica la existencia de entradas en la tabla. *//
@@ -129,6 +136,8 @@ export class NasService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Busqueda de una entrada por su id.
@@ -138,7 +147,8 @@ export class NasService {
   async FindById(id: number) {
     try {
       //* Busqueda de la entrada *//
-      console.log(`Buscandos NAS con el id: ${id}`);
+      const date = new Date();
+      console.log(`Buscandos NAS con el id: ${id}.\nFecha: ${date}\n`);
       const nas = await this.nasRepository.findOneBy({ id: id });
 
       //* Verificacion de que exista la entrada buscada. *//
@@ -170,6 +180,8 @@ export class NasService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * PErmite hacer update a una entrada del NAS.
@@ -180,6 +192,9 @@ export class NasService {
    */
   async UpdateNas(id: number, data: NasDtoUpdate) {
     const { name , ip_address, secret, ports, server, type, community, description } = data;
+
+    const date = new Date();
+    console.log(`Actualizando NAS con el id: ${id}.\nFecha: ${date}\n`);
 
     if( !name && !ip_address && !secret && !ports && !server && !type && !community && !description){
       const str = `No hay valores para realizar el update`;
@@ -199,7 +214,7 @@ export class NasService {
         );
     }
     try {
-      console.log(`Actualizando NAS con el id: ${id}`);
+
       const nas = await this.nasRepository.findOneBy({ id: id });
 
       //* Verificacion de que exista la entrada buscada. *//

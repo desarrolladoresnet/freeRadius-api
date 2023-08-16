@@ -6,8 +6,7 @@ Content-Type: application/json
     "firstname": "NPCA",
     "lastname": "2456",
     "groupname": "Banda Ancha RF 10 Mbps/2 Mbps",
-    "updateby": "Francisco",
-    "creationby": "test",
+    "creationby": "Francisco",
     "password":  "18E8293B5C99",
     "address": "DAYCO-RO-BORDE"
 }

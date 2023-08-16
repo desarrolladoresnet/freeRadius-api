@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 
 /**
  * Metodos del modulo nodo.
- */
+*/
 @Injectable()
 export class NodesService {
   constructor(
@@ -17,17 +17,20 @@ export class NodesService {
     private readonly nodeRepository: Repository<ZonaCliente>,
   ) {}
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   /**
    * Vrea una nueva entrada en la tabla ZonaCliente
    * @param node
-   * @returns
+   * @returns { object }
    */
   async CreateNodo(node: ZonaCliente) {
     const { name, systems } = node;
     try {
-      console.log(
-        `Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}`,
-      );
+      const date = new Date();
+      console.log(`Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}.\nFecha: ${date}\n`);
 
       const isZona = await this.nodeRepository.findOneBy({ name });
 
@@ -82,7 +85,9 @@ export class NodesService {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Busca todas la entradas asociadas.
@@ -90,7 +95,8 @@ export class NodesService {
    */
   async FindAllNodes() {
     try {
-      console.log(`Buscando todas las ZonaClientes/Nodos.`);
+      const date = new Date();
+      console.log(`Buscando todas las ZonaClientes/Nodos.\nFecha: ${date}\n`);
       const zonasNodos = await this.nodeRepository.find({
         relations: ['systems'],
       });
@@ -124,7 +130,9 @@ export class NodesService {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Encuentra una entrada a partir del id.
@@ -133,7 +141,8 @@ export class NodesService {
    */
   async FindOneNode(id: number) {
     try {
-      console.log(`Buscando una ZonaCliente/Nodo con el id: ${id}`);
+      const date = new Date();
+      console.log(`Buscando una ZonaCliente/Nodo con el id: ${id}.\nFecha: ${date}\n`);
 
       const nodo = await this.nodeRepository.findOne({
         where: { id: id },
@@ -169,7 +178,9 @@ export class NodesService {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Metodo para hacer update a las entradas de la tabla.
@@ -180,6 +191,9 @@ export class NodesService {
    */
   async UpdateNode(id: number, updateNodeDto: UpdateNodeDto) {
     const { name, systems } = updateNodeDto;
+
+    const date = new Date();
+    console.log(`Haciendo update al ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`);
 
     if (!name && !systems) {
       const str = `No hay valores para realizar updates.`;
@@ -198,7 +212,6 @@ export class NodesService {
     }
 
     try {
-      console.log(`Haciendo update al ZonaCliente/Nodo con id: ${id}`);
       const zoneToUpdate = await this.nodeRepository.findOneBy({ id });
       if (!zoneToUpdate) {
         const str = `No se encontró ZonaCliente/Nodo con el id: ${id}.`;
@@ -251,7 +264,9 @@ export class NodesService {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Metodo para remover una entrada de la tabla mediante el id.
@@ -260,7 +275,9 @@ export class NodesService {
    */
   async RemoveNode(id: number) {
     try {
-      console.log(`Eliminando ZonaCliente/Nodo con id: ${id}`);
+
+      const date = new Date();
+      console.log(`Eliminando ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`);
 
       const del = await this.nodeRepository.delete(id);
 

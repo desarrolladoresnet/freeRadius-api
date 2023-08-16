@@ -215,7 +215,7 @@ export class UserInfoService {
       if( isRadduser?.length > 0 ){
         // Solo debe haber una entrada, si hay mas se envia un msj de alerta.
         if (isRadduser?.length > 1) {
-          const alerta = `ALERTA: Existen múltiples entradas para el username: ${username}, sin estar suspendido\nPOR FAVOR ALERTAR A INGIENERIA.\n`;
+          const alerta = `ALERTA: Existen múltiples entradas para el username: ${username}, donde el ‘groupname‘ no es ‘suspendido’. Posiblemente suscrito a más de un plan \nPOR FAVOR ALERTAR A INGIENERIA.\n`;
           console.log(alerta);
           msj += alerta;
         }// Se verifica que los planes coincidan.
@@ -238,7 +238,7 @@ export class UserInfoService {
           }
         }// Si lo planes coinciden no se realiza ninguna operación.
         else {
-          const str = `Ya existía una entrada en 'radusergroup' para username:${username}. Los panes coinciden.\n`;
+          const str = `Ya existía una entrada en 'radusergroup' para username:${username}. Los planes coinciden.\n`;
           msj += str
           console.log(str);
         }
