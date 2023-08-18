@@ -9,9 +9,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { NodesService } from './nodes.service';
-import { CreateNodeDto } from '../database/create-node.dto';
+import { CreateNodeDto } from '../database/entities/create-node.dto';
 // import { UpdateNodeDto } from './dto/update-node.dto';
-import { UpdateNodeDto } from 'src/database/update-node.dto';
+import { UpdateNodeDto } from 'src/database/entities/update-node.dto';
 
 /**
  * Los nodos son los puntos físicos por donde se conectan los clientes al los servicios de Netcom.

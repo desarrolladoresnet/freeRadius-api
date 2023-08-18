@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 import { UpdateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
 
 @Injectable()

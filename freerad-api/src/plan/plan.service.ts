@@ -5,7 +5,7 @@ import { CreatePlanDto } from '../dto/plan.dto';
 import { UpdatePlanDto } from '../dto/plan.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Plan } from '../database/plan.entity';
+import { Plan } from '../database/entities/plan.entity';
 
 /**
  * Metodos para la manipulacion de los planes.

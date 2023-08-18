@@ -7,12 +7,10 @@ import { CoaService } from 'src/coa/coa.service';
 import { SystemsService } from 'src/systems/systems.service';
 // import { CreateServiceDto } from '../dto/create-service.dto';
 //* EMTIDADES *//
-import { Service } from '../database/service.entity';
-import { ZonaCliente } from 'src/database/node.entity';
-import { System } from 'src/database/system.entity';
-import { RadUserGroup } from 'src/database/radusergroup.entity';
-import { UserInfo } from 'src/database/user.entity';
-import { Plan } from 'src/database/plan.entity';
+import { Service } from '../database/entities/service.entity';
+import { ZonaCliente } from 'src/database/entities/node.entity';
+import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
+import { UserInfo } from 'src/database/entities/user.entity';;
 
 @Injectable()
 export class ServicesService {

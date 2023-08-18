@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { System } from 'src/database/system.entity'
+import { System } from './system.entity'
 import { RadGroupReply } from './radgroupreply.entity';
 
 

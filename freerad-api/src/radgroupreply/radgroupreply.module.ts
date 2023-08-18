@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { RadGroupReplyController } from './radgroupreply.controller';
 import { RadGroupReplyService } from './radgroupreply.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RadGroupReply])],

@@ -3,7 +3,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 // import { CreateSystemDto } from '../dto/create-system.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { System } from '../database/system.entity';
+import { System } from '../database/entities/system.entity';
 import { UpdateSystemDto } from 'src/dto/update-system.dto';
 
 @Injectable()

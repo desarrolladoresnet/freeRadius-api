@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { System } from 'src/database/system.entity';
+import { System } from './system.entity';
 
 export class CreateNodeDto {
   id: number;

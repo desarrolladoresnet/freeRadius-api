@@ -2,8 +2,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 // import { CreateNodeDto } from '../database/create-node.dto';
 // import { UpdateNodeDto } from './dto/update-node.dto';
-import { UpdateNodeDto } from 'src/database/update-node.dto';
-import { ZonaCliente } from '../database/node.entity';
+import { UpdateNodeDto } from 'src/database/entities/update-node.dto';
+import { ZonaCliente } from '../database/entities/node.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 

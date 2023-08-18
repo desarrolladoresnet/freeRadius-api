@@ -1,14 +1,15 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CoaService } from './coa.service';
 import { CoaController } from './coa.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserInfo } from 'src/database/user.entity';
-import { Radacct } from 'src/database/radacct.entity';
-import { Nas } from 'src/database/nas.entity';
-import { RadUserGroup } from 'src/database/radusergroup.entity';
+import { UserInfo } from 'src/database/entities/user.entity';
+import { Radacct } from 'src/database/entities/radacct.entity';
+import { Nas } from 'src/database/entities/nas.entity';
+import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 /**
  * Modulo principal de la ruta 'coa'.
@@ -26,6 +27,6 @@ import { RadGroupReply } from 'src/database/radgroupreply.entity';
   ],
   providers: [CoaService, RadusergroupService, ConfigService],
   controllers: [CoaController],
-  exports: [CoaService]
+  exports: [CoaService],
 })
 export class CoaModule {}

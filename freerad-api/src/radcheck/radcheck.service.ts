@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RadCheck } from 'src/database/radcheck.entity';
+import { RadCheck } from 'src/database/entities/radcheck.entity';
 import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
 import { Repository } from 'typeorm';
 

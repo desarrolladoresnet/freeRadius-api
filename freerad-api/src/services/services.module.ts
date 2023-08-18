@@ -4,13 +4,13 @@ import { SystemsModule } from 'src/systems/systems.module';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
 //* ENTIDADES *//
-import { Service } from '../database/service.entity';
+import { Service } from '../database/entities/service.entity';
 import { CoaModule } from 'src/coa/coa.module';
-import { System } from 'src/database/system.entity';
-import { RadUserGroup } from 'src/database/radusergroup.entity';
-import { UserInfo } from 'src/database/user.entity';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
-import { ZonaCliente } from 'src/database/node.entity';
+import { System } from 'src/database/entities/system.entity';
+import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
+import { UserInfo } from 'src/database/entities/user.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
+import { ZonaCliente } from 'src/database/entities/node.entity';
 
 /**
  * Modulo que reuno los principales datos de los servicios prestados a un cliente.

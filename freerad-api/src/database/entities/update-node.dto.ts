@@ -1,11 +1,5 @@
-import {
-  IsIP,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { System } from 'src/database/system.entity';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { System } from './system.entity';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateNodeDto } from './create-node.dto';
 

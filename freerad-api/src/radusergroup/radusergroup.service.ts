@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RadUserGroup } from 'src/database/radusergroup.entity';
+import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
 import {
   RadUserGroupDto,
   RadUserGroupUpdateDto,

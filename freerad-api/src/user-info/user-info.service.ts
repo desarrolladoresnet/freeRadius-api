@@ -3,11 +3,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
 import { UserDto } from 'src/dto/user.dto';
-import { RadCheck } from 'src/database/radcheck.entity';
-import { RadUserGroup } from 'src/database/radusergroup.entity';
-import { UserInfo } from 'src/database/user.entity';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
+import { RadCheck } from 'src/database/entities/radcheck.entity';
+import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
+import { UserInfo } from 'src/database/entities/user.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 @Injectable()
 export class UserInfoService {

@@ -10,7 +10,7 @@ import {
   PrimaryColumn,
   JoinColumn,
 } from 'typeorm';
-import { ZonaCliente } from 'src/database/node.entity';
+import { ZonaCliente } from './node.entity';
 
 @Entity({ name: 'system' })
 export class System {

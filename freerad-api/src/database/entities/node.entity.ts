@@ -6,7 +6,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { System } from 'src/database/system.entity'
+import { System } from './system.entity'
 
 @Entity()
 export class ZonaCliente {

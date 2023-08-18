@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //* ENTIDADES *//
-import { Nas } from './nas.entity';
+import { Nas } from './entities/nas.entity';
 import { RadCheck } from './radcheck.entity';
 import { Radacct } from './radacct.entity';
 import { Plan } from './plan.entity';

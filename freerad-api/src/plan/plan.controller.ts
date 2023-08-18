@@ -7,7 +7,6 @@ import {
   Param,
   Put,
   Delete,
-  Injectable,
 } from '@nestjs/common';
 import { PlanService } from './plan.service';
 import { CreatePlanDto } from '../dto/plan.dto';

@@ -9,10 +9,10 @@ import { promisify } from 'util';
 import { RadusergroupService } from 'src/radusergroup/radusergroup.service';
 import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
 //* ENTIDADES *//
-import { Nas } from 'src/database/nas.entity';
-import { Radacct } from 'src/database/radacct.entity';
-import { UserInfo } from 'src/database/user.entity';
-import { RadGroupReply } from 'src/database/radgroupreply.entity';
+import { Nas } from 'src/database/entities/nas.entity';
+import { Radacct } from 'src/database/entities/radacct.entity';
+import { UserInfo } from 'src/database/entities/user.entity';
+import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 @Injectable()
 export class CoaService {
@@ -35,6 +35,7 @@ export class CoaService {
 
   /**
    * Inserta los comandos a la terminal unix.
+   * Recibe el comando en dos partes para poder ser ingresado.
    * @param echoCommand {string}
    * @param radClientCommand {string}
    * @returns { string }
@@ -68,7 +69,7 @@ export class CoaService {
   ////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Verefica que el comando se haya ejecutado exitosamente.
+   * Verifica que el comando se haya ejecutado exitosamente.
    * @param response {string} Toma la Respuesta del CoA y evalua si fue exitosa.
    * @returns { boolean }
    */
@@ -175,7 +176,12 @@ export class CoaService {
       }
       const secret = nas[0].secret;
 
-      //* Preparacion de los comandos para Radius.
+      //* Preparacion de comandos para Radius. *//
+      /*
+        Nota: NodeJS no puede enviar el comando como una sola cadena, ya que enrealidad son 2 comandos separados.
+        Por esto se preparan como dos variables distinstas y el metodo 'execAsync' se encarga del correcto orden
+        de ejecución del comando.
+       */
       const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
@@ -271,7 +277,7 @@ export class CoaService {
        */
       //////////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////
-      //* SE RETIRO ESTA LOGICA HASTA QUE SE RETOMEN LOS COA *//
+      //* SE RETIRÓ ESTA LÓGICA HASTA QUE SE RETOMEN LOS COA *//
       //////////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////
       // console.log(`Bucando IP`);
@@ -324,7 +330,12 @@ export class CoaService {
       // const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
 
 
-      //* Preparacion de comandos para Radius. *//
+      //* Preparación de comandos para Radius. *//
+      /*
+        Nota: NodeJS no puede enviar el comando como una sola cadena, ya que enrealidad son 2 comandos separados.
+        Por esto se preparan como dos variables distinstas y el metodo 'execAsync' se encarga del correcto orden
+        de ejecución del comando.
+       */
       const echoCommand = `echo "User-Name='${username}'"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'disconnect' 'NetcomwirelesS++' 2>&1`;
 
@@ -353,6 +364,7 @@ export class CoaService {
         );
       }
 
+      //* Se agrega al usuarion al grupo de suspendidos *//
       const data = { username, groupname: 'suspendido', priority: 1 };
 
       const userGroup = await this.userGroupService.CreateRadUserGroup(data);
@@ -492,7 +504,7 @@ export class CoaService {
       }
       const ip_address = radacct.nasipaddress;
 
-      //* Busqueda del secret
+      //* Busqueda del secret *//
       const nas = await this.nasRepository.find({
         where: [{ nasname: ip_address }],
         order: { id: 'desc' },
