@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 //* ENTIDADES *//
 import { Nas } from './nas.entity';
 import { RadCheck } from './radcheck.entity';
@@ -25,8 +24,8 @@ import { RadGroupReply } from './radgroupreply.entity';
         type: 'mysql',
         host: configService.getOrThrow('HOST'),
         port: configService.getOrThrow('DBPORT'),
-        username: 'root',
-        password:configService.getOrThrow('PASSWORD'),
+        username: configService.getOrThrow('USER'),
+        password: configService.getOrThrow('PASSWORD'),
         database: configService.getOrThrow('DB'),
         entities: [
           Nas,

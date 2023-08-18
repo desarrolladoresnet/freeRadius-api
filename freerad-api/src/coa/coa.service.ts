@@ -325,7 +325,7 @@ export class CoaService {
 
 
       //* Preparacion de comandos para Radius. *//
-      const echoCommand = `echo "User-Name='${username}'`;
+      const echoCommand = `echo "User-Name='${username}'"`;
       const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'disconnect' 'NetcomwirelesS++' 2>&1`;
 
       console.log(`Suspendiendo`);

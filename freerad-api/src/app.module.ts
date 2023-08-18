@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoaModule } from './coa/coa.module';
@@ -40,5 +39,4 @@ import { DatabaseModule } from './database/database.module';
   controllers: [AppController],
   providers: [AppService],
 })
-// eslint-disable-next-line prettier/prettier
 export class AppModule {}
