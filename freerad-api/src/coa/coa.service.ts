@@ -269,59 +269,64 @@ export class CoaService {
       /*
        * Busqueda de Ip en radacct.
        */
-      console.log(`Bucando IP`);
-      const radacct = await this.radacctRepository.findOneBy({ username });
-      if (!radacct) {
-        const str = `El username:${username}, no pudo ser encontrado en la tabla radacct.`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: str,
-          },
-          HttpStatus.NOT_FOUND,
-          {
-            cause: err,
-          },
-        );
-      }
-      const ip_address = radacct.nasipaddress;
+      //////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////
+      //* SE RETIRO ESTA LOGICA HASTA QUE SE RETOMEN LOS COA *//
+      //////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////
+      // console.log(`Bucando IP`);
+      // const radacct = await this.radacctRepository.findOneBy({ username });
+      // if (!radacct) {
+      //   const str = `El username:${username}, no pudo ser encontrado en la tabla radacct.`;
+      //   console.log(
+      //     `${str}\n------------------------------------------------\n`,
+      //   );
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.NOT_FOUND,
+      //       error: str,
+      //     },
+      //     HttpStatus.NOT_FOUND,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
+      // const ip_address = radacct.nasipaddress;
 
-      //* Busqueda del secret es tabla nas. *//
-      const nas = await this.nasRepository.find({
-        where: [{ nasname: ip_address }],
-        order: { id: 'desc' },
-        take: 1,
-      });
-      if (!nas) {
-        const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: str,
-          },
-          HttpStatus.NOT_FOUND,
-          {
-            cause: err,
-          },
-        );
-      }
-      const secret = nas[0].secret;
+      // //* Busqueda del secret es tabla nas. *//
+      // const nas = await this.nasRepository.find({
+      //   where: [{ nasname: ip_address }],
+      //   order: { id: 'desc' },
+      //   take: 1,
+      // });
+      // if (!nas) {
+      //   const str = `No se encontró una direccion nas aosciada al username:${username} y su ip.`;
+      //   console.log(
+      //     `${str}\n------------------------------------------------\n`,
+      //   );
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.NOT_FOUND,
+      //       error: str,
+      //     },
+      //     HttpStatus.NOT_FOUND,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
+      // const secret = nas[0].secret;
 
-      const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
-      const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
+      // const url_suspension = this.configService.get<string>('URL_SUSPENSION') || 'http://10.10.20.7/avisodecorte';
+      // const acl_suspension = this.configService.get<string>('ACL_SUSPENSION') || 'suspendido';
 
-      console.log(`URL ${url_suspension}\nACL ${acl_suspension}`)
+
       //* Preparacion de comandos para Radius. *//
-      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=1,NetElastic-HTTP-Redirect-URL='${url_suspension}',Filter-Id='${acl_suspension}'"`;
-      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+      const echoCommand = `echo "User-Name='${username}'`;
+      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'disconnect' 'NetcomwirelesS++' 2>&1`;
 
       console.log(`Suspendiendo`);
       const res = await this.CoA_cmd(echoCommand, radClientCommand);
