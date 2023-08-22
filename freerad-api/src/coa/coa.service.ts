@@ -127,74 +127,74 @@ export class CoaService {
           },
         );
       }
+      //* LOGICA SUSPENDIDA DE MOMENTO: HASTA QUE SE ARREGLE EL PROBLEMA EN ROUTER*//
+      // //* Busqueda de Ip en radacct
+      // console.log(`Buscando IP`);
+      // const radacct = await this.radacctRepository.findOneBy({ username });
+      // if (!radacct) {
+      //   const str = `El username:${username}, no pudo ser encontrado.`;
+      //   console.log(
+      //     `${str}\n------------------------------------------------\n`,
+      //   );
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.NOT_FOUND,
+      //       error: str,
+      //     },
+      //     HttpStatus.NOT_FOUND,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
+      // const ip_address = radacct.nasipaddress;
 
-      //* Busqueda de Ip en radacct
-      console.log(`Buscando IP`);
-      const radacct = await this.radacctRepository.findOneBy({ username });
-      if (!radacct) {
-        const str = `El username:${username}, no pudo ser encontrado.`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: str,
-          },
-          HttpStatus.NOT_FOUND,
-          {
-            cause: err,
-          },
-        );
-      }
-      const ip_address = radacct.nasipaddress;
+      // // Busqueda del secret
+      // console.log(`Localizando Secret`);
+      // const nas = await this.nasRepository.find({
+      //   where: [{ nasname: ip_address }],
+      //   order: { id: 'desc' },
+      //   take: 1,
+      // });
+      // if (!nas) {
+      //   const str = `No se encontro una dirección 'nas' asociada al username:${username} y su ip.`;
+      //   console.log(
+      //     `${str}\n------------------------------------------------\n`,
+      //   );
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.NOT_FOUND,
+      //       error: str,
+      //     },
+      //     HttpStatus.NOT_FOUND,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      // }
+      // const secret = nas[0].secret;
 
-      // Busqueda del secret
-      console.log(`Localizando Secret`);
-      const nas = await this.nasRepository.find({
-        where: [{ nasname: ip_address }],
-        order: { id: 'desc' },
-        take: 1,
-      });
-      if (!nas) {
-        const str = `No se encontro una dirección 'nas' asociada al username:${username} y su ip.`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: str,
-          },
-          HttpStatus.NOT_FOUND,
-          {
-            cause: err,
-          },
-        );
-      }
-      const secret = nas[0].secret;
+      // //* Preparacion de comandos para Radius. *//
+      // /*
+      //   Nota: NodeJS no puede enviar el comando como una sola cadena, ya que enrealidad son 2 comandos separados.
+      //   Por esto se preparan como dos variables distinstas y el metodo 'execAsync' se encarga del correcto orden
+      //   de ejecución del comando.
+      //  */
+      // const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0"`;
+      // const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
 
-      //* Preparacion de comandos para Radius. *//
-      /*
-        Nota: NodeJS no puede enviar el comando como una sola cadena, ya que enrealidad son 2 comandos separados.
-        Por esto se preparan como dos variables distinstas y el metodo 'execAsync' se encarga del correcto orden
-        de ejecución del comando.
-       */
-      const echoCommand = `echo "User-Name='${username}',User-Name='${username}',NetElastic-Portal-Mode=0"`;
-      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '${ip_address}:3799' 'coa' '${secret}' 2>&1`;
+      // console.log(`Activando`);
+      // const res = await this.CoA_cmd(echoCommand, radClientCommand);
+      // console.log('COA Response', res);
 
-      console.log(`Activando`);
-      const res = await this.CoA_cmd(echoCommand, radClientCommand);
-      console.log('COA Response', res);
+      // console.log(`Confirmando`);
+      // const statusCoa = this.CoA_Status(res);
 
-      console.log(`Confirmando`);
-      const statusCoa = this.CoA_Status(res);
-
-      if (!statusCoa) {
-        return `El usuario ${username} no pudo ser activado`;
-      }
+      // if (!statusCoa) {
+      //   return `El usuario ${username} no pudo ser activado`;
+      // }
 
        //borrar entrada de la tabla radusergroup
       const data = { username, groupname: 'suspendido', priority: 1 };

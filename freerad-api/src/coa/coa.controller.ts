@@ -12,7 +12,7 @@ export class CoaController {
   /**
    * Ruta para la suspencion de usuarios.
    * @param username { string } llega por Param.
-   * @returns { method } 
+   * @returns { method }
    */
   @Get('suspend/:username')
   async suspendUser(@Param('username') username: string) {
@@ -22,8 +22,8 @@ export class CoaController {
 
   /**
    * Ruta para la activacion de usuarios.
-   * @param username 
-   * @returns 
+   * @param username
+   * @returns
    */
   @Get('activate/:username')
   async activateUser(@Param('username') username: string) {
@@ -34,17 +34,17 @@ export class CoaController {
   /**
    * Ruta para cambio de plan del usuario.
    * @param data { ChangePlanDto } viene con dos string, username con nombre de la ONU y "groupname" con el nuevo plan.
-   * @returns 
+   * @returns
    */
   @Post('change-plan')
   async changePlan(@Body() data: ChangePlanDto) {
     return this.coaService.ChangePlan(data);
   }
 
-    /**
+  /**
    * Ruta para cambio de plan del usuario.
-   * @param data { CoaDto } Ver CoaDto en la carpeta de Ddto. 
-   * @returns 
+   * @param data { CoaDto } Ver CoaDto en la carpeta de Ddto.
+   * @returns
    */
   @Post('modify-plan')
   async modifyPlan(@Body() data: CoaDto) {

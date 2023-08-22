@@ -3,16 +3,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //* ENTIDADES *//
 import { Nas } from './entities/nas.entity';
-import { RadCheck } from './radcheck.entity';
-import { Radacct } from './radacct.entity';
-import { Plan } from './plan.entity';
-import { Service } from './service.entity';
-import { System } from './system.entity';
-import { RadUserGroup } from './radusergroup.entity';
-import { UserInfo } from './user.entity';
-import { ZonaCliente } from './node.entity';
-import { Zone } from './zone.entity';
-import { RadGroupReply } from './radgroupreply.entity';
+import { RadCheck } from './entities/radcheck.entity';
+import { Radacct } from './entities/radacct.entity';
+import { Plan } from './entities/plan.entity';
+import { Service } from './entities/service.entity';
+import { System } from './entities/system.entity';
+import { RadUserGroup } from './entities/radusergroup.entity';
+import { UserInfo } from './entities/user.entity';
+import { ZonaCliente } from './entities/node.entity';
+import { Zone } from './entities/zone.entity';
+import { RadGroupReply } from './entities/radgroupreply.entity';
 
 @Module({
   imports: [

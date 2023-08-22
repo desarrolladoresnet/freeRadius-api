@@ -37,9 +37,9 @@ export class UserInfoController {
    * Obtiene todos los servicios asociados a la tabla 'userinfo'
    * @returns { UserInfo[] }
    */
-  @Get()
-  findAllUser() {
-    return this.userInfoService.FindAllUsers();
+  @Get('getusers/:n')
+  findAllUser(@Param('n') n: number) {
+    return this.userInfoService.FindAllUsers(n);
   }
 
   /**

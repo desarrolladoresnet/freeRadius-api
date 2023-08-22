@@ -292,11 +292,31 @@ export class UserInfoService {
    * Devuelve un array/lista con todas las entradas encontradas.
    * @returns { Array }
    */
-  async FindAllUsers(): Promise<UserInfo[]> {
+  async FindAllUsers(n: number): Promise<UserInfo[]> {
     const date = new Date();
-    console.log(`Se inicia busqueda de usuarios.\nFecha: ${date}\n`)
+    console.log(`Se inicia busqueda de usuarios, página ${n}.\nFecha: ${date}\n`);
+
+    if (n < 1) {
+      const str = `Número de página inválido.`;
+      const err = new Error()
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: str,
+        },
+        HttpStatus.NOT_FOUND,
+        {
+          cause: err,
+        },
+      );
+    }
+    /////////////////////////////////////////////////////////////////////
     try {
-      const users = await this.usersRepository.find();
+      const skip = (n - 1) * 20;
+      const users = await this.usersRepository.find({
+        take: 20,
+        skip
+      });
 
       if (users?.length < 1) {
         const str = 'No se encontraron usuarios/onu';
