@@ -60,6 +60,9 @@ export class CoaService {
       if (error.stdout.includes('Session-Context-Not-Found')){
         return "CoA-ACK, El usuario no estaba activo"
       }
+      if (error.stdout.includes('Disconnect-ACK')){
+        return "El usuario fue desconectado exitosamente"
+      }
       throw error;
     }
   }
