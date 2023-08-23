@@ -379,10 +379,19 @@ export class UserInfoService {
         );
       }
 
+      const radusergroups = await this.radUserGroupRepository.find({
+        where: {
+          id: users.id,
+        },
+      });
+  
       console.log(
         `Usuario/onu encontrado!\n------------------------------------------------\n`,
       );
-      return users;
+      return {
+        user: users,
+        radusergroups,
+      };
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);

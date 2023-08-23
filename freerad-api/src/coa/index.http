@@ -1,8 +1,8 @@
-GET http://localhost:3336/coa/activate/B00555
+GET http://localhost:3000/coa/activate/B00555
 
 ###
 
-GET http://localhost:3336/coa/suspend/B00555
+GET http://localhost:3000/coa/suspend/B00555
 
 ###
 POST http://10.10.20.7:3000/coa/change-plan

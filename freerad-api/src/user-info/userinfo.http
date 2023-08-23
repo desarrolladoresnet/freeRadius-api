@@ -2,8 +2,8 @@ POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
-    "username": "18E8293B5C98",
-    "firstname": "NPCA",
+    "username": "293B5C99",
+    "firstname": "NPCs",
     "lastname": "2456",
     "groupname": "Banda Ancha RF 10 Mbps/2 Mbps",
     "creationby": "Francisco",
@@ -11,7 +11,7 @@ Content-Type: application/json
     "address": "DAYCO-RO-BORDE"
 }
 ###
-DELETE  http://localhost:3000/user-info/18E8293B5C99
+DELETE  http://localhost:3336/user-info/18E8293B5C99
 
 ###
 PUT http://localhost:3000/user-info/17
@@ -44,4 +44,4 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3336/user-info/getusers/0
+GET http://localhost:3336/user-info
