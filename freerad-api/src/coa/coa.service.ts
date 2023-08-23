@@ -40,6 +40,31 @@ export class CoaService {
    * @param radClientCommand {string}
    * @returns { string }
    */
+
+  async CoA_cmd(
+    echoCommand: string,
+    radClientCommand: string,
+  ): Promise<string> {
+    const execAsync = promisify(exec);
+    const hostIpAddress = 'localhost'; // Cambiar a 127.0.0.1 si es necesario
+    const hostPort = 3799;
+    const fullCommand = `${echoCommand} | ${radClientCommand}`;
+
+    try {
+      const { stdout } = await execAsync(
+        `echo "${fullCommand}" | nc ${hostIpAddress} ${hostPort}`
+      );
+      console.log('Command output:', stdout);
+      return stdout; // Retorna la respuesta de la terminal
+    } catch (error) {
+      if (error.stdout.includes('Session-Context-Not-Found')) {
+        return "CoA-ACK, El usuario no estaba activo";
+      }
+      throw error;
+    }
+  }
+
+  /*
   async CoA_cmd(
     echoCommand: string,
     radClientCommand: string,
@@ -60,13 +85,10 @@ export class CoaService {
       if (error.stdout.includes('Session-Context-Not-Found')){
         return "CoA-ACK, El usuario no estaba activo"
       }
-      if (error.stdout.includes('Disconnect-ACK')){
-        return "El usuario fue desconectado exitosamente"
-      }
       throw error;
     }
   }
-
+ */
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -77,9 +99,10 @@ export class CoaService {
    * @returns { boolean }
    */
   CoA_Status(response: string) {
-    if (!(typeof response === 'string')) return false; // Failsafe por si falla el coa
+    if (!(typeof response === 'string')) return false;
     const str = response.toLowerCase();
-    return str.includes('coa-ack');
+    const result: boolean = str.includes('coa-ack') ||  str.includes('disconnect-ack');
+    return result;
   }
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
