@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { ILike, Not, Repository } from 'typeorm';
 import { UserDto } from 'src/dto/user.dto';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
 import { RadCheck } from 'src/database/entities/radcheck.entity';
@@ -391,6 +391,105 @@ export class UserInfoService {
       return {
         user: users,
         radusergroups,
+      };
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Buscan una entrada en la tbla 'userinfo' a traves del id.
+   * @param id { number }
+   * @returns { UserInfo }
+   */
+  async FindByUsername(username: string) {
+    try {
+      const date = new Date();
+      console.log(`\nFecha: ${date}\n`)
+      console.log(`Bucando usuario/onu con username: ${username}`);
+      const users = await this.usersRepository.findOneBy({ username: username });
+
+      if (!users) {
+        const str = `No se econtro usuario/onu con id: ${username}`;
+        console.log(`------------------------------------------------\n`);
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      const radusergroups = await this.radUserGroupRepository.find({
+        where: {
+          username
+        },
+      });
+  
+      console.log(
+        `Usuario/onu encontrado!\n------------------------------------------------\n`,
+      );
+      return {
+        user: users,
+        radusergroups,
+      };
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Buscan una entrada en la tbla 'userinfo' a traves del id.
+   * @param id { number }
+   * @returns { UserInfo }
+   */
+  async FindUsernames(username: string) {
+    try {
+      const date = new Date();
+      console.log(`\nFecha: ${date}\n`)
+      console.log(`Bucando usuario/onu con username: ${username}`);
+      const users = await this.usersRepository.findBy({ username: ILike(`%${username}%`), });
+
+      if (!users) {
+        const str = `No se econtro usuario/onu con id: ${username}`;
+        console.log(`------------------------------------------------\n`);
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+  
+      console.log(
+        ` ${users?.length} usuarios/onus encontrado!\n------------------------------------------------\n`,
+      );
+      return {
+        users
       };
     } catch (error) {
       console.error(error);

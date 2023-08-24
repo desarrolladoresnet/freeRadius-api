@@ -14,7 +14,7 @@ import { UserUpdateDto } from 'src/dto/userUpdate.dto';
 /**
  * Controller principal relativo a los usuarios de los servicios de NetcomPlus.
  * Los usuarios son manipulados para lograr efecto en 'Radius' y el router que este controla.
- * La ruta principal para este controller es http://<domain>/user-info/<params (si la hay)> 
+ * La ruta principal para este controller es http://<domain>/user-info/<params (si la hay)>
  */
 @Controller('user-info')
 export class UserInfoController {
@@ -53,9 +53,29 @@ export class UserInfoController {
   }
 
   /**
+   * Permite buscar un usuario en base a su id
+   * @param id { number }
+   * @returns { UserInfo }
+   */
+  @Get('username/:username')
+  findByUsername(@Param('username') username: string) {
+    return this.userInfoService.FindByUsername(username);
+  }
+
+  /**
+   * Permite buscar un usuario en base a su id
+   * @param id { number }
+   * @returns { UserInfo }
+   */
+  @Get('find-usernames/:username')
+  findUsernames(@Param('username') username: string) {
+    return this.userInfoService.FindUsernames(username);
+  }
+
+  /**
    * Permite modificar un usuario.
-   * @param id 
-   * @param data 
+   * @param id
+   * @param data
    * @returns { Userinfo }
    */
   @Put(':id')
@@ -66,7 +86,7 @@ export class UserInfoController {
   /**
    * Función opuesta a createUser.
    * Birra a un usuario de las tres tablas dónde está reegistrado.
-   * @param username 
+   * @param username
    * @returns { string }
    */
   @Delete(':username')
