@@ -1,4 +1,4 @@
-POST http://localhost:3000/user-info
+POST http://10.10.20.7:3000/user-info
 Content-Type: application/json
 
 {
@@ -11,7 +11,10 @@ Content-Type: application/json
     "address": "DAYCO-RO-BORDE"
 }
 ###
-DELETE  http://localhost:3336/user-info/18E8293B5C99
+GET  http://localhost:3000/user-info/293B5C99
+
+###
+GET  http://localhost:3000/user-info/getusers/total
 
 ###
 PUT http://localhost:3000/user-info/17
@@ -45,4 +48,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/user-info/username/18E8293B5C97
+GET http://localhost:3000/user-info/username/NPCA1691  
+
+###
+GET http://localhost:3000/user-info/getusers/1
+###
+GET http://localhost:3000/user-info/933

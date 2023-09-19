@@ -362,33 +362,33 @@ export class CoaService {
         Por esto se preparan como dos variables distinstas y el metodo 'execAsync' se encarga del correcto orden
         de ejecución del comando.
        */
-      const echoCommand = `echo "User-Name='${username}'"`;
-      const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'disconnect' 'NetcomwirelesS++' 2>&1`;
+      // const echoCommand = `echo "User-Name='${username}'"`;
+      // const radClientCommand = `radclient -c '1' -n '3' -r '3' -t '3' -x '10.0.0.9:3799' 'disconnect' 'NetcomwirelesS++' 2>&1`;
 
-      console.log(`Suspendiendo`);
-      const res = await this.CoA_cmd(echoCommand, radClientCommand);
-      console.log('COA Response', res);
+      // console.log(`Suspendiendo`);
+      // const res = await this.CoA_cmd(echoCommand, radClientCommand);
+      // console.log('COA Response', res);
 
       /**
        * Compara string recibido de la terminal Linux con string esperado.
        * Retornal bool.
        */
-      const statusCoa = this.CoA_Status(res);
-      if (!statusCoa) {
-        const str = `No se pudo suspender al usuario ${username}`;
-        console.log(`${str}\n------------------------------------------------\n`);
-        const err = new Error(str);
-        throw new HttpException(
-          {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            error: str,
-          },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          {
-            cause: err,
-          },
-        );
-      }
+      // const statusCoa = this.CoA_Status(res);
+      // if (!statusCoa) {
+      //   const str = `No se pudo suspender al usuario ${username}`;
+      //   console.log(`${str}\n------------------------------------------------\n`);
+      //   const err = new Error(str);
+      //   throw new HttpException(
+      //     {
+      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
+      //       error: str,
+      //     },
+      //     HttpStatus.INTERNAL_SERVER_ERROR,
+      //     {
+      //       cause: err,
+      //     },
+      //   );
+      //}
 
       //* Se agrega al usuarion al grupo de suspendidos *//
       const data = { username, groupname: 'suspendido', priority: 1 };

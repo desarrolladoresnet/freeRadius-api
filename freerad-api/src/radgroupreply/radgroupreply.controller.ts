@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -11,7 +12,7 @@ import { RadGroupReplyService } from './radgroupreply.service';
 import { CreateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
 import { UpdateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
 
-@Controller('plan')
+@Controller('planes')
 export class RadGroupReplyController {
   constructor(private radgroupreplyService: RadGroupReplyService) {}
 

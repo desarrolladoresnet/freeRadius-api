@@ -292,7 +292,7 @@ export class UserInfoService {
    * Devuelve un array/lista con todas las entradas encontradas.
    * @returns { Array }
    */
-  async FindAllUsers(n: number): Promise<UserInfo[]> {
+  async FindAllUsers(n: number, t:number): Promise<UserInfo[]> {
     const date = new Date();
     console.log(`Se inicia busqueda de usuarios, página ${n}.\nFecha: ${date}\n`);
 
@@ -314,7 +314,7 @@ export class UserInfoService {
     try {
       const skip = (n - 1) * 20;
       const users = await this.usersRepository.find({
-        take: 20,
+        take: t,
         skip
       });
 
@@ -345,6 +345,30 @@ export class UserInfoService {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Devuelve el número total de entradas en la base de datos.
+ * @returns { number }
+ */
+async GetTotalEntries(): Promise<number> {
+  const date = new Date();
+  console.log(`Se inicia búsqueda del número total de entradas.\nFecha: ${date}\n`);
+
+  try {
+    const totalEntries = await this.usersRepository.count();
+    console.log(`Número total de entradas: ${totalEntries}\n------------------------------------------------\n`);
+    return totalEntries;
+  } catch (error) {
+    console.error(error);
+    console.log(`------------------------------------------------\n`);
+    throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -381,7 +405,7 @@ export class UserInfoService {
 
       const radusergroups = await this.radUserGroupRepository.find({
         where: {
-          id: users.id,
+          username: users.username,
         },
       });
   
@@ -445,6 +469,44 @@ export class UserInfoService {
         user: users,
         radusergroups,
       };
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Buscan una entrada en la tbla 'userinfo' a traves del username, 
+   * devuelve True si no esta en uso y False al contrario.
+   * Permite verificar que un username no este duplicado.
+   * @param id { number }
+   * @returns { UserInfo }
+   */
+  async UsernameInUse(username: string) {
+    try {
+      const date = new Date();
+      console.log(`\nFecha: ${date}\n`)
+      console.log(`Bucando usuario/onu con username: ${username}`);
+      const users = await this.usersRepository.findOneBy({ username: username });
+
+      if (!users) {
+        console.log(
+          `Username libre! Retornando True\n------------------------------------------------\n`,
+        );
+        return true;
+
+      }
+
+      console.log(
+        `Usuario/onu encontrado! Retornando False\n------------------------------------------------\n`,
+      );
+      return false;
+
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);

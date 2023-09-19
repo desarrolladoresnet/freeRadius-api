@@ -1,7 +1,11 @@
 GET http://localhost:3000/radcheck
 
 ###
-GET http://localhost:3000/radcheck/17
+GET http://localhost:3000/radcheck/933
+
+###
+GET http://localhost:3000/radcheck/username/74acb9f275b4
+
 
 ###
 PUT http://localhost:3000/radcheck/17

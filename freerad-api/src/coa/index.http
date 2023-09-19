@@ -1,7 +1,7 @@
-GET http://10.10.20.7:3000/coa/activate/ab123456456
+GET http://localhost:3000/coa/activate/e063da90277a
 ###
 
-GET http://10.10.20.7:3000/coa/suspend/ab123456456
+GET http://localhost:3000/coa/suspend/e063da90277a
 
 ###
 POST http://10.10.20.7:3000/coa/change-plan

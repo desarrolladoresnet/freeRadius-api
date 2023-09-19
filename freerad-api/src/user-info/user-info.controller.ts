@@ -37,9 +37,18 @@ export class UserInfoController {
    * Obtiene todos los servicios asociados a la tabla 'userinfo'
    * @returns { UserInfo[] }
    */
-  @Get('getusers/:n')
-  findAllUser(@Param('n') n: number) {
-    return this.userInfoService.FindAllUsers(n);
+  @Get('getusers/total')
+  getTotalEntries() {
+    return this.userInfoService.GetTotalEntries();
+  }
+
+  /**
+   * Obtiene todos los servicios asociados a la tabla 'userinfo'
+   * @returns { UserInfo[] }
+   */
+  @Get('getusers/:n/:t')
+  findAllUser(@Param('n') n: number, @Param('t') t: number) {
+    return this.userInfoService.FindAllUsers(n, t);
   }
 
   /**
@@ -58,8 +67,8 @@ export class UserInfoController {
    * @returns { UserInfo }
    */
   @Get('username/:username')
-  findByUsername(@Param('username') username: string) {
-    return this.userInfoService.FindByUsername(username);
+  usernameInUse(@Param('username') username: string) {
+    return this.userInfoService.UsernameInUse(username);
   }
 
   /**

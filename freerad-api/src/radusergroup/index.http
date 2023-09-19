@@ -1,4 +1,4 @@
-GET http://10.10.20.7:3000/radusergroup
+GET http://localhost:3000/radusergroup
 
 ###
 

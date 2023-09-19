@@ -30,6 +30,16 @@ export class RadcheckController {
   }
 
   /**
+   * Retorna una sola entrada a partir del id ingresado.
+   * @param id { number }
+   * @returns { object }
+   */
+  @Get('username/:username')
+  getByUswername(@Param('username') username: string) {
+    return this.radCheckService.GetByName(username);
+  }
+
+  /**
    * Permite la creacion de una entrada a la tabla, se requiere "username" de manera obligatoria, los otros parametros pueden ser enviados, sino se aplican el resto por defecto.
    * @param data { RadCheckDto } Es un objeto con varios campos pero solo 1 es obligatorio.
    * @returns { object }

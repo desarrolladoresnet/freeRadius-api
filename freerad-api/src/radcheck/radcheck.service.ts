@@ -104,6 +104,52 @@ export class RadcheckService {
     }
   }
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Busca una entrada por medio del id.
+   * @param id { number } debe ser int.
+   * @returns { object }
+   */
+  async GetByName(username: string) {
+    try {
+      const date = new Date();
+      console.log(`Buscando entrada con el userna,e: ${username}.\nFecha: ${date}\n`);
+      const rad = await this.radcheckRepository.findOneBy({ username: username });
+
+      if (!rad) {
+        const str = `No hay datos con el id: ${username}`;
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+
+        const err = new Error(str);
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: str,
+          },
+          HttpStatus.NOT_FOUND,
+          {
+            cause: err,
+          },
+        );
+      }
+
+      console.log(
+        `Enviado entrada.\n------------------------------------------------\n`,
+      );
+      return rad;
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
