@@ -612,6 +612,40 @@ async GetTotalEntries(): Promise<number> {
         );
       }
 
+        /* 
+          Si el username es actualizado, se debe actualizar tambien en radcheck para que 
+          cualquier cambio tenga efecto a traves de Radius.
+         */
+      if(User.username !== data.username) {
+
+        const radcheck = await this.radCheckRepository.findOne({
+          where:{
+            username: User.username,
+          }
+        });
+
+        radcheck.username = data.username;
+
+        const updateRadCheck = await this.radCheckRepository.save(radcheck);
+
+        if(!updateRadCheck){
+          const str = `fallo el update del radcheck: ${data.username}.`;
+          console.log(`------------------------------------------------\n`);
+  
+          const err = new Error(str);
+          throw new HttpException(
+            {
+              status: HttpStatus.NOT_FOUND,
+              error: str,
+            },
+            HttpStatus.NOT_FOUND,
+            {
+              cause: err,
+            },
+          );
+        }
+      }
+
       // Se evalúa si uno o más campos serán modificados.
       User.firstname = data?.firstname ? data.firstname : User.firstname;
       User.lastname = data?.lastname ? data.lastname : User.lastname;

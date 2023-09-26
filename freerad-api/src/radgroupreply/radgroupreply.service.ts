@@ -26,7 +26,11 @@ export class RadGroupReplyService {
   }
 
   findAll(): Promise<RadGroupReply[]> {
-    return this.radgroupreplyRepository.find();
+    return this.radgroupreplyRepository.find({
+        order:{
+          groupname: 'asc'
+        }
+    });
   }
 
   findOne(id: number): Promise<RadGroupReply | null> {
