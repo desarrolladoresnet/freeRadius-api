@@ -1,0 +1,10 @@
+POST http://localhost:3000/auth/singup
+Content-Type: application/json
+
+{
+  "username":"hsabatino1",
+  "password":"12345678",
+  "email": "hsabatino@gmail.com",
+  "createBy":"hsabatino",
+  "rol":"admin"
+}

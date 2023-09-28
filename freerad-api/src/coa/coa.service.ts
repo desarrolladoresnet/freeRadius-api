@@ -11,7 +11,7 @@ import { ChangePlanDto, CoaDto } from 'src/dto/coa.dto';
 //* ENTIDADES *//
 import { Nas } from 'src/database/entities/nas.entity';
 import { Radacct } from 'src/database/entities/radacct.entity';
-import { UserInfo } from 'src/database/entities/user.entity';
+import { UserInfo } from 'src/database/entities/userinfo.entity';
 import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 @Injectable()

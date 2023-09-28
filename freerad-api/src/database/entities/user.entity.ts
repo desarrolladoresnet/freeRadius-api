@@ -1,74 +1,37 @@
-/* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: 'userinfo' })
-export class UserInfo {
+@Entity('user')
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 128, unique: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   username: string;
 
-  @Column({ type: 'varchar', length: 200 })
-  firstname: string;
+  @Column({ type: 'varchar', length: 150, nullable: true })
+  password: string;
 
-  @Column({ type: 'varchar', length: 200 })
-  lastname: string;
-
-  @Column({ type: 'varchar', length: 200, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  department: string;
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  rol: string;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  company: string;
+  @Column({ type: 'boolean', nullable: true })
+  active: boolean;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  workphone: string;
+  @Column({ type: 'date', nullable: true })
+  create_at: Date;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  homephone: string;
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  create_by: string;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  mobilephone: string;
+  @Column({ type: 'date', nullable: true })
+  update_at: Date;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  address: string;
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  update_by: string;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  city: string;
-
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  state: string;
-
-  @Column({ type: 'varchar', length: 100, default: 'Venezuela' })
-  country: string;
-
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  zip: string;
-
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  notes: string;
-
-  @Column({ type: 'varchar', length: 128, nullable: true })
-  changeuserinfo: string;
-
-  @Column({ type: 'varchar', length: 128, default: '' })
-  portalloginpassword: string;
-
-  @Column({ type: 'int', default: 0 })
-  enableportallogin: number;
-
-  @Column({ type: 'timestamp'})
-  creationdate: Date;
-
-  @Column({ type: 'varchar', length: 128 })
-  creationby: string;
-
-  @Column({ type: 'timestamp', nullable: true })
-  updatedate: Date;
-
-  @Column({ type: 'varchar', length: 128 })
-  updateby: string;
+  @Column({ type: 'date', nullable: true })
+  last_login: Date;
 }

@@ -2,11 +2,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Not, Repository } from 'typeorm';
-import { UserDto } from 'src/dto/user.dto';
+import { UserInfoDto } from 'src/dto/userInfo.dto';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
 import { RadCheck } from 'src/database/entities/radcheck.entity';
 import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/user.entity';
+import { UserInfo } from 'src/database/entities/userinfo.entity';
 import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 
 @Injectable()
@@ -30,10 +30,10 @@ export class UserInfoService {
    * se hará un salto a la siguiente parte del proceso. 
    * Esto con motivo de que si por alguna razón, fallara el proceso de guardado, se pueda reintentar inmediatamente.
    * Retorna el objeto creado más un campo 'msj' con todos los mensajes del proceso.
-   * @param data { UserDto }
+   * @param data { UserInfoDto }
    * @returns { object }
    */
-  async CreateUser(data: UserDto) {
+  async CreateUser(data: UserInfoDto) {
     const date = new Date();
     console.log(`Se inicia creación de usuario.\nFecha: ${date}\n`)
     try {

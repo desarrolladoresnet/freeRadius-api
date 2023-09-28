@@ -8,7 +8,7 @@ import { Service } from '../database/entities/service.entity';
 import { CoaModule } from 'src/coa/coa.module';
 import { System } from 'src/database/entities/system.entity';
 import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/user.entity';
+import { UserInfo } from 'src/database/entities/userinfo.entity';
 import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
 import { ZonaCliente } from 'src/database/entities/node.entity';
 

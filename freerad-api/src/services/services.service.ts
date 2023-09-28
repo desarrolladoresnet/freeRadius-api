@@ -10,7 +10,7 @@ import { SystemsService } from 'src/systems/systems.service';
 import { Service } from '../database/entities/service.entity';
 import { ZonaCliente } from 'src/database/entities/node.entity';
 import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/user.entity';;
+import { UserInfo } from 'src/database/entities/userinfo.entity';;
 
 @Injectable()
 export class ServicesService {

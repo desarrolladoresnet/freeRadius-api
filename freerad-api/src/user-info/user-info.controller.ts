@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
-import { UserDto } from 'src/dto/user.dto';
+import { UserInfoDto } from 'src/dto/userInfo.dto';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
 
 /**
@@ -23,13 +23,13 @@ export class UserInfoController {
   /**
    * Permite crear un nuevo usuario.
    * La tabla 'userinfo' de Radius contiene muchos campos, no todos son utilizados en este momento por Netcomplus,
-   * ni todos son usados directamente como lo sugieren los campos. Remitase al UserDto o UserEntity
+   * ni todos son usados directamente como lo sugieren los campos. Remitase al UserInfoDto o UserEntity
    * para ver los campos necesarios y los opcionales.
-   * @param data { userDto }
+   * @param data { UserInfoDto }
    * @returns { Userinfo }
    */
   @Post()
-  createUser(@Body() data: UserDto) {
+  createUser(@Body() data: UserInfoDto) {
     return this.userInfoService.CreateUser(data);
   }
 

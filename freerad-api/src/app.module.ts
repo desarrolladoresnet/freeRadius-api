@@ -16,6 +16,10 @@ import { UserInfoModule } from './user-info/user-info.module';
 import { ZoneModule } from './zone/zone.module';
 import { RadGroupReplyModule } from './radgroupreply/radgroupreply.module';
 import { DatabaseModule } from './database/database.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -35,8 +39,10 @@ import { DatabaseModule } from './database/database.module';
     ServicesModule,
     NodesModule,
     RadGroupReplyModule,
+    AuthModule,
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}

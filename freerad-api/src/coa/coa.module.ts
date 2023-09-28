@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { CoaService } from './coa.service';
 import { CoaController } from './coa.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserInfo } from 'src/database/entities/user.entity';
+import { UserInfo } from 'src/database/entities/userinfo.entity';
 import { Radacct } from 'src/database/entities/radacct.entity';
 import { Nas } from 'src/database/entities/nas.entity';
 import { RadUserGroup } from 'src/database/entities/radusergroup.entity';

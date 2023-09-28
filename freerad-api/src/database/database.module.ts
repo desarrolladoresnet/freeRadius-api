@@ -9,10 +9,11 @@ import { Plan } from './entities/plan.entity';
 import { Service } from './entities/service.entity';
 import { System } from './entities/system.entity';
 import { RadUserGroup } from './entities/radusergroup.entity';
-import { UserInfo } from './entities/user.entity';
+import { UserInfo } from './entities/userinfo.entity';
 import { ZonaCliente } from './entities/node.entity';
 import { Zone } from './entities/zone.entity';
 import { RadGroupReply } from './entities/radgroupreply.entity';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { RadGroupReply } from './entities/radgroupreply.entity';
           Service,
           System,
           UserInfo,
+          User,
           ZonaCliente,
           Zone,
         ],
