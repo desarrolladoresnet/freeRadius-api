@@ -8,3 +8,16 @@ Content-Type: application/json
   "createBy":"hsabatino",
   "rol":"admin"
 }
+
+###
+
+POST http://localhost:3000/auth/singin
+Content-Type: application/json
+
+{
+  "username":"hsabatino",
+  "password":"12345678",
+  "email": "hsabatino@gmail.com",
+  "createBy":"hsabatino",
+  "rol":"admin"
+}

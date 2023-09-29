@@ -6,10 +6,12 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
 import { UserInfoDto } from 'src/dto/userInfo.dto';
 import { UserUpdateDto } from 'src/dto/userUpdate.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 /**
  * Controller principal relativo a los usuarios de los servicios de NetcomPlus.
@@ -47,6 +49,7 @@ export class UserInfoController {
    * @returns { UserInfo[] }
    */
   @Get('getusers/:n/:t')
+  @UseGuards(AuthGuard('jwt'))
   findAllUser(@Param('n') n: number, @Param('t') t: number) {
     return this.userInfoService.FindAllUsers(n, t);
   }

@@ -51,6 +51,9 @@ Content-Type: application/json
 GET http://localhost:3000/user-info/username/NPCA1691  
 
 ###
-GET http://localhost:3000/user-info/getusers/1
+GET http://localhost:3000/user-info/getusers/1/20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJzIjoyLCJyb2wiOiJhZG1pbiIsImVtYWlsIjoiaHNhYmF0aW5vQGdtYWlsLmNvbSIsImlhdCI6MTY5NTk5MjM2OSwiZXhwIjoxNjk1OTk1OTY5fQ.qvde4ByDqO8jDNUQiH0vloC0A4K0wP7ymh8Hnv3eP-U
+
+
 ###
 GET http://localhost:3000/user-info/933

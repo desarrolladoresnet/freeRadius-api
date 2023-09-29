@@ -31,3 +31,22 @@ La forma exacta de configurar la base de datos para permitir conexiones desde el
 Una vez que hayas realizado estos pasos, la base de datos debería estar configurada para permitir conexiones desde el contenedor Docker. Luego, puedes intentar ejecutar tu aplicación nuevamente y comprobar si puede establecer la conexión con la base de datos.
 
 Recuerda que estos pasos son un ejemplo general y pueden variar según el sistema operativo y la versión específica de MySQL/MariaDB que estés utilizando. Consulta la documentación oficial de tu sistema de gestión de base de datos para obtener instrucciones más precisas sobre cómo configurar la base de datos para permitir conexiones desde Docker.
+
+
+
+----------------------------------------------------
+
+CREATE TABLE radius.`user` (
+	id int auto_increment NOT NULL,
+	username varchar(20) NULL,
+	password varchar(150) NULL,
+	email varchar(50) NULL,
+	rol varchar(20) NULL,
+	active BOOL NULL,
+	create_at DATE NULL,
+	create_by varchar(20) NULL,
+	update_at DATE NULL,
+	update_by varchar(20) NULL,
+	last_login DATE NULL,
+	PRIMARY KEY (id)
+);
