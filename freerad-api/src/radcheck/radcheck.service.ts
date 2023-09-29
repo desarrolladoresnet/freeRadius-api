@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RadCheck } from 'src/database/entities/radcheck.entity';
-import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
 import { Repository } from 'typeorm';
+import { RadCheck } from 'src/database/entities/index';
+import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/index';
 
 /**
  * Metodos para la manipulacion de la tabla "radcheck".
@@ -27,7 +26,9 @@ export class RadcheckService {
   async GetAllRadCheck() {
     try {
       const date = new Date();
-      console.log(`Buscando entradas en la tabla "radcheck"'.\nFecha: ${date}\n`);
+      console.log(
+        `Buscando entradas en la tabla "radcheck"'.\nFecha: ${date}\n`,
+      );
       const allRadChecks = await this.radcheckRepository.find();
 
       console.log(allRadChecks);
@@ -104,7 +105,6 @@ export class RadcheckService {
     }
   }
 
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,8 +117,12 @@ export class RadcheckService {
   async GetByName(username: string) {
     try {
       const date = new Date();
-      console.log(`Buscando entrada con el userna,e: ${username}.\nFecha: ${date}\n`);
-      const rad = await this.radcheckRepository.findOneBy({ username: username });
+      console.log(
+        `Buscando entrada con el userna,e: ${username}.\nFecha: ${date}\n`,
+      );
+      const rad = await this.radcheckRepository.findOneBy({
+        username: username,
+      });
 
       if (!rad) {
         const str = `No hay datos con el id: ${username}`;
@@ -245,7 +249,9 @@ export class RadcheckService {
     if (!attribute && !op && !value) {
       const date = new Date();
       const str = `No se enviaron atributos para modificar.\n attributre: ${attribute}, op: ${op}, value:${value}.`;
-      console.log(`${str}\n------------------------------------------------\n\nFecha: ${date}\n`);
+      console.log(
+        `${str}\n------------------------------------------------\n\nFecha: ${date}\n`,
+      );
       const err = new Error(str);
       throw new HttpException(
         {

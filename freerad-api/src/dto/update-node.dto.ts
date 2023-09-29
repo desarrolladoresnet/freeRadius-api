@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { System } from './system.entity';
+import { System } from '../database/entities/system.entity';
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateNodeDto } from './create-node.dto';
+import { CreateNodeDto } from '../database/entities/create-node.dto';
 
 export class UpdateNodeDto extends PartialType(CreateNodeDto) {
   id: number;

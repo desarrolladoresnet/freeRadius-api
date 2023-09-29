@@ -8,9 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ServicesService } from './services.service';
-import { CreateServiceDto } from '../dto/create-service.dto';
-import { UpdateServiceDto } from 'src/dto/update-service.dto';
-// import { UpdateServiceDto } from './dto/update-service.dto';
+import { CreateServiceDto, UpdateServiceDto } from '../dto/index';
 
 /**
  * Modulo que reune los principales datos de los servicios prestados a un cliente.
@@ -23,7 +21,7 @@ export class ServicesController {
   /**
    * Permite crear una nueva entrada en la tabla services.
    * Retorna la entrada creada.
-   * @param createServtDto 
+   * @param createServtDto
    * @returns { object }
    */
   @Post()
@@ -41,9 +39,9 @@ export class ServicesController {
   }
 
   /**
-   * 
-   * @param node 
-   * @returns 
+   *
+   * @param node
+   * @returns
    */
   @Get('sync/:node')
   async sync(@Param('node') node: string) {
@@ -61,9 +59,9 @@ export class ServicesController {
   }
 
   /**
-   * 
-   * @param id 
-   * @returns 
+   *
+   * @param id
+   * @returns
    */
   @Get(':id/sys')
   findOneOnSys(@Param('id') id: number) {
@@ -74,7 +72,7 @@ export class ServicesController {
    * Modifica una entrada mediante el id.
    * Si por alguna razón, como puede ser que el metodo sea llamado por otro metodo en otro modulo, los parametros de update llegan vacios, la peticion será rechazada.
    * @param id { number }
-   * @param data { UpdateServDto } 
+   * @param data { UpdateServDto }
    * @returns { object }
    */
   @Put(':id')

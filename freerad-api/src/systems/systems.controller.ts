@@ -9,8 +9,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { SystemsService } from './systems.service';
-import { CreateSystemDto } from '../dto/create-system.dto';
-import { UpdateSystemDto } from 'src/dto/update-system.dto';
+import { CreateSystemDto, UpdateSystemDto } from '../dto/index';
 
 /**
  * Es la informacion relativa a los sistema de gestion de clientes.

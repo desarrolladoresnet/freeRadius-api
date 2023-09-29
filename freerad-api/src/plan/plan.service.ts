@@ -1,11 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreatePlanDto } from '../dto/plan.dto';
-// import { UpdatePlanDto } from 'src/dto/update-plan.dto';
-import { UpdatePlanDto } from '../dto/plan.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Plan } from '../database/entities/plan.entity';
+import { Plan } from '../database/entities/index';
+import { CreatePlanDto, UpdatePlanDto } from '../dto/plan.dto';
 
 /**
  * Metodos para la manipulacion de los planes.
@@ -31,7 +28,9 @@ export class PlanService {
     const { name, listName } = plan;
     try {
       const date = new Date();
-      console.log(`Creando nuevo plan con name:'${name}' y listName:'${listName}'.\nFecha: ${date}\n`);
+      console.log(
+        `Creando nuevo plan con name:'${name}' y listName:'${listName}'.\nFecha: ${date}\n`,
+      );
 
       //* Verificacion de existencia del plan *//
       const isName = await this.planRepository.find({
@@ -42,7 +41,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.CONFLICT,
@@ -51,7 +50,7 @@ export class PlanService {
           HttpStatus.CONFLICT,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -71,7 +70,7 @@ export class PlanService {
         console.log(
           `Plan guardado exitopsamente.\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -80,10 +79,10 @@ export class PlanService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
-      
+
       console.log(
         `Plan guardado exitopsamente.\n------------------------------------------------\n`,
       );
@@ -114,7 +113,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -123,7 +122,7 @@ export class PlanService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
       console.log(
@@ -158,7 +157,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,
@@ -167,7 +166,7 @@ export class PlanService {
           HttpStatus.BAD_REQUEST,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -194,7 +193,9 @@ export class PlanService {
   async UpdatePlan(id: number, updatePlanDto: UpdatePlanDto) {
     try {
       const date = new Date();
-      console.log(`Haciendo update al plan con el id: ${id}.\nFecha: ${date}\n`);
+      console.log(
+        `Haciendo update al plan con el id: ${id}.\nFecha: ${date}\n`,
+      );
 
       const { name, listName } = updatePlanDto;
 
@@ -208,7 +209,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.CONFLICT,
@@ -217,7 +218,7 @@ export class PlanService {
           HttpStatus.CONFLICT,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -229,7 +230,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -238,7 +239,7 @@ export class PlanService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -271,7 +272,7 @@ export class PlanService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -280,7 +281,7 @@ export class PlanService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 

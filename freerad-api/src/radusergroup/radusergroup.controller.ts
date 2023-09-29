@@ -1,17 +1,14 @@
 import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { RadusergroupService } from './radusergroup.service';
-import {
-  RadUserGroupDto,
-  RadUserGroupUpdateDto,
-} from 'src/dto/radUserGroup.dto';
+import { RadUserGroupDto, RadUserGroupUpdateDto } from 'src/dto/index';
 
 /**
  * Modulo para la tabla "radusergroup".
  * Controla el estado del servicio de un usuario.
  * Originalmente la tabla no posee id y este metodo se creo teniendo en cuenta ese hecho, posteriormente fue agregado  para poder hacer uso del ORM.
- * 
+ *
  * En general los ORM solicitan un campo unico para evitar colisiones, pero esta tabla no puede poseer un campo unico ya que un username puede tener un plan (groupname), y al mismo tiempo estar suspendido, lo que implica que el ""username debe aparecer al menos dos veces"".
- * 
+ *
  * Se debe crear el campo id en la tabla manualmente y que sea llenado automaticamente.
  * Comando mysql: ALTER TABLE `radius`.`radusergroup` ADD COLUMN id INT AUTO_INC REMENT PRIMARY KEY
  */
@@ -55,7 +52,7 @@ export class RadusergroupController {
   /**
    * Para hacer un update de una entrada se va a requerir todos los campos.
    * El dto no lo va a rechazar porque se usa el mismo "RadUserGroupUpdateDto", pero el metodo en custion si, ya que no tiene sentido de que falte alguno de los valores. Se necesita el "username" y el "groupname" para realizar la busqueda, por lo que el unico cambio posible es en "op".
-   * @todo Buscar todos los "op" posibles y restringirlos. 
+   * @todo Buscar todos los "op" posibles y restringirlos.
    * @param data { RadUserGroupUpdateDto } ver detelles en el radUserGroup.dto en carpeta dto.
    * @returns { object }
    */

@@ -1,12 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import {
-  RadUserGroupDto,
-  RadUserGroupUpdateDto,
-} from 'src/dto/radUserGroup.dto';
 import { Not, Repository } from 'typeorm';
+import { RadUserGroup } from 'src/database/entities/index';
+import { RadUserGroupDto, RadUserGroupUpdateDto } from 'src/dto/index';
 
 /**
  * Originalmente la tabla no posee id y este metodo se creo teniendo en cuenta ese hecho, posteriormente fue agregado  para poder hacer uso del ORM.
@@ -16,12 +12,12 @@ export class RadusergroupService {
   constructor(
     @InjectRepository(RadUserGroup)
     private readonly radUserGroup: Repository<RadUserGroup>,
-    ) {}
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
+  ) {}
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   /**
    * Para crear una entrada el "username" y el "groupname" son obligatorios.
    * El "priority" se setea en 10 por default pero puede ser colocado en cualquier otro valor.
@@ -33,7 +29,9 @@ export class RadusergroupService {
       const { username, groupname, priority } = data;
 
       const date = new Date();
-      console.log(`Creando nuevo usergroup, con username ${username}, y groupname ${groupname}\nFecha: ${date}\n`);
+      console.log(
+        `Creando nuevo usergroup, con username ${username}, y groupname ${groupname}\nFecha: ${date}\n`,
+      );
 
       //* VERIFICA LA EXISTENCIA DEL USUARIO *//
       const isUserGroup = await this.radUserGroup.findOneBy({
@@ -45,7 +43,7 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.CONFLICT,
@@ -54,7 +52,7 @@ export class RadusergroupService {
           HttpStatus.CONFLICT,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -71,8 +69,8 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -81,12 +79,12 @@ export class RadusergroupService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
       console.log(saveUserGroup);
-      console.log("")
+      console.log('');
 
       console.log(
         `usergroup para el username ${username} creado exitosamente.\n------------------------------------------------\n`,
@@ -119,8 +117,8 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -129,7 +127,7 @@ export class RadusergroupService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -159,24 +157,26 @@ export class RadusergroupService {
     let groupname = data.groupname || '"vacio"';
 
     const date = new Date();
-    console.log(`Buscando groupname con valores, username: ${username} y groupname: ${groupname}.\nFecha: ${date}\n`);
+    console.log(
+      `Buscando groupname con valores, username: ${username} y groupname: ${groupname}.\nFecha: ${date}\n`,
+    );
 
     //* Se verifica que haya parametros suficientes para realizar una busqueda *//
     if (username == 'vacio' && groupname == 'vacio') {
       const str = 'Busqueda invalida';
       console.log(`${str}\n------------------------------------------------\n`);
 
-      const err = new Error(str)
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error: str,
-          },
-          HttpStatus.BAD_REQUEST,
-          {
-            cause: err,
-          }
-        );
+      const err = new Error(str);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: err,
+        },
+      );
     }
 
     try {
@@ -215,8 +215,8 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -225,7 +225,7 @@ export class RadusergroupService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -253,31 +253,32 @@ export class RadusergroupService {
     const { username, groupname, priority } = data;
 
     const date = new Date();
-    console.log(`Haciendo update a username: ${username}, con groupname: ${groupname} .\nFecha: ${date}\n`);
+    console.log(
+      `Haciendo update a username: ${username}, con groupname: ${groupname} .\nFecha: ${date}\n`,
+    );
 
     //* Se verifica que no haya campos vacios para realizar el update *//
     if (!username || !groupname || !priority) {
       const str = `Operación inválida`;
       console.log(`${str}\n------------------------------------------------\n`);
-      
-      const err = new Error(str)
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error: str,
-          },
-          HttpStatus.BAD_REQUEST,
-          {
-            cause: err,
-          }
-        );
+
+      const err = new Error(str);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: str,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: err,
+        },
+      );
     }
 
     try {
       const toUpdate = await this.radUserGroup.findOneBy({
         username,
         groupname: Not('suspendedido'),
-    
       });
 
       if (!toUpdate) {
@@ -298,7 +299,7 @@ export class RadusergroupService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -307,7 +308,7 @@ export class RadusergroupService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -335,13 +336,13 @@ export class RadusergroupService {
   async DeleteUserGroup(data: RadUserGroupUpdateDto) {
     const { username, groupname } = data;
 
-    console.log(`Elminando entrada con username: ${username}  y groupname: ${groupname}.`);
+    console.log(
+      `Elminando entrada con username: ${username}  y groupname: ${groupname}.`,
+    );
 
     if (!username || !groupname) {
-      const str =  `Operación inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
-      console.log(
-        `${str}\n------------------------------------------------\n`,
-      );
+      const str = `Operación inválida por falta de datos para "username":${username} y/o groupname":${groupname}`;
+      console.log(`${str}\n------------------------------------------------\n`);
       return false;
     }
 
@@ -353,13 +354,11 @@ export class RadusergroupService {
 
       if (!toDelete) {
         const str = `Hubo un problema al eliminar la entrada o no se encontró un "username":${username} con groupname":${groupname}`;
-        console.log(
-          `${str}\n`,
-        );
+        console.log(`${str}\n`);
         return false;
       }
 
-      console.log("Entrada eliminada exitosamente");
+      console.log('Entrada eliminada exitosamente');
       return true;
     } catch (error) {
       console.error(error);

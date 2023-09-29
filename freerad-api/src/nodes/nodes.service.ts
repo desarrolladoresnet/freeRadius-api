@@ -1,15 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-// import { CreateNodeDto } from '../database/create-node.dto';
-// import { UpdateNodeDto } from './dto/update-node.dto';
-import { UpdateNodeDto } from 'src/database/entities/update-node.dto';
-import { ZonaCliente } from '../database/entities/node.entity';
+import { UpdateNodeDto } from 'src/dto/index';
+import { ZonaCliente } from '../database/entities/index';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 /**
  * Metodos del modulo nodo.
-*/
+ */
 @Injectable()
 export class NodesService {
   constructor(
@@ -30,7 +27,9 @@ export class NodesService {
     const { name, systems } = node;
     try {
       const date = new Date();
-      console.log(`Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}.\nFecha: ${date}\n`);
+      console.log(
+        `Creado nueva ZonaCliente/Nodo con name: ${name} y system: ${systems}.\nFecha: ${date}\n`,
+      );
 
       const isZona = await this.nodeRepository.findOneBy({ name });
 
@@ -142,7 +141,9 @@ export class NodesService {
   async FindOneNode(id: number) {
     try {
       const date = new Date();
-      console.log(`Buscando una ZonaCliente/Nodo con el id: ${id}.\nFecha: ${date}\n`);
+      console.log(
+        `Buscando una ZonaCliente/Nodo con el id: ${id}.\nFecha: ${date}\n`,
+      );
 
       const nodo = await this.nodeRepository.findOne({
         where: { id: id },
@@ -193,7 +194,9 @@ export class NodesService {
     const { name, systems } = updateNodeDto;
 
     const date = new Date();
-    console.log(`Haciendo update al ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`);
+    console.log(
+      `Haciendo update al ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`,
+    );
 
     if (!name && !systems) {
       const str = `No hay valores para realizar updates.`;
@@ -275,9 +278,10 @@ export class NodesService {
    */
   async RemoveNode(id: number) {
     try {
-
       const date = new Date();
-      console.log(`Eliminando ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`);
+      console.log(
+        `Eliminando ZonaCliente/Nodo con id: ${id}.\nFecha: ${date}\n`,
+      );
 
       const del = await this.nodeRepository.delete(id);
 

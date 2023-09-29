@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ZoneService } from './zone.service';
-import { ZoneDto } from 'src/dto/zone.dto';
+import { ZoneDto } from 'src/dto/index';
 
 /**
  * Esta tabla guarda todo lo reltaivo a las zonas que se relacionan a los servicios.

@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { NasController } from './nas.controller';
 import { NasService } from './nas.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserInfo } from 'src/database/entities/userinfo.entity';
-import { Nas } from 'src/database/entities/nas.entity';
-import { Zone } from 'src/database/entities/zone.entity';
+import { UserInfo, Nas, Zone } from 'src/database/entities/index';
 
 /**
  * Modulo principal para interactuar con la tabla NAS.

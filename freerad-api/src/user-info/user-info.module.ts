@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserInfoService } from './user-info.service';
 import { UserInfoController } from './user-info.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { RadCheck } from 'src/database/entities/radcheck.entity';
-import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/userinfo.entity';
-import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
+import {
+  RadCheck,
+  RadUserGroup,
+  RadGroupReply,
+  UserInfo,
+} from 'src/database/entities/index';
 
 /**
  * Modulo principal relativo a los usuarios de los servicios de NetcomPlus.

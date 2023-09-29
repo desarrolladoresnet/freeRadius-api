@@ -1,13 +1,13 @@
-/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Not, Repository } from 'typeorm';
-import { UserInfoDto } from 'src/dto/userInfo.dto';
-import { UserUpdateDto } from 'src/dto/userUpdate.dto';
-import { RadCheck } from 'src/database/entities/radcheck.entity';
-import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/userinfo.entity';
-import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
+import { UserInfoDto, UserUpdateDto } from 'src/dto/index';
+import {
+  RadCheck,
+  RadUserGroup,
+  RadGroupReply,
+  UserInfo,
+} from 'src/database/entities/index';
 
 @Injectable()
 export class UserInfoService {
@@ -27,7 +27,7 @@ export class UserInfoService {
   /**
    * Enpoint principal de la app.
    * La info puede ser enviada varias veces, en caso de que los datos ya se encuentren en la BD,
-   * se hará un salto a la siguiente parte del proceso. 
+   * se hará un salto a la siguiente parte del proceso.
    * Esto con motivo de que si por alguna razón, fallara el proceso de guardado, se pueda reintentar inmediatamente.
    * Retorna el objeto creado más un campo 'msj' con todos los mensajes del proceso.
    * @param data { UserInfoDto }
@@ -35,7 +35,7 @@ export class UserInfoService {
    */
   async CreateUser(data: UserInfoDto) {
     const date = new Date();
-    console.log(`Se inicia creación de usuario.\nFecha: ${date}\n`)
+    console.log(`Se inicia creación de usuario.\nFecha: ${date}\n`);
     try {
       const {
         firstname,
@@ -55,8 +55,8 @@ export class UserInfoService {
 
       //* Si no existe el plan se aborta toda la operación *//
       const isPlan = await this.radGroupReply.findOneBy({ groupname });
-      if(!isPlan) {
-        const err = new Error('El plan no existe en la base de datos.')
+      if (!isPlan) {
+        const err = new Error('El plan no existe en la base de datos.');
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,
@@ -67,7 +67,7 @@ export class UserInfoService {
             cause: err,
           },
         );
-      };
+      }
 
       console.log(`Creando el usuario/onu: ${username}`);
 
@@ -76,7 +76,6 @@ export class UserInfoService {
         username: username,
       });
 
-
       let user;
       if (ifUser) {
         // Si exite se salta al siguiente paso.
@@ -84,8 +83,7 @@ export class UserInfoService {
         msj += str;
         console.log(`${str}`);
         user = ifUser;
-      }
-      else {
+      } else {
         const nowDate = new Date();
 
         const newLocal = this.usersRepository.create({
@@ -96,7 +94,7 @@ export class UserInfoService {
           address: address,
           /* CAMPOS OPCIONALES */
           // La idea es no dejar campos vacíos que pudioeran ser explotados por un Hacker.
-          // Por otro lado, siempre se hace una lectura de todos los campos en el 'dto' por si en algun momento futuro se llega a necesitar. 
+          // Por otro lado, siempre se hace una lectura de todos los campos en el 'dto' por si en algun momento futuro se llega a necesitar.
           updateby: creationby, // se deja igual que creation by, lo que indica que nunca se le ha hecho update.
           email: data?.email ? data.email : '0',
           country: 'Venezuela',
@@ -113,10 +111,11 @@ export class UserInfoService {
           portalloginpassword: data?.portalloginpassword
             ? data.portalloginpassword
             : '0',
-          enableportallogin: data?.enableportallogin ? data.enableportallogin : 0,
+          enableportallogin: data?.enableportallogin
+            ? data.enableportallogin
+            : 0,
           creationdate: nowDate,
           updatedate: nowDate,
-
         });
         const newUser = newLocal;
         console.log(newUser);
@@ -127,7 +126,7 @@ export class UserInfoService {
           // Si falla en este punto se corta la ejecución y se envia msj de error.
           const str = `No se pudo crear el usuario/onu: ${username}`;
           console.log(`------------------------------------------------\n`);
-  
+
           const err = new Error(str);
           throw new HttpException(
             {
@@ -148,24 +147,26 @@ export class UserInfoService {
 
       console.log(`Registrando radcheck de ${username}`);
 
-      const isRadcheck = await this.radCheckRepository.findOneBy({username})
+      const isRadcheck = await this.radCheckRepository.findOneBy({ username });
       //* Se verifica si existe la entrada en la tabla para ese username *//
       if (isRadcheck) {
         // Evalua si el password es igual.
-        if(!(isRadcheck.value === password)) {
+        if (!(isRadcheck.value === password)) {
           const str = `El password difiere, se procede a actualizar.\n`;
           isRadcheck.value = password;
           console.log(`${str}`);
           msj += str;
-          const actualizedRadcheck = await this.radCheckRepository.save(isRadcheck);
+          const actualizedRadcheck = await this.radCheckRepository.save(
+            isRadcheck,
+          );
           // Verifica si hubo error en la actualizacion del password
-          if(!actualizedRadcheck) {
+          if (!actualizedRadcheck) {
             const str = `Hubo un problema al actualizar el password de: ${username}.\n`;
             console.log(`${str}`);
             msj += str;
           }
         }
-          // Si no hay necesidad de actualizar el password se añade este msj.
+        // Si no hay necesidad de actualizar el password se añade este msj.
         else {
           const str = `Ya existe una entrada radcheck para el usuario: ${username}, y con el mismo password.\n`;
           console.log(`${str}`);
@@ -174,22 +175,21 @@ export class UserInfoService {
       }
       //* Si el usuario no existe en la tabla, se procede a ser creado *//
       else {
-        
-      const radcheckCreate = this.radCheckRepository.create({
-        username: username,
-        attribute: 'Cleartext-Password',
-        op: ':=',
-        value: password,
-      });
+        const radcheckCreate = this.radCheckRepository.create({
+          username: username,
+          attribute: 'Cleartext-Password',
+          op: ':=',
+          value: password,
+        });
 
-      const saveRadCheck = await this.radCheckRepository.save(radcheckCreate);
-      // Se verifica que la entrada haya sido creada exitosamente.
-      if (!saveRadCheck) {
-        const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"\n.`;
-        console.log(`${str}`);
-        msj += str
+        const saveRadCheck = await this.radCheckRepository.save(radcheckCreate);
+        // Se verifica que la entrada haya sido creada exitosamente.
+        if (!saveRadCheck) {
+          const str = `Hubo un error al guardar los datos del usuario/onu: ${username} en la tabla "radcheck"\n.`;
+          console.log(`${str}`);
+          msj += str;
 
-        const err = new Error(str);
+          const err = new Error(str);
           throw new HttpException(
             {
               status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -200,8 +200,8 @@ export class UserInfoService {
               cause: err,
             },
           );
-      }
-      console.log(`\nExito al registrar el RADCHECK`);
+        }
+        console.log(`\nExito al registrar el RADCHECK`);
       }
 
       /////////////////////////////////////////////////////////////////////////////
@@ -211,53 +211,57 @@ export class UserInfoService {
       console.log(`Registrando usergroup de ${username}`);
 
       //* Se realiza la busqueda de username con usergroup *//
-      const isRadduser = await this.radUserGroupRepository.findBy({ username, groupname: Not("suspendido") });
+      const isRadduser = await this.radUserGroupRepository.findBy({
+        username,
+        groupname: Not('suspendido'),
+      });
 
-      if( isRadduser?.length > 0 ){
+      if (isRadduser?.length > 0) {
         // Solo debe haber una entrada, si hay mas se envia un msj de alerta.
         if (isRadduser?.length > 1) {
           const alerta = `ALERTA: Existen múltiples entradas para el username: ${username}, donde el ‘groupname‘ no es ‘suspendido’. Posiblemente suscrito a más de un plan \nPOR FAVOR ALERTAR A INGIENERIA.\n`;
           console.log(alerta);
           msj += alerta;
-        }// Se verifica que los planes coincidan.
+        } // Se verifica que los planes coincidan.
         else if (!(isRadduser[0].groupname === groupname)) {
           const str = `Ya existe una entrada en 'radusergroup' pero los planes no coinciden, se procede a actualizar`;
           console.log(str);
-          msj += str
+          msj += str;
           isRadduser[0].groupname = groupname;
-          const userGrooupActulized = await this.radUserGroupRepository.save(isRadduser);
+          const userGrooupActulized = await this.radUserGroupRepository.save(
+            isRadduser,
+          );
           // Verifica la actualización.
           if (!userGrooupActulized) {
             const str = `Actualizacion de 'radusergroup' para username:${username} fallida.\n`;
-            msj += str
+            msj += str;
             console.log(str);
-          }
-          else {
+          } else {
             const str = `Actualizacion de 'radusergroup' para username:${username} exitosa.\n`;
-            msj += str
+            msj += str;
             console.log(str);
           }
-        }// Si lo planes coinciden no se realiza ninguna operación.
+        } // Si lo planes coinciden no se realiza ninguna operación.
         else {
           const str = `Ya existía una entrada en 'radusergroup' para username:${username}. Los planes coinciden.\n`;
-          msj += str
+          msj += str;
           console.log(str);
         }
-      }//* Si no existe la entrada en la tabla. *//
+      } //* Si no existe la entrada en la tabla. *//
       else {
         const usergroup = await this.radUserGroupRepository.create({
           username: username,
           groupname: groupname,
           priority: priority ? priority : 10,
         });
-  
+
         const saveUserGroup = await this.radUserGroupRepository.save(usergroup);
-  
+
         //* Verifica que la entrada se haya guardado exitosamente *//
         if (!saveUserGroup) {
           const str = `Hubo un error al guardar los datos del usuario/onu ${username} en la tabla "radusergroup".`;
           console.log(`------------------------------------------------\n`);
-  
+
           const err = new Error(str);
           throw new HttpException(
             {
@@ -292,13 +296,15 @@ export class UserInfoService {
    * Devuelve un array/lista con todas las entradas encontradas.
    * @returns { Array }
    */
-  async FindAllUsers(n: number, t:number): Promise<UserInfo[]> {
+  async FindAllUsers(n: number, t: number): Promise<UserInfo[]> {
     const date = new Date();
-    console.log(`Se inicia busqueda de usuarios, página ${n}.\nFecha: ${date}\n`);
+    console.log(
+      `Se inicia busqueda de usuarios, página ${n}.\nFecha: ${date}\n`,
+    );
 
     if (n < 1) {
       const str = `Número de página inválido.`;
-      const err = new Error()
+      const err = new Error();
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -315,7 +321,7 @@ export class UserInfoService {
       const skip = (n - 1) * 20;
       const users = await this.usersRepository.find({
         take: t,
-        skip
+        skip,
       });
 
       if (users?.length < 1) {
@@ -350,25 +356,28 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * Devuelve el número total de entradas en la base de datos.
- * @returns { number }
- */
-async GetTotalEntries(): Promise<number> {
-  const date = new Date();
-  console.log(`Se inicia búsqueda del número total de entradas.\nFecha: ${date}\n`);
+  /**
+   * Devuelve el número total de entradas en la base de datos.
+   * @returns { number }
+   */
+  async GetTotalEntries(): Promise<number> {
+    const date = new Date();
+    console.log(
+      `Se inicia búsqueda del número total de entradas.\nFecha: ${date}\n`,
+    );
 
-  try {
-    const totalEntries = await this.usersRepository.count();
-    console.log(`Número total de entradas: ${totalEntries}\n------------------------------------------------\n`);
-    return totalEntries;
-  } catch (error) {
-    console.error(error);
-    console.log(`------------------------------------------------\n`);
-    throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    try {
+      const totalEntries = await this.usersRepository.count();
+      console.log(
+        `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
+      );
+      return totalEntries;
+    } catch (error) {
+      console.error(error);
+      console.log(`------------------------------------------------\n`);
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
-}
-
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -382,7 +391,7 @@ async GetTotalEntries(): Promise<number> {
   async FindById(id: number) {
     try {
       const date = new Date();
-      console.log(`\nFecha: ${date}\n`)
+      console.log(`\nFecha: ${date}\n`);
       console.log(`Bucando usuario/onu con id: ${id}`);
       const users = await this.usersRepository.findOneBy({ id: id });
 
@@ -408,7 +417,7 @@ async GetTotalEntries(): Promise<number> {
           username: users.username,
         },
       });
-  
+
       console.log(
         `Usuario/onu encontrado!\n------------------------------------------------\n`,
       );
@@ -435,9 +444,11 @@ async GetTotalEntries(): Promise<number> {
   async FindByUsername(username: string) {
     try {
       const date = new Date();
-      console.log(`\nFecha: ${date}\n`)
+      console.log(`\nFecha: ${date}\n`);
       console.log(`Bucando usuario/onu con username: ${username}`);
-      const users = await this.usersRepository.findOneBy({ username: username });
+      const users = await this.usersRepository.findOneBy({
+        username: username,
+      });
 
       if (!users) {
         const str = `No se econtro usuario/onu con id: ${username}`;
@@ -458,10 +469,10 @@ async GetTotalEntries(): Promise<number> {
 
       const radusergroups = await this.radUserGroupRepository.find({
         where: {
-          username
+          username,
         },
       });
-  
+
       console.log(
         `Usuario/onu encontrado!\n------------------------------------------------\n`,
       );
@@ -476,12 +487,12 @@ async GetTotalEntries(): Promise<number> {
     }
   }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Buscan una entrada en la tbla 'userinfo' a traves del username, 
+   * Buscan una entrada en la tbla 'userinfo' a traves del username,
    * devuelve True si no esta en uso y False al contrario.
    * Permite verificar que un username no este duplicado.
    * @param id { number }
@@ -490,23 +501,23 @@ async GetTotalEntries(): Promise<number> {
   async UsernameInUse(username: string) {
     try {
       const date = new Date();
-      console.log(`\nFecha: ${date}\n`)
+      console.log(`\nFecha: ${date}\n`);
       console.log(`Bucando usuario/onu con username: ${username}`);
-      const users = await this.usersRepository.findOneBy({ username: username });
+      const users = await this.usersRepository.findOneBy({
+        username: username,
+      });
 
       if (!users) {
         console.log(
           `Username libre! Retornando True\n------------------------------------------------\n`,
         );
         return true;
-
       }
 
       console.log(
         `Usuario/onu encontrado! Retornando False\n------------------------------------------------\n`,
       );
       return false;
-
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
@@ -514,7 +525,7 @@ async GetTotalEntries(): Promise<number> {
     }
   }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -526,9 +537,11 @@ async GetTotalEntries(): Promise<number> {
   async FindUsernames(username: string) {
     try {
       const date = new Date();
-      console.log(`\nFecha: ${date}\n`)
+      console.log(`\nFecha: ${date}\n`);
       console.log(`Bucando usuario/onu con username: ${username}`);
-      const users = await this.usersRepository.findBy({ username: ILike(`%${username}%`), });
+      const users = await this.usersRepository.findBy({
+        username: ILike(`%${username}%`),
+      });
 
       if (!users) {
         const str = `No se econtro usuario/onu con id: ${username}`;
@@ -546,12 +559,12 @@ async GetTotalEntries(): Promise<number> {
           },
         );
       }
-  
+
       console.log(
         ` ${users?.length} usuarios/onus encontrado!\n------------------------------------------------\n`,
       );
       return {
-        users
+        users,
       };
     } catch (error) {
       console.error(error);
@@ -573,18 +586,20 @@ async GetTotalEntries(): Promise<number> {
    */
   async UpdateUserInfo(id: number, data: UserUpdateDto) {
     const date = new Date();
-    console.log(`Se inicia actualización de usuario de usuario.\nFecha: ${date}\n`);
+    console.log(
+      `Se inicia actualización de usuario de usuario.\nFecha: ${date}\n`,
+    );
 
     let flag = false;
     for (const obj in data) {
       if (obj) {
-        console.log(obj)
+        console.log(obj);
         flag = true;
         break;
       }
     }
 
-    if(!flag){
+    if (!flag) {
       const str = `No hay datos a modificar.`;
       console.log(`${str}\n------------------------------------------------\n`);
       return str;
@@ -612,26 +627,25 @@ async GetTotalEntries(): Promise<number> {
         );
       }
 
-        /* 
+      /* 
           Si el username es actualizado, se debe actualizar tambien en radcheck para que 
           cualquier cambio tenga efecto a traves de Radius.
          */
-      if(User.username !== data.username) {
-
+      if (User.username !== data.username) {
         const radcheck = await this.radCheckRepository.findOne({
-          where:{
+          where: {
             username: User.username,
-          }
+          },
         });
 
         radcheck.username = data.username;
 
         const updateRadCheck = await this.radCheckRepository.save(radcheck);
 
-        if(!updateRadCheck){
+        if (!updateRadCheck) {
           const str = `fallo el update del radcheck: ${data.username}.`;
           console.log(`------------------------------------------------\n`);
-  
+
           const err = new Error(str);
           throw new HttpException(
             {
@@ -713,8 +727,10 @@ async GetTotalEntries(): Promise<number> {
    */
   async DeleteByUsername(username: string) {
     const date = new Date();
-    console.log(`Se inicia eliminacion de usuario ${username} de la BD.\nFecha: ${date}\n`);
-    try{
+    console.log(
+      `Se inicia eliminacion de usuario ${username} de la BD.\nFecha: ${date}\n`,
+    );
+    try {
       //const user = await this.usersRepository.findBy({ username });
       await this.usersRepository.delete({ username });
       await this.radUserGroupRepository.delete({ username });
@@ -722,8 +738,7 @@ async GetTotalEntries(): Promise<number> {
 
       console.log('Borrado exitoso');
       console.log(`------------------------------------------------\n`);
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { RadcheckService } from './radcheck.service';
-import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/radcheck.dto';
+import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/index';
 
 /**
- * Información de autenticación de los  servicios: 
+ * Información de autenticación de los  servicios:
  * credenciales (serial) y tipo de tecnología (Framed-Protocol).
  */
 @Controller('radcheck')

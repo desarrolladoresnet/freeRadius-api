@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
-import { UpdateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
+import { RadGroupReply } from 'src/database/entities/index';
+import { UpdateRadGroupReplyDto } from 'src/dto/index';
 
 @Injectable()
 export class RadGroupReplyService {
@@ -27,9 +26,9 @@ export class RadGroupReplyService {
 
   findAll(): Promise<RadGroupReply[]> {
     return this.radgroupreplyRepository.find({
-        order:{
-          groupname: 'asc'
-        }
+      order: {
+        groupname: 'asc',
+      },
     });
   }
 

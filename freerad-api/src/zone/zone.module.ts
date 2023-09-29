@@ -2,9 +2,8 @@ import { Module } from '@nestjs/common';
 import { ZoneController } from './zone.controller';
 import { ZoneService } from './zone.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Zone } from 'src/database/entities/zone.entity';
+import { Nas, Zone } from 'src/database/entities/index';
 import { NasService } from 'src/nas/nas.service';
-import { Nas } from 'src/database/entities/nas.entity';
 
 /**
  * Esta tabla guarda todo lo reltaivo a las zonas que se relacionan a los servicios.

@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { NasService } from './nas.service';
-import { NasDto, NasDtoUpdate } from 'src/dto/nas.dto';
+import { NasDto, NasDtoUpdate } from 'src/dto/index';
 
 /**
  * La tabla NAS refiere a "Servidor de Acceso a la Red".
  * Con estos enlaces se pueden alterar las entradas a esa tabla.
- * 
+ *
  */
 @Controller('nas')
 export class NasController {
@@ -23,7 +23,7 @@ export class NasController {
 
   /**
    * Retorna todos los NAS
-   * @returns { array } 
+   * @returns { array }
    */
   @Get()
   getAllNas() {
@@ -32,7 +32,7 @@ export class NasController {
 
   /**
    * Retorna un NAS en particular
-   * @param id { number } 
+   * @param id { number }
    * @returns { object }
    */
   @Get(':id')

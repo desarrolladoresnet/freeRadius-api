@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -9,8 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { RadGroupReplyService } from './radgroupreply.service';
-import { CreateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
-import { UpdateRadGroupReplyDto } from 'src/dto/radGroupReply.dto';
+import { CreateRadGroupReplyDto, UpdateRadGroupReplyDto } from 'src/dto/index';
 
 @Controller('planes')
 export class RadGroupReplyController {

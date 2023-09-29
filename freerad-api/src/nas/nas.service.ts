@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Nas } from 'src/database/entities/nas.entity';
-import { NasDto, NasDtoUpdate } from 'src/dto/nas.dto';
+import { Nas } from 'src/database/entities/index';
+import { NasDto, NasDtoUpdate } from 'src/dto/index';
 import { Repository } from 'typeorm';
 
 @Injectable()

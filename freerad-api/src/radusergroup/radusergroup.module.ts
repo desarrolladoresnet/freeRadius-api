@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { RadusergroupController } from './radusergroup.controller';
 import { RadusergroupService } from './radusergroup.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
+import { RadUserGroup } from 'src/database/entities/index';
 
 /**
  * Modulo para la tabla "radusergroup".

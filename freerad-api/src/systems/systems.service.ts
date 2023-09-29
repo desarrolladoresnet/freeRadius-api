@@ -1,10 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-// import { CreateSystemDto } from '../dto/create-system.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { System } from '../database/entities/system.entity';
-import { UpdateSystemDto } from 'src/dto/update-system.dto';
+import { System } from '../database/entities/index';
+import { UpdateSystemDto } from 'src/dto/index';
 
 @Injectable()
 export class SystemsService {
@@ -19,10 +17,10 @@ export class SystemsService {
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////
 
-  /** 
+  /**
    * Permite crear una nueva entada en la tabla System.
    * @param sys { system }
-   * @returns { object } 
+   * @returns { object }
    */
   async CreateSys(sys: System): Promise<System> {
     const { name, apiKey, endPoint } = sys;
@@ -31,7 +29,7 @@ export class SystemsService {
       const date = new Date();
       console.log(`Creando entrada en 'system'.\nFecha: ${date}\n`);
       const isSys = await this.sysRepository.find({
-        where: [{ name }, { apiKey }, { endPoint }]
+        where: [{ name }, { apiKey }, { endPoint }],
       });
 
       if (isSys.length > 0) {
@@ -39,7 +37,7 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        const err = new Error(str)
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.CONFLICT,
@@ -48,7 +46,7 @@ export class SystemsService {
           HttpStatus.CONFLICT,
           {
             cause: err,
-          }
+          },
         );
       }
 
@@ -64,8 +62,8 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -74,14 +72,15 @@ export class SystemsService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
-      console.log(`Guardado exitoso de entrada en 'system' con los valores name: ${name} y endopoint: ${endPoint}`);
+      console.log(
+        `Guardado exitoso de entrada en 'system' con los valores name: ${name} y endopoint: ${endPoint}`,
+      );
       return saveSys;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -99,7 +98,7 @@ export class SystemsService {
   async FindAllSys(): Promise<System[]> {
     try {
       const date = new Date();
-      console.log(`Buscando entradas en la tabla 'system'.\nFecha: ${date}\n`)
+      console.log(`Buscando entradas en la tabla 'system'.\nFecha: ${date}\n`);
       const systems = await this.sysRepository.find();
 
       if (systems?.length < 1) {
@@ -107,8 +106,8 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -117,15 +116,14 @@ export class SystemsService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
 
       console.log(`Se encontraron ${systems?.length} 
       entradas.\n------------------------------------------------\n`);
       return systems;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -139,7 +137,9 @@ export class SystemsService {
   async FindOneSys(id: number): Promise<System> {
     try {
       const date = new Date();
-      console.log(`Buscando una entrada en 'system' con el id: ${id}.\nFecha: ${date}\n`)
+      console.log(
+        `Buscando una entrada en 'system' con el id: ${id}.\nFecha: ${date}\n`,
+      );
 
       const sys = await this.sysRepository.findOneBy({ id });
 
@@ -148,8 +148,8 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -158,11 +158,13 @@ export class SystemsService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
-      console.log(`Entrada encontrada.\n------------------------------------------------\n`);
+      console.log(
+        `Entrada encontrada.\n------------------------------------------------\n`,
+      );
       return sys;
     } catch (error) {
       console.error(error);
@@ -180,10 +182,12 @@ export class SystemsService {
    * @param id { number }
    * @returns { Array }
    */
-  async AllOnSys(id: number):  Promise<object[]> {
+  async AllOnSys(id: number): Promise<object[]> {
     try {
       const date = new Date();
-      console.log(`Buscando los servicios en el sistema con el id: ${id}.\nFecha: ${date}\n`);
+      console.log(
+        `Buscando los servicios en el sistema con el id: ${id}.\nFecha: ${date}\n`,
+      );
       const sys = await this.sysRepository.findOneBy({ id });
 
       if (!sys) {
@@ -191,8 +195,8 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -201,7 +205,7 @@ export class SystemsService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -217,8 +221,7 @@ export class SystemsService {
 
       console.log(`Servicio(s) encontrados`);
       return find;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -233,7 +236,7 @@ export class SystemsService {
    * Busca información de los nodos con un id.
    * @param id { number }
    * @param node { string }
-   * @returns 
+   * @returns
    */
   public async SysNode(id: number, node: string) {
     try {
@@ -255,8 +258,8 @@ export class SystemsService {
         const str = `No se encontro información de los nodos en el sistema`;
         console.log(str);
         console.log(`------------------------------------------------\n`);
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.NOT_FOUND,
@@ -265,18 +268,16 @@ export class SystemsService {
           HttpStatus.NOT_FOUND,
           {
             cause: err,
-          }
+          },
         );
       }
       console.log(`Información de los nodos encontrada`);
-      return nodos
-    }
-    catch (error) {
+      return nodos;
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -287,23 +288,23 @@ export class SystemsService {
    * Permite realizar un update de una entrada de la tabla 'system'.
    * @param id { number }
    * @param updateSysDto  { UpdateSystemDto }
-   * @returns 
+   * @returns
    */
   async UpdateSys(id: number, updateSysDto: UpdateSystemDto) {
     const { name, apiKey, endPoint } = updateSysDto;
 
     //* Verifica que hayan valores para actualizar *//
-    if (!name && !apiKey && !endPoint ) {
+    if (!name && !apiKey && !endPoint) {
       const str = `No hay valores para actualizar. Tabla system.`;
-        console.log(
-          `${str}\n------------------------------------------------\n`,
-        );
-        return str;
-      }
+      console.log(`${str}\n------------------------------------------------\n`);
+      return str;
+    }
 
     try {
       const date = new Date();
-      console.log(`Realizando update en 'system' con id: ${id}\nFecha: ${date}\n`);
+      console.log(
+        `Realizando update en 'system' con id: ${id}\nFecha: ${date}\n`,
+      );
 
       const update = await this.sysRepository.update(id, updateSysDto);
 
@@ -312,8 +313,8 @@ export class SystemsService {
         console.log(
           `${str}\n------------------------------------------------\n`,
         );
-        
-        const err = new Error(str)
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -322,14 +323,13 @@ export class SystemsService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
       console.log(`Entrada actualizada exitosamente`);
       return `Sistema ${id} actualizado`;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -347,15 +347,19 @@ export class SystemsService {
   async RemoveSys(id: number): Promise<object> {
     try {
       const date = new Date();
-      console.log(`Eliminando entrada de 'system' con el id: ${id}\nFecha: ${date}\n`);
+      console.log(
+        `Eliminando entrada de 'system' con el id: ${id}\nFecha: ${date}\n`,
+      );
 
       const del = await this.sysRepository.delete(id);
 
       if (!del) {
         const str = `Hubo un error al elminar la entrada`;
-        console.log(`${str}\n------------------------------------------------\n`);
-        
-        const err = new Error(str)
+        console.log(
+          `${str}\n------------------------------------------------\n`,
+        );
+
+        const err = new Error(str);
         throw new HttpException(
           {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -364,14 +368,13 @@ export class SystemsService {
           HttpStatus.INTERNAL_SERVER_ERROR,
           {
             cause: err,
-          }
+          },
         );
       }
 
       console.log(`Entrada eliminada exitosamente.`);
       return del;
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

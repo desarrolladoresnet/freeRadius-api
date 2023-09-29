@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { NodesService } from './nodes.service';
 import { NodesController } from './nodes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { System } from 'src/database/entities/system.entity'
-import { ZonaCliente } from '../database/entities/node.entity';
+import { System, ZonaCliente } from 'src/database/entities/index';
 
 /**
  * Los nodos son los puntos físico por donde se conectan los clientes al los servicios de Netcom.
@@ -13,6 +12,6 @@ import { ZonaCliente } from '../database/entities/node.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([System, ZonaCliente])],
   controllers: [NodesController],
-  providers: [NodesService]
+  providers: [NodesService],
 })
 export class NodesModule {}

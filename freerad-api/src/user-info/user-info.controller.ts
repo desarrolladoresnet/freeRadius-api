@@ -9,8 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
-import { UserInfoDto } from 'src/dto/userInfo.dto';
-import { UserUpdateDto } from 'src/dto/userUpdate.dto';
+import { UserInfoDto, UserUpdateDto } from 'src/dto/index';
 import { AuthGuard } from '@nestjs/passport';
 
 /**

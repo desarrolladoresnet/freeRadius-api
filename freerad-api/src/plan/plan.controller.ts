@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -9,10 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PlanService } from './plan.service';
-import { CreatePlanDto } from '../dto/plan.dto';
-import { UpdatePlanDto } from '../dto/plan.dto';
-// import { UpdatePlanDto } from './dto/update-plan.dto';
-//import { UpdatePlanDto } from 'src/dto/update-plan.dto';
+import { CreatePlanDto, UpdatePlanDto } from '../dto/index';
 
 /**
  * Ruta principal para manipular los planes.
@@ -23,7 +19,7 @@ export class PlanController {
 
   /**
    * Recibe dos parametros en forma de String, name: Que sería el nomabre comercial y listname: El nombre en lista.
-   * @param data { createPlanDto } 
+   * @param data { createPlanDto }
    * @returns { object }
    */
   @Post()
@@ -53,7 +49,7 @@ export class PlanController {
   /**
    * Permite actualizar una entrada en base al id y los parametros enviados.
    * @param id { number }
-   * @param data { UpdatePlanDto } 
+   * @param data { UpdatePlanDto }
    */
   @Put(':id')
   updatePlan(@Param('id') id: number, @Body() data: UpdatePlanDto) {

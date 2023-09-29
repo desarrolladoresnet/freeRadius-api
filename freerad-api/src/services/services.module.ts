@@ -3,14 +3,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SystemsModule } from 'src/systems/systems.module';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
-//* ENTIDADES *//
-import { Service } from '../database/entities/service.entity';
 import { CoaModule } from 'src/coa/coa.module';
-import { System } from 'src/database/entities/system.entity';
-import { RadUserGroup } from 'src/database/entities/radusergroup.entity';
-import { UserInfo } from 'src/database/entities/userinfo.entity';
-import { RadGroupReply } from 'src/database/entities/radgroupreply.entity';
-import { ZonaCliente } from 'src/database/entities/node.entity';
+//* ENTIDADES *//
+import {
+  Service,
+  System,
+  UserInfo,
+  RadGroupReply,
+  ZonaCliente,
+  RadUserGroup,
+} from '../database/entities/index';
 
 /**
  * Modulo que reuno los principales datos de los servicios prestados a un cliente.
@@ -24,7 +26,7 @@ import { ZonaCliente } from 'src/database/entities/node.entity';
       UserInfo,
       RadUserGroup,
       RadGroupReply,
-      ZonaCliente
+      ZonaCliente,
     ]),
     SystemsModule,
     CoaModule,

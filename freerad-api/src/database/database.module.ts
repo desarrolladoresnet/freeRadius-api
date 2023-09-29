@@ -2,18 +2,20 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //* ENTIDADES *//
-import { Nas } from './entities/nas.entity';
-import { RadCheck } from './entities/radcheck.entity';
-import { Radacct } from './entities/radacct.entity';
-import { Plan } from './entities/plan.entity';
-import { Service } from './entities/service.entity';
-import { System } from './entities/system.entity';
-import { RadUserGroup } from './entities/radusergroup.entity';
-import { UserInfo } from './entities/userinfo.entity';
-import { ZonaCliente } from './entities/node.entity';
-import { Zone } from './entities/zone.entity';
-import { RadGroupReply } from './entities/radgroupreply.entity';
-import { User } from './entities/user.entity';
+import {
+  Nas,
+  RadCheck,
+  Radacct,
+  Plan,
+  Service,
+  System,
+  RadUserGroup,
+  User,
+  UserInfo,
+  ZonaCliente,
+  Zone,
+  RadGroupReply,
+} from './entities/index';
 
 @Module({
   imports: [
