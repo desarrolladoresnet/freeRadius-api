@@ -25,6 +25,6 @@ export class AuthService {
       secret: secret,
     });
 
-    return { access_token };
+    return { access_token, userid, rol };
   }
 }

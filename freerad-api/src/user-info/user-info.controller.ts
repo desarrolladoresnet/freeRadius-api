@@ -48,7 +48,7 @@ export class UserInfoController {
    * @returns { UserInfo[] }
    */
   @Get('getusers/:n/:t')
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   findAllUser(@Param('n') n: number, @Param('t') t: number) {
     return this.userInfoService.FindAllUsers(n, t);
   }
