@@ -35,7 +35,12 @@ export class AuthController {
   async singin(@Body() data: SingUserDto) {
     const user = await this.userService.singIn(data);
     if (!user) return user;
-    return this.authService.singToken(user.id, user.rol, user.email);
+    return this.authService.singToken(
+      user.id,
+      user.rol,
+      user.email,
+      user.username,
+    );
   }
 
   // @UseGuards(AuthGuard)

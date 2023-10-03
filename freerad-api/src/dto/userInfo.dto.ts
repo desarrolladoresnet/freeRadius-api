@@ -1,9 +1,16 @@
-/* eslint-disable prettier/prettier */
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 enum Empresas {
-  NPCA = "NPCA",
-  INYC = "INYC"
+  NPCA = 'NPCA',
+  INYC = 'INYC',
 }
 
 export class UserInfoDto {
@@ -43,7 +50,6 @@ export class UserInfoDto {
   @IsString()
   address: string;
 
-
   /***********************************************************************
    *                                                                     *
    * CAMPOS OPCIONALES                                                   *
@@ -54,13 +60,12 @@ export class UserInfoDto {
   @IsString()
   email: string;
 
-    /**
+  /**
    * Usuario que realiza el ultimo update
    */
-    @IsOptional()
-    @IsString()
-    updateby: string;
-  
+  @IsOptional()
+  @IsString()
+  updateby: string;
 
   @IsOptional()
   @IsString()
@@ -76,12 +81,11 @@ export class UserInfoDto {
 
   @IsOptional()
   @IsString()
-  homephone: string
-  
+  homephone: string;
+
   @IsOptional()
   @IsString()
   mobilephone: string;
-
 
   @IsOptional()
   @IsString()
@@ -117,25 +121,22 @@ export class UserInfoDto {
   password: string;
 
   // RADUSERGROUP
-    /**
+  /**
    * Plan asignado al cliente
    */
-    @IsNotEmpty()
-    @IsString()
-    groupname: string;
+  @IsNotEmpty()
+  @IsString()
+  groupname: string;
 
-    /**
-     * Prioridad del cliente
-     */
-    @IsOptional()
-    @IsNumber()
-    @Min(0)
-    @Max(10)
-    priority: number;
-
+  /**
+   * Prioridad del cliente
+   */
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(10)
+  priority: number;
 
   @IsOptional()
   name: string;
-
-
 }

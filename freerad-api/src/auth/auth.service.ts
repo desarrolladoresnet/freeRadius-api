@@ -11,7 +11,12 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async singToken(userid: number, rol: string, email: string) {
+  async singToken(
+    userid: number,
+    rol: string,
+    email: string,
+    username: string,
+  ) {
     const data = {
       subs: userid,
       rol,
@@ -25,6 +30,6 @@ export class AuthService {
       secret: secret,
     });
 
-    return { access_token, userid, rol };
+    return { access_token, userid, rol, username };
   }
 }

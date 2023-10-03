@@ -1,14 +1,14 @@
-POST http://10.10.20.7:3000/user-info
+POST http://localhost:3000/user-info
 Content-Type: application/json
 
 {
-    "username": "293B5C99",
-    "firstname": "NPCs",
-    "lastname": "2456",
-    "groupname": "Banda Ancha RF 10 Mbps/2 Mbps",
-    "creationby": "Francisco",
-    "password":  "18E8293B5C99",
-    "address": "DAYCO-RO-BORDE"
+  "username": "9999",
+  "firstname": "NC",
+  "lastname": "9999",
+  "groupname": "Community Plus 100 Mbps",
+  "creationby": "UserAngular",
+  "password": "99999",
+  "address": "DAYCO-RO-BORDE"
 }
 ###
 GET  http://localhost:3000/user-info/293B5C99
