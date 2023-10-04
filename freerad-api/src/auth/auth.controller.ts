@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { SingUserDto, UserDto } from 'src/dto/user.dto';
@@ -41,6 +32,11 @@ export class AuthController {
       user.email,
       user.username,
     );
+  }
+
+  @Get('isusername/:username')
+  async isUsername(@Param() username: string) {
+    return this.userService.IsUsername(username);
   }
 
   // @UseGuards(AuthGuard)

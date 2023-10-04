@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
@@ -19,7 +19,17 @@ export class UsersService {
 
     const isUser = await this.userRepository.findOne({ where: { username } });
 
-    if (isUser) return 'El usuario existe';
+    if (isUser)
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          error: 'Username en uso',
+        },
+        HttpStatus.CONFLICT,
+        {
+          cause: new Error('Username en uso'),
+        },
+      );
 
     try {
       const hash = await argon.hash(password);
@@ -42,7 +52,16 @@ export class UsersService {
 
       return isNewUser;
     } catch (error) {
-      return error;
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: error,
+        },
+      );
     }
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +89,30 @@ export class UsersService {
       return user;
     } catch (error) {
       return error;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  async IsUsername(username: string) {
+    try {
+      const isuser = await this.userRepository.findBy({ username });
+
+      if (isuser) return false;
+      else return true;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: error,
+        },
+      );
     }
   }
 }

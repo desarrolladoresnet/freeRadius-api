@@ -1,12 +1,22 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { RadcheckService } from './radcheck.service';
 import { RadCheckDto, RadCheckUpdateDto } from 'src/dto/index';
+import { AuthGuard } from '@nestjs/passport';
 
 /**
  * Información de autenticación de los  servicios:
  * credenciales (serial) y tipo de tecnología (Framed-Protocol).
  */
 @Controller('radcheck')
+@UseGuards(AuthGuard('jwt'))
 export class RadcheckController {
   constructor(private readonly radCheckService: RadcheckService) {}
 

@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { RadGroupReplyService } from './radgroupreply.service';
 import { CreateRadGroupReplyDto, UpdateRadGroupReplyDto } from 'src/dto/index';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('planes')
+@UseGuards(AuthGuard('jwt'))
 export class RadGroupReplyController {
   constructor(private radgroupreplyService: RadGroupReplyService) {}
 

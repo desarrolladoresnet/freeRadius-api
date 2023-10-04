@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { RadusergroupService } from './radusergroup.service';
 import { RadUserGroupDto, RadUserGroupUpdateDto } from 'src/dto/index';
+import { AuthGuard } from '@nestjs/passport';
 
 /**
  * Modulo para la tabla "radusergroup".
@@ -13,6 +14,7 @@ import { RadUserGroupDto, RadUserGroupUpdateDto } from 'src/dto/index';
  * Comando mysql: ALTER TABLE `radius`.`radusergroup` ADD COLUMN id INT AUTO_INC REMENT PRIMARY KEY
  */
 @Controller('radusergroup')
+@UseGuards(AuthGuard('jwt'))
 export class RadusergroupController {
   constructor(private readonly radUserGroupService: RadusergroupService) {}
 

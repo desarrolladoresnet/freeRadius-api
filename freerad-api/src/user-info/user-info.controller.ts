@@ -18,6 +18,7 @@ import { AuthGuard } from '@nestjs/passport';
  * La ruta principal para este controller es http://<domain>/user-info/<params (si la hay)>
  */
 @Controller('user-info')
+@UseGuards(AuthGuard('jwt'))
 export class UserInfoController {
   constructor(private readonly userInfoService: UserInfoService) {}
 
@@ -48,7 +49,6 @@ export class UserInfoController {
    * @returns { UserInfo[] }
    */
   @Get('getusers/:n/:t')
-  // @UseGuards(AuthGuard('jwt'))
   findAllUser(@Param('n') n: number, @Param('t') t: number) {
     return this.userInfoService.FindAllUsers(n, t);
   }

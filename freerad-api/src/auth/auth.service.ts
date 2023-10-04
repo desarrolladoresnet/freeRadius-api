@@ -26,7 +26,7 @@ export class AuthService {
     const secret = this.configService.get('JWT');
 
     const access_token: string = this.jwtService.sign(data, {
-      expiresIn: '1h',
+      expiresIn: '9h',
       secret: secret,
     });
 
