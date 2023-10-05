@@ -21,6 +21,7 @@ export class AuthService {
       subs: userid,
       rol,
       email,
+      username,
     };
 
     const secret = this.configService.get('JWT');
