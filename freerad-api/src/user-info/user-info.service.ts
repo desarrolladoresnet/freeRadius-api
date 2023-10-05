@@ -92,10 +92,10 @@ export class UserInfoService {
           username: username,
           creationby: creationby,
           address: address,
+          updateby: creationby, // se deja igual que creation by, lo que indica que nunca se le ha hecho update.
           /* CAMPOS OPCIONALES */
           // La idea es no dejar campos vacíos que pudioeran ser explotados por un Hacker.
           // Por otro lado, siempre se hace una lectura de todos los campos en el 'dto' por si en algun momento futuro se llega a necesitar.
-          updateby: creationby, // se deja igual que creation by, lo que indica que nunca se le ha hecho update.
           email: data?.email ? data.email : '0',
           country: 'Venezuela',
           department: data?.department ? data.department : '0',
@@ -296,7 +296,21 @@ export class UserInfoService {
    * Devuelve un array/lista con todas las entradas encontradas.
    * @returns { Array }
    */
-  async FindAllUsers(n: number, t: number): Promise<UserInfo[]> {
+  async FindAllUsers(
+    n: number,
+    t: number,
+    data: {
+      firstname?: string;
+      entry?: string;
+    },
+  ): Promise<UserInfo[]> {
+    console.log(data);
+    const { firstname, entry } = data;
+    const isFirstname =
+      (firstname == 'NPCA' || firstname == 'INYC') && firstname
+        ? firstname
+        : null;
+
     const date = new Date();
     console.log(
       `Se inicia busqueda de usuarios, página ${n}.\nFecha: ${date}\n`,
@@ -319,10 +333,36 @@ export class UserInfoService {
     /////////////////////////////////////////////////////////////////////
     try {
       const skip = (n - 1) * 20;
-      const users = await this.usersRepository.find({
-        take: t,
-        skip,
-      });
+
+      let users;
+
+      if (isFirstname) {
+        console.log('AQUI');
+        users = await this.usersRepository.find({
+          take: t,
+          skip,
+          where: {
+            firstname: ILike(`${firstname}`),
+            username: ILike(`%${entry}%`),
+          },
+        });
+      } else if (entry) {
+        console.log('ACA');
+
+        users = await this.usersRepository.find({
+          take: t,
+          skip,
+          where: [{ username: ILike(`%${entry}%`) }],
+        });
+      } else {
+        console.log('ACULLA');
+
+        users = await this.usersRepository.find({
+          take: t,
+          skip,
+          // where: [{ username: ILike(`%${entry}%`) }],
+        });
+      }
 
       if (users?.length < 1) {
         const str = 'No se encontraron usuarios/onu';
@@ -360,18 +400,48 @@ export class UserInfoService {
    * Devuelve el número total de entradas en la base de datos.
    * @returns { number }
    */
-  async GetTotalEntries(): Promise<number> {
+  async GetTotalEntries(data: {
+    firstname?: string;
+    entry?: string;
+  }): Promise<number> {
+    const { firstname, entry } = data;
     const date = new Date();
     console.log(
       `Se inicia búsqueda del número total de entradas.\nFecha: ${date}\n`,
     );
+    console.log(firstname, entry);
+
+    const isFirstname =
+      firstname == 'NPCA' || firstname == 'INYC' ? firstname : null;
+    //const lastname = this.IsNumeric(entry) ? entry : '';
 
     try {
-      const totalEntries = await this.usersRepository.count();
-      console.log(
-        `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
-      );
-      return totalEntries;
+      if (isFirstname) {
+        const totalEntries = await this.usersRepository.count({
+          where: {
+            firstname: ILike(`${firstname}`),
+            username: ILike(`%${entry}%`),
+          },
+        });
+        console.log(
+          `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
+        );
+        return totalEntries;
+      } else if (entry) {
+        const totalEntries = await this.usersRepository.count({
+          where: [{ username: ILike(`%${entry}%`) }],
+        });
+        console.log(
+          `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
+        );
+        return totalEntries;
+      } else {
+        const totalEntries = await this.usersRepository.count({});
+        console.log(
+          `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
+        );
+        return totalEntries;
+      }
     } catch (error) {
       console.error(error);
       console.log(`------------------------------------------------\n`);
@@ -437,7 +507,7 @@ export class UserInfoService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Buscan una entrada en la tbla 'userinfo' a traves del id.
+   * Buscan una entrada en la tabla 'userinfo' a traves del id.
    * @param id { number }
    * @returns { UserInfo }
    */
@@ -590,6 +660,8 @@ export class UserInfoService {
       `Se inicia actualización de usuario de usuario.\nFecha: ${date}\n`,
     );
 
+    console.log(data);
+
     let flag = false;
     for (const obj in data) {
       if (obj) {
@@ -642,6 +714,8 @@ export class UserInfoService {
 
         const updateRadCheck = await this.radCheckRepository.save(radcheck);
 
+        console.log("radcheck", radcheck);
+
         if (!updateRadCheck) {
           const str = `fallo el update del radcheck: ${data.username}.`;
           console.log(`------------------------------------------------\n`);
@@ -658,6 +732,37 @@ export class UserInfoService {
             },
           );
         }
+
+        //////////////////////////////////////////////////////////////////////
+        const radgroup = await this.radUserGroupRepository.findOne({
+          where: {
+            username: User.username,
+            groupname: Not('suspendedido'),
+          },
+        });
+
+        console.log("radgroup", radgroup);
+        radgroup.username = data.username;
+
+        const updateradgroup = await this.radUserGroupRepository.save(radgroup);
+
+        if (!updateradgroup) {
+          const str = `fallo el update del groupname: ${data.username}.`;
+          console.log(`------------------------------------------------\n`);
+
+          const err = new Error(str);
+          throw new HttpException(
+            {
+              status: HttpStatus.NOT_FOUND,
+              error: str,
+            },
+            HttpStatus.NOT_FOUND,
+            {
+              cause: err,
+            },
+          );
+        }
+        console.log("New\n", updateradgroup, updateRadCheck);
       }
 
       // Se evalúa si uno o más campos serán modificados.
@@ -742,6 +847,20 @@ export class UserInfoService {
       console.error(error);
       console.log(`------------------------------------------------\n`);
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  IsNumeric(inputtxt) {
+    if (!inputtxt) return false;
+    const num = /^[0-9]+$/;
+    if (inputtxt.match(num)) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

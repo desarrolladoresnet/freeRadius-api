@@ -13,8 +13,18 @@ Content-Type: application/json
 ###
 GET  http://localhost:3000/user-info/293B5C99
 
+
 ###
-GET  http://localhost:3000/user-info/getusers/total
+POSt http://localhost:3000/user-info/getusers/total
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJzIjoyLCJyb2wiOiJhZG1pbiIsImVtYWlsIjoiaHNhYmF0aW5vQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiaHNhYmF0aW5vIiwiaWF0IjoxNjk2NTE2MDM0LCJleHAiOjE2OTY1NDg0MzR9.LGv-wcIjjzFTqG78_XBl3ynx9Uk128lLOX3qOgg3V3I
+
+{
+
+  "firstname": "",
+  "entry":"hilcar"
+}
+
 
 ###
 GET http://10.10.20.7:3000/user-info/17

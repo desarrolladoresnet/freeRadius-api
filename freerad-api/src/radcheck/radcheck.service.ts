@@ -118,14 +118,14 @@ export class RadcheckService {
     try {
       const date = new Date();
       console.log(
-        `Buscando entrada con el userna,e: ${username}.\nFecha: ${date}\n`,
+        `Buscando entrada con el username: ${username}.\nFecha: ${date}\n`,
       );
       const rad = await this.radcheckRepository.findOneBy({
         username: username,
       });
 
       if (!rad) {
-        const str = `No hay datos con el id: ${username}`;
+        const str = `No hay datos con el username: ${username}`;
         console.log(
           `${str}\n------------------------------------------------\n`,
         );

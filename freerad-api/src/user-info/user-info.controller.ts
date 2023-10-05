@@ -36,24 +36,6 @@ export class UserInfoController {
   }
 
   /**
-   * Obtiene todos los servicios asociados a la tabla 'userinfo'
-   * @returns { UserInfo[] }
-   */
-  @Get('getusers/total')
-  getTotalEntries() {
-    return this.userInfoService.GetTotalEntries();
-  }
-
-  /**
-   * Obtiene todos los servicios asociados a la tabla 'userinfo'
-   * @returns { UserInfo[] }
-   */
-  @Get('getusers/:n/:t')
-  findAllUser(@Param('n') n: number, @Param('t') t: number) {
-    return this.userInfoService.FindAllUsers(n, t);
-  }
-
-  /**
    * Permite buscar un usuario en base a su id
    * @param id { number }
    * @returns { UserInfo }
@@ -81,6 +63,29 @@ export class UserInfoController {
   @Get('find-usernames/:username')
   findUsernames(@Param('username') username: string) {
     return this.userInfoService.FindUsernames(username);
+  }
+
+  /**
+   * Obtiene el total de todos los servicios asociados a la tabla 'userinfo'
+   * @returns { UserInfo[] }
+   */
+  @Post('getusers/total')
+  getTotalEntries(@Body() data: { firstname?: string; entry?: string }) {
+    return this.userInfoService.GetTotalEntries(data);
+  }
+
+  /**
+   * Obtiene todos los servicios asociados a la tabla 'userinfo'
+   * @returns { UserInfo[] }
+   */
+  @Post('getusers/:n/:t')
+  findAllUser(
+    @Param('n') n: number,
+    @Param('t') t: number,
+    @Body()
+    data: { firstname?: string; entry?: string },
+  ) {
+    return this.userInfoService.FindAllUsers(n, t, data);
   }
 
   /**
