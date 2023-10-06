@@ -94,7 +94,7 @@ export class UserInfoController {
    * @param data
    * @returns { Userinfo }
    */
-  @Put(':id')
+  @Put('update/:id')
   updateUserInfo(@Param('id') id: number, @Body() data: UserUpdateDto) {
     return this.userInfoService.UpdateUserInfo(id, data);
   }

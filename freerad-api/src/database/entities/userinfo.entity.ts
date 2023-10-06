@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'userinfo' })
@@ -60,7 +59,7 @@ export class UserInfo {
   @Column({ type: 'int', default: 0 })
   enableportallogin: number;
 
-  @Column({ type: 'timestamp'})
+  @Column({ type: 'timestamp' })
   creationdate: Date;
 
   @Column({ type: 'varchar', length: 128 })

@@ -84,8 +84,6 @@ export class UserInfoService {
         console.log(`${str}`);
         user = ifUser;
       } else {
-        const nowDate = new Date();
-
         const newLocal = this.usersRepository.create({
           firstname: firstname,
           lastname: lastname,
@@ -114,8 +112,8 @@ export class UserInfoService {
           enableportallogin: data?.enableportallogin
             ? data.enableportallogin
             : 0,
-          creationdate: nowDate,
-          updatedate: nowDate,
+          creationdate: date,
+          updatedate: date,
         });
         const newUser = newLocal;
         console.log(newUser);
@@ -785,9 +783,13 @@ export class UserInfoService {
             },
           );
         }
-        // console.log("New\n", updateradgroup, updateRadCheck);
       }
 
+      console.log(`------------------------------------------------\n`);
+      console.log(`------------------------------------------------\n`);
+      console.log(`------------------------------------------------\n`);
+
+      console.log('Haciendo Update al Usuario');
       // Se evalúa si uno o más campos serán modificados.
       User.firstname = data?.firstname ? data.firstname : User.firstname;
       User.lastname = data?.lastname ? data.lastname : User.lastname;
@@ -817,7 +819,10 @@ export class UserInfoService {
       User.updateby = data.updateby;
       User.updatedate = date;
 
+      console.log(User);
       const updateUser = await this.usersRepository.save(User);
+
+      console.log(updateUser);
 
       if (!updateUser) {
         const str = `No se pudo actualizar la username/onu : ${data.username}`;
@@ -836,6 +841,9 @@ export class UserInfoService {
         );
       }
 
+      console.log(`------------------------------------------------\n`);
+      console.log(`------------------------------------------------\n`);
+      console.log(`------------------------------------------------\n`);
       return updateUser;
     } catch (error) {
       console.error(error);

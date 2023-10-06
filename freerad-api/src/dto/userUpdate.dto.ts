@@ -31,13 +31,6 @@ export class UserUpdateDto {
   @IsString()
   updateby: string;
 
-  /**
-   * Usuario que crea el registro
-   */
-  @IsOptional()
-  @IsString()
-  creationby: string;
-
   @IsOptional()
   @IsString()
   email: string;
