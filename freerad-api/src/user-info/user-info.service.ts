@@ -300,12 +300,16 @@ export class UserInfoService {
     n: number,
     t: number,
     data: {
-      firstname?: string;
+      firstname?: string; //* Firstname es el campo donde va la compania
       entry?: string;
     },
   ): Promise<UserInfo[]> {
     console.log(data);
     const { firstname, entry } = data;
+
+    const isWishub = this.IsNumeric(entry);
+    console.log('Wishub: ', isWishub);
+
     const isFirstname =
       (firstname == 'NPCA' || firstname == 'INYC') && firstname
         ? firstname
@@ -335,9 +339,20 @@ export class UserInfoService {
       const skip = (n - 1) * 20;
 
       let users;
-
-      if (isFirstname) {
-        console.log('AQUI');
+      if (isWishub) {
+        console.log('Whishub');
+        users = await this.usersRepository.find({
+          take: t,
+          skip,
+          where: [
+            // { firstname: ILike(`%${firstname}%`) },
+            { lastname: ILike(`%${entry}%`) },
+          ],
+          order: {
+            lastname: "DESC",
+        },
+        });
+      } else if (isFirstname && !isWishub) {
         users = await this.usersRepository.find({
           take: t,
           skip,
@@ -346,17 +361,13 @@ export class UserInfoService {
             username: ILike(`%${entry}%`),
           },
         });
-      } else if (entry) {
-        console.log('ACA');
-
+      } else if (entry && !firstname) {
         users = await this.usersRepository.find({
           take: t,
           skip,
           where: [{ username: ILike(`%${entry}%`) }],
         });
       } else {
-        console.log('ACULLA');
-
         users = await this.usersRepository.find({
           take: t,
           skip,
@@ -409,14 +420,26 @@ export class UserInfoService {
     console.log(
       `Se inicia búsqueda del número total de entradas.\nFecha: ${date}\n`,
     );
-    console.log(firstname, entry);
+
+    const isWishub = this.IsNumeric(entry);
 
     const isFirstname =
       firstname == 'NPCA' || firstname == 'INYC' ? firstname : null;
     //const lastname = this.IsNumeric(entry) ? entry : '';
 
     try {
-      if (isFirstname) {
+      if (isWishub) {
+        const totalEntries = await this.usersRepository.count({
+          where: {
+            firstname: ILike(`%${firstname}%`),
+            username: ILike(`%${entry}%`),
+          },
+        });
+        console.log(
+          `Número total de entradas: ${totalEntries}\n------------------------------------------------\n`,
+        );
+        return totalEntries;
+      } else if (isFirstname) {
         const totalEntries = await this.usersRepository.count({
           where: {
             firstname: ILike(`${firstname}`),
@@ -714,7 +737,7 @@ export class UserInfoService {
 
         const updateRadCheck = await this.radCheckRepository.save(radcheck);
 
-        console.log("radcheck", radcheck);
+        // console.log("radcheck", radcheck);
 
         if (!updateRadCheck) {
           const str = `fallo el update del radcheck: ${data.username}.`;
@@ -741,7 +764,7 @@ export class UserInfoService {
           },
         });
 
-        console.log("radgroup", radgroup);
+        // console.log("radgroup", radgroup);
         radgroup.username = data.username;
 
         const updateradgroup = await this.radUserGroupRepository.save(radgroup);
@@ -762,7 +785,7 @@ export class UserInfoService {
             },
           );
         }
-        console.log("New\n", updateradgroup, updateRadCheck);
+        // console.log("New\n", updateradgroup, updateRadCheck);
       }
 
       // Se evalúa si uno o más campos serán modificados.
