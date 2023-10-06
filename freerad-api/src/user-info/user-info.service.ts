@@ -349,8 +349,8 @@ export class UserInfoService {
             { lastname: ILike(`%${entry}%`) },
           ],
           order: {
-            lastname: "DESC",
-        },
+            lastname: 'DESC',
+          },
         });
       } else if (isFirstname && !isWishub) {
         users = await this.usersRepository.find({
@@ -815,6 +815,7 @@ export class UserInfoService {
         ? data.enableportallogin
         : User.enableportallogin;
       User.updateby = data.updateby;
+      User.updatedate = date;
 
       const updateUser = await this.usersRepository.save(User);
 
